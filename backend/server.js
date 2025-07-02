@@ -15,7 +15,10 @@ const stripeRoutes = require('./routes/stripe');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://mus-ecommerce-shop.onrender.com", // your frontend
+  credentials: true
+}));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
