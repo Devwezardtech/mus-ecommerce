@@ -37,10 +37,17 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("MongoDB connected"))
 .catch((err) => console.error("MongoDB connection error:", err));
 
-// ✅ Serve frontend build (IMPORTANT for Heroku/Vercel)
+/*
+// Serve frontend build (IMPORTANT for Heroku/Vercel)
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
+*/
+
+app.get('/', (req, res) => {
+  res.send('Backend is running 🎉');
 });
 
 // Start server
