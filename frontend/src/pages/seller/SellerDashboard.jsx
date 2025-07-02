@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Message from "./message";
-import HeaderSeller from "./seller/HeaderSeller";
+import Message from "../message";
+import HeaderSeller from "./HeaderSeller";
 
 const SellerDashboard = () => {
   const [newProducts, setNewProducts] = useState({ name: "", description: "", price: "", stock: "", image: null,});

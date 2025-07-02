@@ -30,7 +30,7 @@ import SellerOrders from "./pages/seller/SellerOrders";
 import AffiliateOrders from "./pages/affiliate/AffiliateOrders";
 import AffiliateProducts from "./pages/affiliate/AffiliateProducts";
 import AffiliateWithdrawable from "./pages/affiliate/AffiliateWithdrawable";
-import SellerDashboard from "./pages/SellerDashboard"
+import SellerDashboard from "./pages/seller/SellerDashboard"
 
 
 
