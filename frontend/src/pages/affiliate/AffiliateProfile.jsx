@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useAuth } from "../../contexts/AuthContect";
 import HeaderAffiliate from "./HeaderAffiliate";
-import api from "../../api/axios";
 
 const AffiliateProfile = () => {
   const { user } = useAuth();
