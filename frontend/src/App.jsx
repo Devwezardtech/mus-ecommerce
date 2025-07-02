@@ -18,7 +18,6 @@ import FrontPage from "./pages/FrontPage";
 import HeaderFrontPage from "./layouts/headerfrontPage";
 //import Chat from "./pages/chat";
 import VerifyOTP from "./pages/VerifyOTP";
-import SellerDashboard from "./pages/SellerDashboard";
 import AffiliateDashboard from "./pages/AffiliateDashboard";
 import PublicProductMerged from "./pages/PublicProductMerged";
 import SellerProfile from "./pages/SellerProfile";
@@ -31,6 +30,8 @@ import SellerOrders from "./pages/seller/SellerOrders";
 import AffiliateOrders from "./pages/affiliate/AffiliateOrders";
 import AffiliateProducts from "./pages/affiliate/AffiliateProducts";
 import AffiliateWithdrawable from "./pages/affiliate/AffiliateWithdrawable";
+import SellerDashboard from "./pages/SellerDashboard"
+
 
 
 
