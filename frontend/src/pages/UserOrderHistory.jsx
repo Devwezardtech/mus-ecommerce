@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import HeaderUser from '../layouts/headeruser';
 import Message from './message';
@@ -30,7 +30,7 @@ const showMessage = (msg, type) => {
   const fetchOrders = async () => {
     try {
       showMessage("loading...", "loading")
-      const res = await axios.get("http://localhost:5000/api/orders/user", {
+      const res = await api.get("/orders/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);

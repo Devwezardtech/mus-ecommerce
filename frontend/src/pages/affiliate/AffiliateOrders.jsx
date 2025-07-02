@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { useAuth } from "../../contexts/AuthContect";
 import HeaderAffiliate from "./HeaderAffiliate";
 import Message from "../message";
@@ -20,7 +20,7 @@ const AffiliateOrders = () => {
   const fetchAffiliateOrders = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/affiliate/orders", {
+      const res = await api.get("/affiliate/orders", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -117,7 +117,7 @@ const AffiliateOrders = () => {
                     return (
                       <div key={idx} className="flex gap-4 border rounded p-2">
                         <img
-                          src={`http://localhost:5000/api/products/${item.productId._id}/photo`}
+                          src={`/products/${item.productId._id}/photo`}
                           alt={name}
                           className="w-20 h-20 object-cover rounded"
                         />

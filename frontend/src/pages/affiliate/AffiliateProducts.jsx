@@ -1,6 +1,6 @@
 //AffiliateProducts.jsx
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import Message from "../message";
 import HeaderUser from "../../layouts/headeruser";
@@ -27,7 +27,7 @@ const AffiliateProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/affiliate/showcase/all");
+      const res = await api.get("/affiliate/showcase/all");
       setProducts(res.data);
     } catch (err) {
       console.error("Failed to fetch affiliate showcase:", err);
@@ -66,7 +66,7 @@ const AffiliateProducts = () => {
               className="bg-white rounded shadow p-4 hover:shadow-md"
             >
               <img
-                src={`http://localhost:5000/api/products/${product._id}/photo`}
+                src={`/products/${product._id}/photo`}
                 alt={product.name}
                 className="h-40 w-full object-cover rounded mb-2"
               />

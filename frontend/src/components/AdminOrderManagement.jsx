@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 
 const AdminOrderManagement = () => {
   const [orders, setOrders] = useState([]);
@@ -11,7 +11,7 @@ const AdminOrderManagement = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/orders/admin", {
+      const res = await api.get("/orders/admin", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -22,7 +22,7 @@ const AdminOrderManagement = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${id}/status`, { status }, {
+      await api.put(`/orders/${id}/status`, { status }, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchOrders(); // refresh

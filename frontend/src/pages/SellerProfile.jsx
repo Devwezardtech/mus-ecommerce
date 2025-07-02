@@ -1,7 +1,7 @@
 // 📁 pages/SellerProfile.jsx
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 const SellerProfile = () => {
   const { id } = useParams(); // seller ID from URL
@@ -14,13 +14,13 @@ const SellerProfile = () => {
     const fetchSellerData = async () => {
       try {
         // 1️⃣ Fetch seller profile (public)
-        const sellerRes = await axios.get(`http://localhost:5000/api/auth/${id}`);  setSeller(sellerRes.data);
+        const sellerRes = await api.get(`/auth/${id}`);  setSeller(sellerRes.data);
 
-        // 2️⃣ Fetch seller's products (public)
-        const productsRes = await axios.get(`http://localhost:5000/api/products?seller=${id}`);
+        // Fetch seller's products (public)
+        const productsRes = await api.get(`/products?seller=${id}`);
         setProducts(productsRes.data);
       } catch (err) {
-        console.error("❌ Error fetching seller profile:", err);
+        console.error("Error fetching seller profile:", err);
         setError("Failed to load seller or products.");
       }
     };
@@ -51,7 +51,7 @@ const SellerProfile = () => {
             {products.map((product) => (
               <div key={product._id} className="bg-white p-4 rounded shadow">
                 <img
-                  src={`http://localhost:5000/uploads/${product.photo}`}
+                  src={`/uploads/${product.photo}`}
                   alt={product.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />

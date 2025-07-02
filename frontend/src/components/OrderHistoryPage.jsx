@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import HeaderUser from '../layouts/headeruser';
 
@@ -20,7 +20,7 @@ const OrderHistoryPage = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/orders/my', {
+      const res = await api.get('/orders/my', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);

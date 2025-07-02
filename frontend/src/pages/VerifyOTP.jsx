@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import api from "../api/axios"; 
 
 const VerifyOTP = () => {
   const { state } = useLocation();
@@ -10,28 +11,19 @@ const VerifyOTP = () => {
 
   const handleVerify = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/verify-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        setMessage("Email verified! Please login.");
-        navigate("/login");
-      } else {
-        setMessage(data.error || "OTP verification failed");
-      }
+      const res = await api.post("/auth/verify-otp", { email, otp }); 
+      setMessage("Email verified! Please login.");
+      navigate("/login");
     } catch (err) {
       console.error(err);
-      setMessage("OTP verification failed");
+      const errorMsg = err.response?.data?.error || "OTP verification failed";
+      setMessage(errorMsg);
     }
   };
 
   const handleBack = () => {
-    navigate("/signup")
-  }
+    navigate("/signup");
+  };
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
@@ -50,14 +42,13 @@ const VerifyOTP = () => {
         />
         {message && <p className="text-red-500 text-sm mb-2">{message}</p>}
         <div className="flex justify-center item-center">
-           <button
-          onClick={handleVerify}
-          className="w-20 bg-gray-500 text-white py-1 rounded hover:bg-gray-400"
-        >
-          Verify
-        </button>
+          <button
+            onClick={handleVerify}
+            className="w-20 bg-gray-500 text-white py-1 rounded hover:bg-gray-400"
+          >
+            Verify
+          </button>
         </div>
-       
       </div>
     </div>
   );

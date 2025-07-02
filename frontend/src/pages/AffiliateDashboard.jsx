@@ -1,6 +1,6 @@
 import { useAuth } from "../contexts/AuthContect";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import Message from "./message";
 import HeaderAffiliate from "./affiliate/HeaderAffiliate";
 
@@ -21,8 +21,8 @@ const AffiliateDashboard = () => {
     if (!refCode) return showMessage("Referral code not ready", "failed");
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
-        "http://localhost:5000/api/affiliate/showcase",
+      await api.post(
+        "/affiliate/showcase",
         { productId: product._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -40,19 +40,20 @@ const AffiliateDashboard = () => {
         const token = localStorage.getItem("token");
 
         // Products
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await api.get("/products");
         setProducts(res.data);
 
         // Referral Code: Check if already exists, else auto-generate
-        const profileRes = await axios.get("http://localhost:5000/api/affiliate/profile", {
+        const profileRes = await api
+        .get("/affiliate/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         if (profileRes.data?.refCode) {
           setRefCode(profileRes.data.refCode);
         } else {
-          const gen = await axios.post(
-            "http://localhost:5000/api/affiliate/generate",
+          const gen = await api.post(
+            "/affiliate/generate",
             {},
             { headers: { Authorization: `Bearer ${token}` } }
           );
@@ -79,7 +80,7 @@ const AffiliateDashboard = () => {
           <div key={product._id} className="bg-white p-4 rounded shadow hover:shadow-md transition">
             <button onClick={() => setModalProduct(product)} className="w-full">
               <img
-                src={`http://localhost:5000/api/products/${product._id}/photo`}
+                src={`/products/${product._id}/photo`}
                 alt={product.name}
                 className="h-48 w-full object-cover rounded mb-2"
               />
@@ -112,7 +113,7 @@ const AffiliateDashboard = () => {
               ✕
             </button>
             <img
-              src={`http://localhost:5000/api/products/${modalProduct._id}/photo`}
+              src={`/products/${modalProduct._id}/photo`}
               alt={modalProduct.name}
               className="w-full h-64 object-cover rounded mb-4"
             />

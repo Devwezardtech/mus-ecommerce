@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { useAuth } from "../../contexts/AuthContect";
 import HeaderAffiliate from "./HeaderAffiliate";
+import api from "../../api/axios";
 
 const AffiliateProfile = () => {
   const { user } = useAuth();
@@ -11,7 +12,7 @@ const AffiliateProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/auth/${user.id}`);
+        const res = await api.get(`/auth/${user.id}`);
         setProfile(res.data);
       } catch (error) {
         console.error("Failed to load profile", error);

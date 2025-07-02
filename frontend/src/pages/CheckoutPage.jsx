@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Message from './message';
 import HeaderUser from '../layouts/headeruser';
@@ -49,8 +49,8 @@ const CheckoutPage = () => {
 
     if (method === 'cod') {
       try {
-        const response = await axios.post(
-          'http://localhost:5000/api/orders',
+        const response = await api.post(
+          '/orders',
           {
             products,
             totalAmount: total,
@@ -70,8 +70,8 @@ const CheckoutPage = () => {
 
      else if (method === 'card') {
       try {
-        const res = await axios.post(
-          "http://localhost:5000/api/stripe/create-checkout-session",
+        const res = await api.post(
+          "/stripe/create-checkout-session",
           { products, totalAmount: total },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -87,8 +87,8 @@ const CheckoutPage = () => {
     else {
       // GCash, GrabPay, PayMaya
       try {
-        const res = await axios.post(
-          'http://localhost:5000/api/payments/create-payment',
+        const res = await api.post(
+          '/payments/create-payment',
           {
             amount: total,
             name: form.name || 'Customer',

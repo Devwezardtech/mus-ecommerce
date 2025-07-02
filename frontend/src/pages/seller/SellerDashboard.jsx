@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import Message from "../message";
 import HeaderSeller from "./HeaderSeller";
 
@@ -35,7 +35,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
   const fetchAllUsers = async () => {
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:5000/api/auth/all-users", {
+    const res = await api.get("/auth/all-users", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setAllUsers(res.data);
@@ -52,7 +52,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
   const fetchProducts = async () => {
     try {
       showMessage("Loading...", "loading")
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await api.get("/products");
       console.log("Fetched products:", res.data); // Debug
       setProducts(res.data);
     } catch (error) {
@@ -90,12 +90,12 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
       }
 
       const url = editingProductId
-        ? `http://localhost:5000/api/products/${editingProductId}`
-        : "http://localhost:5000/api/products";
+        ? `/products/${editingProductId}`
+        : "/products";
 
       const method = editingProductId ? "put" : "post";
 
-      await axios[method](url, formData, {
+      await api[method](url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -153,7 +153,7 @@ const handleCancel = () => {
       commission: product.commission,
     });
     setEditingProductId(product._id);
-    setPreview(`http://localhost:5000/api/products/${product._id}/photo`);
+    setPreview(`/products/${product._id}/photo`);
     setCreate(true);
   };
 
@@ -171,7 +171,7 @@ const handleCancel = () => {
       try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:5000/api/products/${deleteId}`, {
+      await axios.delete(`/products/${deleteId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -356,7 +356,7 @@ const handleCancel = () => {
           <tr key={product._id} className="hover:bg-gray-50">
             <td className="px-4 py-2">
               <img
-                src={`http://localhost:5000/api/products/${product._id}/photo`}
+                src={`/products/${product._id}/photo`}
                 alt={product.name}
                 className="w-20 h-20 object-cover rounded"
               />

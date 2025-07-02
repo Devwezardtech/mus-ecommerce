@@ -1,6 +1,6 @@
 // 📁 src/pages/affiliate/AffiliateWithdrawable.jsx
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { useAuth } from "../../contexts/AuthContect";
 import HeaderAffiliate from "./HeaderAffiliate";
 import Message from "../message";
@@ -23,7 +23,7 @@ const AffiliateWithdrawable = () => {
   const fetchWithdrawable = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/affiliate/withdrawable", {
+      const res = await api.get("/affiliate/withdrawable", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWithdrawData(res.data);
@@ -40,7 +40,7 @@ const AffiliateWithdrawable = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.post("http://localhost:5000/api/affiliate/withdraw", accountInfo, {
+      const res = await api.post("/affiliate/withdraw", accountInfo, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -54,7 +54,7 @@ const AffiliateWithdrawable = () => {
   const handleStripeConnect = async () => {
   const token = localStorage.getItem("token");
   try {
-    const res = await axios.post("http://localhost:5000/api/stripe/connect", {}, {
+    const res = await api.post("/stripe/connect", {}, {
       headers: { Authorization: `Bearer ${token}` }
     });
     window.location.href = res.data.url;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../api/axios';
 import { useAuth } from '../../contexts/AuthContect';
 import HeaderSeller from './HeaderSeller';
 import Message from '../message';
@@ -21,7 +21,7 @@ const SellerOrders = () => {
       if (!token) return showMessage("Unauthorized access", "failed");
 
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/orders/seller", {
+      const res = await api.get("/orders/seller", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -77,7 +77,7 @@ const SellerOrders = () => {
           <td className="px-4 py-2">
             {item.productId?.photo ? (
               <img
-                src={`http://localhost:5000/uploads/${item.productId.photo}`}
+                src={`/uploads/${item.productId.photo}`}
                 alt="product"
                 className="w-16 h-16 object-cover rounded shadow"
               />

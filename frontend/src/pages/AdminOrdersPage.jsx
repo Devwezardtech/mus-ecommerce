@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import HeaderAdmin from '../layouts/headeradmin'; 
 import Message from './message';
@@ -31,7 +31,7 @@ const AdminOrdersPage = () => {
       }
 
       showMessage("loading...", "loadig")
-      const res = await axios.get('http://localhost:5000/api/orders/admin', {
+      const res = await api.get('/orders/admin', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -46,8 +46,8 @@ const AdminOrdersPage = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(
-        `http://localhost:5000/api/orders/${orderId}`,
+      await api.put(
+        `/orders/${orderId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

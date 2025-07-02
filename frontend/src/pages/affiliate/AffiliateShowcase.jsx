@@ -1,6 +1,6 @@
 // 📁 src/pages/affiliate/AffiliateShowcase.jsx
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { useAuth } from "../../contexts/AuthContect";
 import Message from "../message";
 import HeaderAffiliate from "./HeaderAffiliate";
@@ -19,7 +19,7 @@ const AffiliateShowcase = () => {
   const removeFromShowcase = async (productId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/affiliate/showcase/${productId}`, {
+      await api.delete(`/affiliate/showcase/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowcase((prev) => prev.filter((p) => p._id !== productId));
@@ -40,21 +40,21 @@ const AffiliateShowcase = () => {
         const token = localStorage.getItem("token");
 
         // Get showcase
-        const showcaseRes = await axios.get("http://localhost:5000/api/affiliate/showcase", {
+        const showcaseRes = await api.get("/affiliate/showcase", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setShowcase(showcaseRes.data);
 
         // Get or generate ref code
-        const profileRes = await axios.get("http://localhost:5000/api/affiliate/profile", {
+        const profileRes = await api.get("/affiliate/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         if (profileRes.data?.refCode) {
           setRefCode(profileRes.data.refCode);
         } else {
-          const gen = await axios.post(
-            "http://localhost:5000/api/affiliate/generate",
+          const gen = await api.post(
+            "/affiliate/generate",
             {},
             { headers: { Authorization: `Bearer ${token}` } }
           );
@@ -91,7 +91,7 @@ const AffiliateShowcase = () => {
                   className="bg-white p-4 rounded shadow hover:shadow-md transition"
                 >
                   <img
-                    src={`http://localhost:5000/api/products/${product._id}/photo`}
+                    src={`/products/${product._id}/photo`}
                     alt={product.name}
                     className="h-48 w-full object-cover rounded mb-2"
                   />

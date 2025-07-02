@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import HeaderAdmin from "../layouts/headeradmin";
 import Message from "./message";
 
@@ -34,7 +34,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
   const fetchAllUsers = async () => {
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:5000/api/auth/all-users", {
+    const res = await api.get("/auth/all-users", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setAllUsers(res.data);
@@ -51,7 +51,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
   const fetchProducts = async () => {
     try {
       showMessage("Loading...", "loading")
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await api.get("/products");
       console.log("Fetched products:", res.data); // Debug
       setProducts(res.data);
     } catch (error) {
@@ -87,12 +87,12 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
       }
 
       const url = editingProductId
-        ? `http://localhost:5000/api/products/${editingProductId}`
-        : "http://localhost:5000/api/products";
+        ? `/products/${editingProductId}`
+        : "/products";
 
       const method = editingProductId ? "put" : "post";
 
-      await axios[method](url, formData, {
+      await api[method](url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -148,7 +148,7 @@ const handleCancel = () => {
       price: product.price,
     });
     setEditingProductId(product._id);
-    setPreview(`http://localhost:5000/api/products/${product._id}/photo`);
+    setPreview(`/products/${product._id}/photo`);
     setCreate(true);
   };
 
@@ -166,7 +166,7 @@ const handleCancel = () => {
       try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:5000/api/products/${deleteId}`, {
+      await api.delete(`/products/${deleteId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

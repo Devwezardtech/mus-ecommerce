@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import HeaderUser from "../../layouts/headeruser";
 import Message from "../message";
@@ -33,7 +33,7 @@ const showMessage = (msg, type) => {
   //quantity, remove, buy
   const incrementQty = async (productId) => {
   try {
-    await axios.put(`http://localhost:5000/api/cart/increment/${productId}`, {}, {
+    await api.put(`/cart/increment/${productId}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchCart();
@@ -44,7 +44,7 @@ const showMessage = (msg, type) => {
 
 const decrementQty = async (productId) => {
   try {
-    await axios.put(`http://localhost:5000/api/cart/decrement/${productId}`, {}, {
+    await api.put(`/cart/decrement/${productId}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchCart();
@@ -56,7 +56,7 @@ const decrementQty = async (productId) => {
 const removeFromCart = async (productId) => {
   
   try {
-    await axios.delete(`http://localhost:5000/api/cart/${productId}`, {
+    await api.delete(`/cart/${productId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchCart();
@@ -88,7 +88,7 @@ const removeFromCart = async (productId) => {
   const fetchCart = async () => {
   try {
     showMessage("Loading...", "loading");
-    const res = await axios.get("http://localhost:5000/api/cart", {
+    const res = await api.get("/cart", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -141,7 +141,7 @@ const removeFromCart = async (productId) => {
                 <tr key={item.productId._id} className="hover:bg-gray-50">
                   <td className="p-3 border-b">
                     <img
-                      src={`http://localhost:5000/uploads/${item.productId.photo}`}
+                      src={`/uploads/${item.productId.photo}`}
                       alt={item.productId.name}
                       className="h-16 w-20 object-cover rounded shadow"
                     />

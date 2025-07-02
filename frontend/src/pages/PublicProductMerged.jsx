@@ -1,6 +1,6 @@
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api/axios";
 // import Message from "../components/Message"; // optional
 import HeaderUser from "../layouts/headeruser";
 
@@ -34,8 +34,8 @@ const PublicProductMerged = () => {
     if (!token) return showMessage("Login required to add to cart", "failed");
 
     try {
-      await axios.post(
-        "http://localhost:5000/api/cart",
+      await api.post(
+        "/cart",
         { productId: product._id, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -64,22 +64,22 @@ const PublicProductMerged = () => {
   useEffect(() => {
     const fetchProductAndRelated = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/products/public/${id}`);
+        const res = await api.get(`/products/public/${id}`);
         const fetchedProduct = res.data;
         setProduct(fetchedProduct);
 
         // Fetch seller's other products
         if (fetchedProduct.createdBy) {
-          const sellerRes = await axios.get(`http://localhost:5000/api/products?seller=${fetchedProduct.createdBy}`);
+          const sellerRes = await api.get(`/products?seller=${fetchedProduct.createdBy}`);
           setSellerProducts(sellerRes.data.filter((p) => p._id !== fetchedProduct._id));
         }
 
         // Fetch affiliate shared products (if ref present)
         if (refCode) {
-          const refRes = await axios.get(`http://localhost:5000/api/users/ref/${refCode}`);
+          const refRes = await api.get(`/users/ref/${refCode}`);
           const affiliate = refRes.data;
           if (affiliate?._id) {
-            const affiliateProdRes = await axios.get(`http://localhost:5000/api/products?sharedBy=${affiliate._id}`);
+            const affiliateProdRes = await api.get(`/products?sharedBy=${affiliate._id}`);
             setAffiliateProducts(affiliateProdRes.data);
           }
         }
@@ -104,7 +104,7 @@ const PublicProductMerged = () => {
       {/* Product Info */}
       <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
         <img
-          src={`http://localhost:5000/api/products/public/${product._id}/photo`}
+          src={`/products/public/${product._id}/photo`}
           alt={product.name}
           className="w-full h-64 object-cover rounded mb-4"
         />
@@ -158,7 +158,7 @@ const PublicProductMerged = () => {
             {sellerProducts.map((prod) => (
               <div key={prod._id} className="bg-white p-4 rounded shadow">
                 <img
-                  src={`http://localhost:5000/uploads/${prod.photo}`}
+                  src={`/uploads/${prod.photo}`}
                   alt={prod.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />
@@ -185,7 +185,7 @@ const PublicProductMerged = () => {
             {affiliateProducts.map((prod) => (
               <div key={prod._id} className="bg-white p-4 rounded shadow">
                 <img
-                  src={`http://localhost:5000/uploads/${prod.photo}`}
+                  src={`/uploads/${prod.photo}`}
                   alt={prod.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />

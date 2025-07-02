@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import HeaderFrontPage from "../layouts/headerfrontPage";
 import Message from "./message";
@@ -29,7 +29,7 @@ const showMessage = (msg, type) => {
   // Fetch products
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await api.get("/products");
       console.log("Fetched products:", res.data); // Debug
       setProducts(res.data);
      

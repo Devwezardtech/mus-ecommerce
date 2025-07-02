@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // ✅ added useNavigate
+import { Link, useNavigate } from 'react-router-dom'; // added useNavigate
 import Message from '../pages/message';
 
 const HeaderFrontPage = () => {
   const [message, setMessage] = useState({ message: "", type: "" });
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate(); // ✅ hook for redirection
+  const navigate = useNavigate(); // hook for redirection
 
   const showMessage = (message, type) => {
     setMessage({ message, type });
