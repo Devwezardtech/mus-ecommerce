@@ -80,7 +80,7 @@ const AffiliateDashboard = () => {
           <div key={product._id} className="bg-white p-4 rounded shadow hover:shadow-md transition">
             <button onClick={() => setModalProduct(product)} className="w-full">
               <img
-                src={`${api.defaults.baseURL}/products/${product._id}/photo`}
+                src={`${api.defaults.baseURL.replace("/api", "")}/products/${product._id}/photo`}
                 alt={product.name}
                 className="h-48 w-full object-cover rounded mb-2"
               />
@@ -113,7 +113,7 @@ const AffiliateDashboard = () => {
               ✕
             </button>
             <img
-              src={`${api.defaults.baseURL}/products/${modalProduct._id}/photo`}
+              src={`${api.defaults.baseURL.replace("/api", "")}/products/${modalProduct._id}/photo`}
               alt={modalProduct.name}
               className="w-full h-64 object-cover rounded mb-4"
             />

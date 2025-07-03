@@ -141,7 +141,7 @@ const removeFromCart = async (productId) => {
                 <tr key={item.productId._id} className="hover:bg-gray-50">
                   <td className="p-3 border-b">
                     <img
-                      src={`${api.defaults.baseURL}/uploads/${item.productId.photo}`}
+                      src={`${api.defaults.baseURL.replace("/api", "")}/uploads/${item.productId.photo}`}
                       alt={item.productId.name}
                       className="h-16 w-20 object-cover rounded shadow"
                     />

@@ -21,7 +21,7 @@ const Showcase = ({ showcase, refCode, onRemove }) => {
           return (
             <div key={p._id} className="bg-white p-4 rounded shadow hover:shadow-md transition">
               <img
-                src={`${api.defaults.baseURL}/products/${p._id}/photo`}
+                src={`${api.defaults.baseURL.replace("/api", "")}/products/${p._id}/photo`}
                 alt={p.name}
                 className="h-40 w-full object-cover rounded mb-2"
               />

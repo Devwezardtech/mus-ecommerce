@@ -117,7 +117,7 @@ const AffiliateOrders = () => {
                     return (
                       <div key={idx} className="flex gap-4 border rounded p-2">
                         <img
-                          src={`${api.defaults.baseURL}/products/${item.productId._id}/photo`}
+                          src={`${api.defaults.baseURL.replace("/api", "")}/products/${item.productId._id}/photo`}
                           alt={name}
                           className="w-20 h-20 object-cover rounded"
                         />

@@ -91,7 +91,7 @@ const AffiliateShowcase = () => {
                   className="bg-white p-4 rounded shadow hover:shadow-md transition"
                 >
                   <img
-                    src={`${api.defaults.baseURL}/products/${product._id}/photo`}
+                    src={`${api.defaults.baseURL.replace("/api", "")}/products/${product._id}/photo`}
                     alt={product.name}
                     className="h-48 w-full object-cover rounded mb-2"
                   />

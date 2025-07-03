@@ -77,7 +77,7 @@ const SellerOrders = () => {
           <td className="px-4 py-2">
             {item.productId?.photo ? (
               <img
-                src={`${api.defaults.baseURL}/uploads/${item.productId.photo}`}
+                src={`${api.defaults.baseURL.replace("/api", "")}/uploads/${item.productId.photo}`}
                 alt="product"
                 className="w-16 h-16 object-cover rounded shadow"
               />
