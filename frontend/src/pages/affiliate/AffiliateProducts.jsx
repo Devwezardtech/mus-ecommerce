@@ -66,7 +66,7 @@ const AffiliateProducts = () => {
               className="bg-white rounded shadow p-4 hover:shadow-md"
             >
               <img
-                src={`/products/${product._id}/photo`}
+                src={`${api.defaults.baseURL}/products/${product._id}/photo`}
                 alt={product.name}
                 className="h-40 w-full object-cover rounded mb-2"
               />

@@ -356,7 +356,7 @@ const handleCancel = () => {
           <tr key={product._id} className="hover:bg-gray-50">
             <td className="px-4 py-2">
               <img
-                src={`/products/${product._id}/photo`}
+                src={`${api.defaults.baseURL}/products/${product._id}/photo`}
                 alt={product.name}
                 className="w-20 h-20 object-cover rounded"
               />

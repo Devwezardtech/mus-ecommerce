@@ -104,7 +104,7 @@ const PublicProductMerged = () => {
       {/* Product Info */}
       <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
         <img
-          src={`/products/public/${product._id}/photo`}
+          src={`${api.defaults.baseURL}/products/public/${product._id}/photo`}
           alt={product.name}
           className="w-full h-64 object-cover rounded mb-4"
         />
@@ -158,7 +158,7 @@ const PublicProductMerged = () => {
             {sellerProducts.map((prod) => (
               <div key={prod._id} className="bg-white p-4 rounded shadow">
                 <img
-                  src={`/uploads/${prod.photo}`}
+                  src={`${api.defaults.baseURL}/uploads/${prod.photo}`}
                   alt={prod.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />
@@ -185,7 +185,7 @@ const PublicProductMerged = () => {
             {affiliateProducts.map((prod) => (
               <div key={prod._id} className="bg-white p-4 rounded shadow">
                 <img
-                  src={`/uploads/${prod.photo}`}
+                  src={`${api.defaults.baseURL}/uploads/${prod.photo}`}
                   alt={prod.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />
@@ -193,7 +193,7 @@ const PublicProductMerged = () => {
                 <p className="text-sm text-gray-600 mb-1">{prod.description}</p>
                 <p className="text-sm font-bold text-gray-700">₱{prod.price}</p>
                 <button
-                  onClick={() => navigate(`/product/public/${prod._id}?ref=${refCode}`)}
+                  onClick={() => navigate(`/product/public/${prod._id}${refCode ? `?ref=${refCode}` : ""}`)}
                   className="mt-2 text-sm text-blue-600 hover:underline"
                 >
                   View Product

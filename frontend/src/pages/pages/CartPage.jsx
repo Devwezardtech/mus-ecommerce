@@ -67,7 +67,7 @@ const removeFromCart = async (productId) => {
 };
 
 
-// ✅ Handle Buy (simulate: add to cart + redirect to checkout page)
+// Handle Buy (simulate: add to cart + redirect to checkout page)
   const handleBuy = () => {
   const filteredItems = cartItems.filter(item => item.productId !== null);
 
@@ -141,7 +141,7 @@ const removeFromCart = async (productId) => {
                 <tr key={item.productId._id} className="hover:bg-gray-50">
                   <td className="p-3 border-b">
                     <img
-                      src={`/uploads/${item.productId.photo}`}
+                      src={`${api.defaults.baseURL}/uploads/${item.productId.photo}`}
                       alt={item.productId.name}
                       className="h-16 w-20 object-cover rounded shadow"
                     />

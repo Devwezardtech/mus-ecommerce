@@ -34,7 +34,7 @@ const AffiliateOrders = () => {
     if (user?.role === "affiliate") fetchAffiliateOrders();
   }, [user]);
 
-  // 🧮 Total commission (all)
+  // Total commission (all)
   const calculateTotalCommission = () => {
     let total = 0;
     orders.forEach(order => {
@@ -46,7 +46,7 @@ const AffiliateOrders = () => {
     return total.toFixed(2);
   };
 
-  // ✅ Withdrawable commission (only for delivered)
+  // Withdrawable commission (only for delivered)
   const calculateWithdrawableCommission = () => {
     let withdrawable = 0;
     orders.forEach(order => {
@@ -117,7 +117,7 @@ const AffiliateOrders = () => {
                     return (
                       <div key={idx} className="flex gap-4 border rounded p-2">
                         <img
-                          src={`/products/${item.productId._id}/photo`}
+                          src={`${api.defaults.baseURL}/products/${item.productId._id}/photo`}
                           alt={name}
                           className="w-20 h-20 object-cover rounded"
                         />

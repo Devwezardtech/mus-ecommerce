@@ -14,7 +14,7 @@ const HeaderFrontPage = () => {
     }, 2000);
   };
 
-  // ✅ Add handleLogout function
+  //  Add handleLogout function
   const handleLogin = () => {
     localStorage.removeItem("token");
     showMessage("loading...", "success")

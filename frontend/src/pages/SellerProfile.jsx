@@ -51,7 +51,7 @@ const SellerProfile = () => {
             {products.map((product) => (
               <div key={product._id} className="bg-white p-4 rounded shadow">
                 <img
-                  src={`/uploads/${product.photo}`}
+                  src={`${api.defaults.baseURL}/uploads/${product.photo}`}
                   alt={product.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />
