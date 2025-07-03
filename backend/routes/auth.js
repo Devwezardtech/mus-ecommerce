@@ -15,7 +15,6 @@ const transporter = nodemailer.createTransport({
 
 // 🔐 Signup with OTP
 router.post("/signup", async (req, res) => {
-  console.log("Signup payload:", req.body); //for debugging
   try {
     console.log("Received signup request", req.body); // Log input
     const { name, email, password, role } = req.body;
@@ -120,7 +119,6 @@ router.post("/login-request-otp", async (req, res) => {
 
 // Login with OTP
 router.post("/login-otp-verify", async (req, res) => {
-  console.log("Login OTP payload:", req.body); // Debug log
   const { email, otp } = req.body;
   const user = await User.findOne({ email });
   if (!user) return res.status(404).json({ error: "User not found" });
