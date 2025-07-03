@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
 
     if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
-      axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
     }
     setLoading(false);
     checkIfAdminExists();
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data.user);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
       return res.data.user;
     } catch (error) {
       throw new Error(error.response?.data?.error || "Login failed");
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data.user);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
       return res.data.user;
     } catch (error) {
       const msg = error.response?.data?.error || "OTP verification failed.";
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    delete axios.defaults.headers.common["Authorization"];
+    delete api.defaults.headers.common["Authorization"];
     
   };
 
