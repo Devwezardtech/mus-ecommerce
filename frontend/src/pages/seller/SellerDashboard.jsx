@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import api from "../../api/axios";
+import api from "../../api/axios"
 import Message from "../message";
 import HeaderSeller from "./HeaderSeller";
 
@@ -171,7 +171,7 @@ const handleCancel = () => {
       try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`/products/${deleteId}`, {
+      await api.delete(`/products/${deleteId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
