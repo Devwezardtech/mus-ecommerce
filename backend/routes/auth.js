@@ -16,6 +16,7 @@ const transporter = nodemailer.createTransport({
 // 🔐 Signup with OTP
 router.post("/signup", async (req, res) => {
   try {
+    console.log("Received signup request", req.body); // Log input
     const { name, email, password, role } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -43,12 +44,12 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({ message: "OTP sent to email", email });
   } catch (error) {
-    console.error("Signup Error:", error);
+    console.error("Signup route failed:", error); // 🔥 Add this
     res.status(500).json({ error: "Signup failed." });
   }
 });
 
-// 🔒 OTP Verification
+// OTP Verification
 router.post("/verify-otp", async (req, res) => {
   const { email, otp } = req.body;
   const user = await User.findOne({ email });
@@ -67,7 +68,7 @@ router.post("/verify-otp", async (req, res) => {
   res.json({ message: "Email verified! You can now log in." });
 });
 
-// 🔐 Login
+// Login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -89,7 +90,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// 📩 Login OTP Request
+// Login OTP Request
 router.post("/login-request-otp", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -116,7 +117,7 @@ router.post("/login-request-otp", async (req, res) => {
   res.json({ message: "OTP sent" });
 });
 
-// 🔓 Login with OTP
+// Login with OTP
 router.post("/login-otp-verify", async (req, res) => {
   const { email, otp } = req.body;
   const user = await User.findOne({ email });
@@ -138,7 +139,7 @@ router.post("/login-otp-verify", async (req, res) => {
 });
 
 
-// ✅ CHECK IF ADMIN EXISTS (for frontend UI toggle)
+// CHECK IF ADMIN EXISTS (for frontend UI toggle)
 router.get("/admin-exists", async (req, res) => {
   try {
     const existingAdmin = await User.findOne({ role: "admin" });
@@ -148,7 +149,7 @@ router.get("/admin-exists", async (req, res) => {
   }
 });
 
-// ✅ GET ALL USERS GROUPED BY ROLE
+// GET ALL USERS GROUPED BY ROLE
 router.get("/all-users", async (req, res) => {
   try {
     const users = await User.find().select("-password -otp -otpExpires");
@@ -163,7 +164,7 @@ router.get("/all-users", async (req, res) => {
   }
 });
 
-// ✅ GET USER BY ID — must be last!
+// GET USER BY ID — must be last!
 router.get("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password -otp -otpExpires");
