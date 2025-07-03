@@ -16,9 +16,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "https://mus-ecommerce-shop.onrender.com", // your frontend
-  credentials: true
+  origin: ["https://mus-ecommerce-shop.onrender.com"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 }));
+
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
