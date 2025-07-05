@@ -83,9 +83,9 @@ const SellerDashboard = () => {
   const method = editingProductId ? "put" : "post";
 
   const payload = {
-    ...newProducts,
-    image: imageUrl || newProducts.image,
-  };
+  ...newProducts,
+  photo: imageUrl || newProducts.image, 
+};
 
   try {
     await api[method](url, payload, {

@@ -21,13 +21,13 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
-// ✅ CREATE product (Cloudinary image)
-router.post("/", authenticateToken, upload.single("photo"), async (req, res) => {
+// CREATE product (Cloudinary image sent from frontend)
+router.post("/", authenticateToken, async (req, res) => {
   try {
-    const { name, description, price, commission, stock } = req.body;
+    const { name, description, price, commission, stock, image } = req.body;
 
-    if (!name || !description || !price || !req.file) {
-      return res.status(400).json({ error: "All fields and photo required." });
+    if (!name || !description || !price || !image) {
+      return res.status(400).json({ error: "All fields and image are required." });
     }
 
     const product = new Product({
@@ -35,10 +35,10 @@ router.post("/", authenticateToken, upload.single("photo"), async (req, res) => 
       description,
       price,
       stock,
-      commission: commission || 20,
+      commission: commission || 0.2,
       createdBy: req.user.id,
-      photo: req.file.path, // Cloudinary image URL
-      photoId: req.file.filename, // Cloudinary public_id for deletion
+      photo: image,        // ✅ save the full image URL
+      photoId: image,      // ✅ optional – same as URL or public_id
     });
 
     await product.save();
@@ -47,6 +47,7 @@ router.post("/", authenticateToken, upload.single("photo"), async (req, res) => 
     res.status(500).json({ error: error.message });
   }
 });
+
 
 // ✅ GET all or by seller
 router.get("/", async (req, res) => {
