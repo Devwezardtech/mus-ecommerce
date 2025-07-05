@@ -32,7 +32,6 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
-app.use("/api/users", authRoutes);
 app.use("/api/stripe", stripeRoutes);
 
 // MongoDB Connection

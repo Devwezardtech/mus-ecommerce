@@ -37,8 +37,8 @@ router.post("/", authenticateToken, async (req, res) => {
       stock,
       commission: commission || 0.2,
       createdBy: req.user.id,
-      photo: image,        // ✅ save the full image URL
-      photoId: image,      // ✅ optional – same as URL or public_id
+      photo: image,        // save the full image URL
+      photoId: image,      // optional – same as URL or public_id
     });
 
     await product.save();
