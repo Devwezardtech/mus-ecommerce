@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  base: './', // ✅ <-- This is the KEY FIX for broken refresh routes on Render
+  //base: './', // <-- This is the KEY FIX for broken refresh routes on Render
   plugins: [react()],
   resolve: {
     alias: {
@@ -12,9 +12,5 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-  },
-  // 👇 This is important for Render static sites with React Router
-  server: {
-    historyApiFallback: true,
   },
 });
