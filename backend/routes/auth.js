@@ -166,7 +166,7 @@ router.get("/all-users", async (req, res) => {
 });
 
 // GET USER BY ID — must be last!
-router.get("/:id", async (req, res) => {
+router.get("/user/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password -otp -otpExpires");
     if (!user) return res.status(404).json({ error: "User not found" });
