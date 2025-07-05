@@ -4,19 +4,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 
-// === PATCH FOR DEBUGGING BAD ROUTES ===
-try {
-  const pathToRegexp = require('path-to-regexp');
-  const originalParse = pathToRegexp.parse;
-  pathToRegexp.parse = function (path, options) {
-    console.log("Parsing route path:", path); // <-- This shows which route is crashing
-    return originalParse(path, options);
-  };
-} catch (e) {
-  console.error("Failed to patch path-to-regexp:", e);
-}
-// === END PATCH ===
-
 const orderRoutes = require("./routes/orderRoutes");
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/products");
