@@ -15,6 +15,7 @@ const stripeRoutes = require('./routes/stripe');
 const app = express();
 
 // Middleware
+// CORS setup (adjust origin to your frontend render link)
 app.use(cors({
   origin: ["https://mus-ecommerce-shop.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -23,7 +24,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API Routes
 app.use("/api/auth", authRoutes);
@@ -43,15 +43,13 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("MongoDB connected"))
 .catch((err) => console.error("MongoDB connection error:", err));
 
-/*
-// Serve frontend build (IMPORTANT for Heroku/Vercel)
+//server for frontend build in production
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
-*/
-
+// test for backend
 app.get('/', (req, res) => {
   res.send('Backend is running 🎉');
 });
