@@ -97,7 +97,14 @@ const showMessage = (msg, type) => {
                       <td className="px-4 py-2">{order.status || "N/A"}</td>
                       <td className="px-4 py-2">{order.paymentMethod || "N/A"}</td>
                       <td className="px-4 py-2">{order.address || "N/A"}</td>
-                      <td className="px-4 py-2">{p.productId?.name || "Unknown Product"}</td>
+                      <td className="px-4 py-2 flex items-center gap-2">
+  <img
+    src={p.productId?.photo}
+    alt={p.productId?.name}
+    className="h-10 w-10 object-cover rounded"
+  />
+  <span>{p.productId?.name || "Unknown Product"}</span>
+</td>
                       <td className="px-4 py-2">{p.quantity}</td>
                       <td className="px-4 py-2">₱{p.price.toFixed(2)}</td>
                     </tr>

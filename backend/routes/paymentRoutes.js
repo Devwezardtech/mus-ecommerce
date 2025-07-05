@@ -19,7 +19,7 @@ router.post('/create-payment', auth, async (req, res) => {
     const { amount, name, paymentMethod } = req.body;
 
     
-    // ✅ Validate inputs
+    //  Validate inputs
     if (!amount || !name || !paymentMethod) {
       return res.status(400).json({ message: 'Amount, name and paymentMethod are required' });
     }

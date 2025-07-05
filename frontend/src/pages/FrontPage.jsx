@@ -97,7 +97,7 @@ const showMessage = (msg, type) => {
                   <button onClick={() => setModalProduct(product)}>
                 <div className="flex flex-col mb-2">
                 <img 
-               src={`${api.defaults.baseURL.replace("/api", "")}/uploads/${product.photo}`}
+               src={product.photo}
                alt={product.name}
                 className="h-60 w-60 object-cover rounded shadow"
               />
@@ -151,7 +151,7 @@ const showMessage = (msg, type) => {
         ✕
       </button>
       <img
-        src={`${api.defaults.baseURL.replace("/api", "")}/uploads/${modalProduct.photo}`}
+        src={modalProduct.photo}
         alt={modalProduct.name}
         className="w-full h-74 object-cover rounded-lg mb-4 py-8"
       />

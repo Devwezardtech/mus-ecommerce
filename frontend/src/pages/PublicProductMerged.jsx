@@ -104,7 +104,7 @@ const PublicProductMerged = () => {
       {/* Product Info */}
       <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
         <img
-          src={`${api.defaults.baseURL.replace("/api", "")}/products/public/${product._id}/photo`}
+           src={product.photo}
           alt={product.name}
           className="w-full h-64 object-cover rounded mb-4"
         />
@@ -158,7 +158,7 @@ const PublicProductMerged = () => {
             {sellerProducts.map((prod) => (
               <div key={prod._id} className="bg-white p-4 rounded shadow">
                 <img
-                  src={`${api.defaults.baseURL.replace("/api", "")}/uploads/${prod.photo}`}
+                  src={prod.photo}
                   alt={prod.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />
@@ -185,7 +185,7 @@ const PublicProductMerged = () => {
             {affiliateProducts.map((prod) => (
               <div key={prod._id} className="bg-white p-4 rounded shadow">
                 <img
-                  src={`${api.defaults.baseURL.replace("/api", "")}/uploads/${prod.photo}`}
+                  src={prod.photo}
                   alt={prod.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />

@@ -79,11 +79,12 @@ const AffiliateDashboard = () => {
         {products.map((product) => (
           <div key={product._id} className="bg-white p-4 rounded shadow hover:shadow-md transition">
             <button onClick={() => setModalProduct(product)} className="w-full">
-              <img
-                src={`${api.defaults.baseURL.replace("/api", "")}/products/${product._id}/photo`}
-                alt={product.name}
-                className="h-48 w-full object-cover rounded mb-2"
-              />
+             <img
+  src={product.photo}
+  alt={product.name}
+  className="h-48 w-full object-cover rounded mb-2"
+/>
+
               <h3 className="font-semibold text-gray-800">{product.name}</h3>
               <p className="text-sm text-gray-600">{product.description}</p>
               <p className="text-lg font-bold text-gray-700">₱{product.price}</p>
@@ -113,10 +114,11 @@ const AffiliateDashboard = () => {
               ✕
             </button>
             <img
-              src={`${api.defaults.baseURL.replace("/api", "")}/products/${modalProduct._id}/photo`}
-              alt={modalProduct.name}
-              className="w-full h-64 object-cover rounded mb-4"
-            />
+  src={modalProduct.photo}
+  alt={modalProduct.name}
+  className="w-full h-64 object-cover rounded mb-4"
+/>
+
             <h2 className="text-xl font-bold text-gray-700 mb-2">{modalProduct.name}</h2>
             <p className="text-gray-600">{modalProduct.description}</p>
             <p className="text-gray-800 font-bold mt-2">₱{modalProduct.price}</p>

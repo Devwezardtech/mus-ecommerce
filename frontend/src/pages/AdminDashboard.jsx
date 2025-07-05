@@ -246,9 +246,13 @@ const handleCancel = () => {
       <input 
       type="file" accept="image/*" onChange={handleImageChange} />
       <div className="flex m-4 justify-center item-center">
-        {preview && <img 
-        className="rounded max-w-md shadow-lg w-60  hover:shadow-sm"
-        src={preview} alt="Preview" />}
+        {preview && (
+  <img 
+    className="rounded max-w-md shadow-lg w-60 hover:shadow-sm"
+    src={preview} 
+    alt="Preview" 
+  />
+)}
         </div>
       
       <div className="justify-center text-center item-center">
@@ -332,7 +336,7 @@ const handleCancel = () => {
           <tr key={product._id} className="hover:bg-gray-50">
             <td className="px-4 py-2">
               <img
-                src={`${api.defaults.baseURL.replace("/api", "")}/products/${product._id}/photo`}
+                src={product.photo}
                 alt={product.name}
                 className="w-20 h-20 object-cover rounded"
               />

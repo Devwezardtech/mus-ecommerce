@@ -1,59 +1,32 @@
 import { useState, useEffect } from "react";
-import api from "../../api/axios"
+import api from "../../api/axios";
 import Message from "../message";
 import HeaderSeller from "./HeaderSeller";
 
 const SellerDashboard = () => {
-  const [newProducts, setNewProducts] = useState({ name: "", description: "", price: "", stock: "", image: null,});
+  const [newProducts, setNewProducts] = useState({ name: "", description: "", price: "", stock: "", commission: "", image: null });
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(null);
   const [products, setProducts] = useState([]);
   const [editingProductId, setEditingProductId] = useState(null);
   const [create, setCreate] = useState(false);
-  //const [allUsers, setAllUsers] = useState({ users: [], sellers: [], affiliates: [] });
-const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
+  const [selectedTab, setSelectedTab] = useState("users");
 
-
-
-  //for modals
   const [showDelete, setShowDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [message, setMessage] = useState({ message: "", type: "" });
 
-  //show notification or alert message
-  const [message, setMessage] = useState({message: "", type: ""})// store message
+  const showMessage = (message, type) => {
+    setMessage({ message, type });
+    setTimeout(() => {
+      setMessage({ message: "", type: "" });
+    }, 2000);
+  };
 
-   
-  //this alert message
-    const showMessage = (message, type) => {
-      setMessage({message, type});
-
-      setTimeout(()=>{
-        setMessage({message: "", type: ""});
-      }, 2000)
-    }
-  
-  const fetchAllUsers = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    const res = await api.get("/auth/all-users", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setAllUsers(res.data);
-  } catch (err) {
-    console.error("Error fetching users:", err);
-  }
-};
-
-
-
- 
-
-  // Fetch products
   const fetchProducts = async () => {
     try {
-      showMessage("Loading...", "loading")
+      showMessage("Loading...", "loading");
       const res = await api.get("/products");
-      console.log("Fetched products:", res.data); // Debug
       setProducts(res.data);
     } catch (error) {
       console.error("Failed to fetch products:", error.message);
@@ -62,77 +35,88 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
 
   useEffect(() => {
     fetchProducts();
-     fetchAllUsers(); //for fetching all users
   }, []);
 
-  // Create or update product
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!newProducts.name || !newProducts.description || !newProducts.price) {
-      showMessage("All fields are required.", "failed");
-      return;
-    }
+  if (!newProducts.name || !newProducts.description || !newProducts.price) {
+    showMessage("All fields are required.", "failed");
+    return;
+  }
 
-    const formData = new FormData();
-    formData.append("name", newProducts.name);
-    formData.append("description", newProducts.description);
-    formData.append("price", newProducts.price);
-    formData.append("stock", newProducts.stock);
-    if (newProducts.commission) formData.append("commission", newProducts.commission);
-    if (photo) formData.append("photo", photo);
+  let imageUrl = null;
+
+  if (photo) {
+    const cloudData = new FormData();
+    cloudData.append("file", photo);
+    cloudData.append("upload_preset", "ecommerce_preset"); // Your unsigned preset
 
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        showMessage("You are not logged in.");
+      const uploadRes = await fetch("https://api.cloudinary.com/v1_1/dawfelvee/image/upload", {
+        method: "POST",
+        body: cloudData,
+      });
+
+      const uploadData = await uploadRes.json();
+
+      if (!uploadData.secure_url) {
+        showMessage("Failed to get uploaded image URL.", "failed");
         return;
       }
 
-      const url = editingProductId
-        ? `/products/${editingProductId}`
-        : "/products";
-
-      const method = editingProductId ? "put" : "post";
-
-      await api[method](url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      //use modal message if created and edited
-      if(method === "put"){
-        showMessage("Updated", "success")
-      }
-      else {
-        showMessage("Created Successfully", "success")
-      }
-
-      fetchProducts();
-      setNewProducts({ name: "", description: "", price: "", stock: "", commission: "" });
-      setPhoto(null);
-      setPreview(null);
-      setEditingProductId(null);
-    } catch (error) {
-      console.error("Error submitting product:", error.message);
+      imageUrl = uploadData.secure_url;
+    } catch (uploadError) {
+      console.error("Cloudinary upload error:", uploadError);
+      showMessage("Image upload failed.", "failed");
+      return;
     }
-    setCreate(false); 
+  }
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    showMessage("You are not logged in.");
+    return;
+  }
+
+  const url = editingProductId ? `/products/${editingProductId}` : "/products";
+  const method = editingProductId ? "put" : "post";
+
+  const payload = {
+    ...newProducts,
+    image: imageUrl || newProducts.image,
   };
 
+  try {
+    await api[method](url, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-const handleCancel = () => {
-  setCreate(false);
-  setNewProducts({ name: "", description: "", price: "" });
-  setPhoto(null);
-  setPreview(null);
-  setEditingProductId(null);
-  showMessage("Canceled");
+    showMessage(method === "put" ? "Updated" : "Created Successfully", "success");
+    fetchProducts();
+    setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", image: null });
+    setPhoto(null);
+    setPreview(null);
+    setEditingProductId(null);
+    setCreate(false);
+  } catch (error) {
+    console.error("Error submitting product:", error.message);
+    showMessage("Failed to submit product.", "failed");
+  }
 };
 
 
-  // Image preview
+  const handleCancel = () => {
+    setCreate(false);
+    setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", image: null });
+    setPhoto(null);
+    setPreview(null);
+    setEditingProductId(null);
+    showMessage("Canceled");
+  };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setPhoto(file);
@@ -143,7 +127,6 @@ const handleCancel = () => {
     }
   };
 
-  // Edit product
   const handleEdit = (product) => {
     setNewProducts({
       name: product.name,
@@ -151,33 +134,30 @@ const handleCancel = () => {
       price: product.price,
       stock: product.stock,
       commission: product.commission,
+      image: product.image,
     });
     setEditingProductId(product._id);
-    setPreview(`/products/${product._id}/photo`);
+    setPreview(product.image);
     setCreate(true);
   };
 
-  //modals for delete code line 113 to 145
-    // Delete product modals show
   const handleDelete = async (id) => {
     setDeleteId(id);
     setShowDelete(true);
   };
 
-   //confirm modals delete
   const handleConfirm = async () => {
-    if(!deleteId) return;
+    if (!deleteId) return;
 
-      try {
+    try {
       const token = localStorage.getItem("token");
-
       await api.delete(`/products/${deleteId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      showMessage("Deleted Sucessfully", "success")
-      fetchProducts(); // Refresh list
+      showMessage("Deleted Sucessfully", "success");
+      fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error.message);
     }
@@ -185,14 +165,11 @@ const handleCancel = () => {
     setDeleteId(null);
   };
 
-  //declien or cancel modals delete
   const handleDeclien = () => {
     setShowDelete(false);
     setDeleteId(null);
-    showMessage("Canceled")
+    showMessage("Canceled");
   };
-
- 
 
   return (
     <div>
