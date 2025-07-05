@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+const history = require("connect-history-api-fallback"); // npm install connect-history-api-fallback / that is very important for React Router support like refreshing pages without 404 errors
 
 const orderRoutes = require("./routes/orderRoutes");
 const authRoutes = require("./routes/auth");
@@ -34,6 +35,17 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
 app.use("/api/stripe", stripeRoutes);
 
+//  Use history fallback BEFORE static files
+app.use(history()); //  THIS is the key for React Router support!
+
+//server for frontend build in production
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// test for backend
+app.get('/', (req, res) => {
+  res.send('Backend is running 🎉');
+});
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -42,16 +54,6 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("MongoDB connected"))
 .catch((err) => console.error("MongoDB connection error:", err));
 
-//server for frontend build in production
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
-
-// test for backend
-app.get('/', (req, res) => {
-  res.send('Backend is running 🎉');
-});
 
 // Start server
 const PORT = process.env.PORT || 5000;
