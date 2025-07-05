@@ -26,6 +26,22 @@ app.use(cors({
 
 app.use(express.json());
 
+
+
+//  Use history fallback BEFORE static files
+app.use(history({
+  disableDotRule: true,
+  verbose: true,
+})); //  THIS is the key for React Router support!
+
+//server for frontend build in production
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// Re-serve index.html after fallback
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
+
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
@@ -34,17 +50,6 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
 app.use("/api/stripe", stripeRoutes);
-
-//  Use history fallback BEFORE static files
-app.use(history()); //  THIS is the key for React Router support!
-
-//server for frontend build in production
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-// test for backend
-app.get('/', (req, res) => {
-  res.send('Backend is running 🎉');
-});
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
