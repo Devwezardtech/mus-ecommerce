@@ -333,7 +333,7 @@ const SellerDashboard = () => {
           <tr key={product._id} className="hover:bg-gray-50">
             <td className="px-4 py-2">
               <img
-                src={`${api.defaults.baseURL.replace("/api", "")}/products/${product._id}/photo`}
+                src={product.photo}
                 alt={product.name}
                 className="w-20 h-20 object-cover rounded"
               />
