@@ -24,9 +24,9 @@ const authenticateToken = (req, res, next) => {
 // CREATE product (Cloudinary image sent from frontend)
 router.post("/", authenticateToken, async (req, res) => {
   try {
-    const { name, description, price, commission, stock, image } = req.body;
+    const { name, description, price, commission, stock, image, photoId } = req.body;
 
-    if (!name || !description || !price || !image) {
+    if (!name || !description || !price || !image || !photoId) {
       return res.status(400).json({ error: "All fields and image are required." });
     }
 
@@ -37,8 +37,8 @@ router.post("/", authenticateToken, async (req, res) => {
       stock,
       commission: commission || 0.2,
       createdBy: req.user.id,
-      photo: image,        // save the full image URL
-      photoId: image,      // optional – same as URL or public_id
+      photo: image,      // secure_url from Cloudinary
+      photoId: photoId,  // public_id from Cloudinary
     });
 
     await product.save();
@@ -47,6 +47,7 @@ router.post("/", authenticateToken, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 
 // ✅ GET all or by seller

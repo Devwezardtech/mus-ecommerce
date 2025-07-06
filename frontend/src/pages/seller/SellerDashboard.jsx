@@ -37,7 +37,7 @@ const SellerDashboard = () => {
     fetchProducts();
   }, []);
 
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   if (!newProducts.name || !newProducts.description || !newProducts.price) {
@@ -45,12 +45,13 @@ const SellerDashboard = () => {
     return;
   }
 
-  let imageUrl = null;
+  let imageUrl = newProducts.image;
+  let publicId = newProducts.photoId;
 
   if (photo) {
     const cloudData = new FormData();
     cloudData.append("file", photo);
-    cloudData.append("upload_preset", "ecommerce_preset"); // Your unsigned preset
+    cloudData.append("upload_preset", "ecommerce_preset");
 
     try {
       const uploadRes = await fetch("https://api.cloudinary.com/v1_1/dawfelvee/image/upload", {
@@ -66,6 +67,7 @@ const SellerDashboard = () => {
       }
 
       imageUrl = uploadData.secure_url;
+      publicId = uploadData.public_id;
     } catch (uploadError) {
       console.error("Cloudinary upload error:", uploadError);
       showMessage("Image upload failed.", "failed");
@@ -83,9 +85,10 @@ const SellerDashboard = () => {
   const method = editingProductId ? "put" : "post";
 
   const payload = {
-  ...newProducts,
-  photo: imageUrl || newProducts.image, 
-};
+    ...newProducts,
+    image: imageUrl,
+    photoId: publicId,
+  };
 
   try {
     await api[method](url, payload, {
@@ -96,7 +99,7 @@ const SellerDashboard = () => {
 
     showMessage(method === "put" ? "Updated" : "Created Successfully", "success");
     fetchProducts();
-    setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", image: null });
+    setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", image: null, photoId: "" });
     setPhoto(null);
     setPreview(null);
     setEditingProductId(null);
@@ -108,14 +111,15 @@ const SellerDashboard = () => {
 };
 
 
+
   const handleCancel = () => {
-    setCreate(false);
-    setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", image: null });
-    setPhoto(null);
-    setPreview(null);
-    setEditingProductId(null);
-    showMessage("Canceled");
-  };
+  setCreate(false);
+  setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", image: null, photoId: "" });
+  setPhoto(null);
+  setPreview(null);
+  setEditingProductId(null);
+  showMessage("Canceled");
+};
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -134,10 +138,11 @@ const SellerDashboard = () => {
       price: product.price,
       stock: product.stock,
       commission: product.commission,
-      image: product.image,
+      image: product.photo,
+      photoId: product.photoId, // Needed for update
     });
     setEditingProductId(product._id);
-    setPreview(product.image);
+    setPreview(product.photo);
     setCreate(true);
   };
 
