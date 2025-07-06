@@ -33,46 +33,28 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
 app.use("/api/stripe", stripeRoutes);
 
-// Serve static files from frontend
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// Serve static frontend
+const staticPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(staticPath));
 
-// List of client-side routes (copy from App.jsx)
+// Whitelisted client-side routes (for React Router)
 const allowedRoutes = [
-  '/',
-  '/login',
-  '/signup',
-  '/checkout',
-  '/orders',
-  '/cart',
-  '/admin',
-  '/admin/orders',
-  '/user',
-  '/user/orders',
-  '/affiliate',
-  '/affiliate/orders',
-  '/affiliate/showcase',
-  '/affiliate/withdraw',
-  '/affiliateproduct',
-  '/seller',
-  '/seller/orders',
-  '/seller/profile',
-  '/profile',
-  '/verify-otp',
-  '/admin/header',
-  '/user/header',
-  '/seller/header',
-  '/affiliate/header',
-  '/headerfrontpage'
+  '/', '/login', '/signup', '/checkout', '/orders', '/cart',
+  '/admin', '/admin/orders', '/user', '/user/orders',
+  '/affiliate', '/affiliate/orders', '/affiliate/showcase',
+  '/affiliate/withdraw', '/affiliateproduct', '/seller',
+  '/seller/orders', '/seller/profile', '/profile', '/verify-otp',
+  '/admin/header', '/user/header', '/seller/header',
+  '/affiliate/header', '/headerfrontpage'
 ];
 
-// Handle exact route refreshes
 allowedRoutes.forEach(route => {
   app.get(route, (req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
   });
 });
 
-// Handle dynamic React Router routes
+// Dynamic routes
 app.get('/product/public/*', (req, res) => {
   res.sendFile(path.join(staticPath, "index.html"));
 });
@@ -83,7 +65,7 @@ app.get("/affiliate/*", (req, res) => {
   res.sendFile(path.join(staticPath, "index.html"));
 });
 
-// Catch-all fallback for any React route
+// Fallback
 app.get("*", (req, res) => {
   res.sendFile(path.join(staticPath, "index.html"));
 });
