@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom"; //temporary use HashRouter for testing, from browserRouter change to HashRouter
 import { AuthProvider } from "./contexts/AuthContect";
 import ProtectedRoute from "./components/ProtectRoute";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -50,7 +50,7 @@ const App = () => {
   return (
   <AuthProvider>
 
-  <BrowserRouter>
+  <HashRouter>  {/* Using HashRouter fixes 404 on Render from browserRouter change to HashRouter*/}
     <Routes>
       <Route path="/" element={<FrontPage/>} />
       <Route path="/login" element={<Login />} />
@@ -125,7 +125,7 @@ const App = () => {
     
 
     </Routes>
-  </BrowserRouter>
+  </HashRouter>
 </AuthProvider>
 
 )
