@@ -68,16 +68,24 @@ const allowedRoutes = [
 // Handle exact route refreshes
 allowedRoutes.forEach(route => {
   app.get(route, (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+    res.sendFile(path.join(staticPath, "index.html"));
   });
 });
 
 // Handle dynamic React Router routes
 app.get('/product/public/*', (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+  res.sendFile(path.join(staticPath, "index.html"));
 });
 app.get('/seller/*', (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+  res.sendFile(path.join(staticPath, "index.html"));
+});
+app.get("/affiliate/*", (req, res) => {
+  res.sendFile(path.join(staticPath, "index.html"));
+});
+
+// Catch-all fallback for any React route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(staticPath, "index.html"));
 });
 
 
