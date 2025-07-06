@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+//const history = require("connect-history-api-fallback");
 
 const orderRoutes = require("./routes/orderRoutes");
 const authRoutes = require("./routes/auth");
@@ -37,8 +38,9 @@ app.use("/api/stripe", stripeRoutes);
 const staticPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(staticPath));
 
-// Whitelisted client-side routes (for React Router)
-const allowedRoutes = [
+// Whitelisted client-side routes (for React Router) if app.jsx can chnage to HashRouter with browserRouter
+// This allows React Router to handle routing on the client side
+{/*const allowedRoutes = [
   '/', '/login', '/signup', '/checkout', '/orders', '/cart',
   '/admin', '/admin/orders', '/user', '/user/orders',
   '/affiliate', '/affiliate/orders', '/affiliate/showcase',
@@ -64,6 +66,7 @@ app.get('/seller/*', (req, res) => {
 app.get("/affiliate/*", (req, res) => {
   res.sendFile(path.join(staticPath, "index.html"));
 });
+*/}
 
 // Fallback
 app.get("*", (req, res) => {
