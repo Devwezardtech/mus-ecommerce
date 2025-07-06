@@ -3,7 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
-const history = require("connect-history-api-fallback"); // npm install connect-history-api-fallback / that is very important for React Router support like refreshing pages without 404 errors
 
 const orderRoutes = require("./routes/orderRoutes");
 const authRoutes = require("./routes/auth");
@@ -15,8 +14,7 @@ const stripeRoutes = require('./routes/stripe');
 
 const app = express();
 
-// Middleware
-// CORS setup (adjust origin to your frontend render link)
+// Allow frontend Render domain
 app.use(cors({
   origin: ["https://mus-ecommerce-shop.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -25,6 +23,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
@@ -34,23 +33,61 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
 app.use("/api/stripe", stripeRoutes);
 
-//  Use history fallback BEFORE static files
-app.use(history({
-  disableDotRule: true,
-})); //  THIS is the key for React Router support!
+// Serve static files from frontend
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-//server for frontend build in production
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+// List of client-side routes (copy from App.jsx)
+const allowedRoutes = [
+  '/',
+  '/login',
+  '/signup',
+  '/checkout',
+  '/orders',
+  '/cart',
+  '/admin',
+  '/admin/orders',
+  '/user',
+  '/user/orders',
+  '/affiliate',
+  '/affiliate/orders',
+  '/affiliate/showcase',
+  '/affiliate/withdraw',
+  '/affiliateproduct',
+  '/seller',
+  '/seller/orders',
+  '/seller/profile',
+  '/profile',
+  '/verify-otp',
+  '/admin/header',
+  '/user/header',
+  '/seller/header',
+  '/affiliate/header',
+  '/headerfrontpage'
+];
+
+// Handle exact route refreshes
+allowedRoutes.forEach(route => {
+  app.get(route, (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+  });
+});
+
+// Handle dynamic React Router routes
+app.get('/product/public/*', (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
+app.get('/seller/*', (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
 
 
-// MongoDB Connection
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 .then(() => console.log("MongoDB connected"))
-.catch((err) => console.error("MongoDB connection error:", err));
-
+.catch((err) => console.error("MongoDB error:", err));
 
 // Start server
 const PORT = process.env.PORT || 5000;
