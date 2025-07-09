@@ -51,7 +51,13 @@ const PDFShipment = () => {
 
   if (!order || !item) {
     return (
-      <div className="p-4 text-center ">
+      <div>
+         <div className="fixed w-full z-50">
+        <HeaderSeller />
+      </div>
+     
+      <div className="p-4 text-center pt-20">
+        <div className='max-h-full'></div>
         <p>Loading...</p>
         <button
           onClick={() => navigate('/seller/orders')}
@@ -60,14 +66,17 @@ const PDFShipment = () => {
           Back to Orders
         </button>
       </div>
+       </div>
     );
   }
 
   return (
-    <div className="p-6">
-      <div className="fixed w-full z-50">
+    <div>
+       <div className="fixed w-full z-50">
         <HeaderSeller />
       </div>
+    
+    <div className="p-6">
       <h2 className=" pt-20 text-xl font-bold text-center mb-4">
        Shipping Slip PDF Preview
       </h2>
@@ -94,6 +103,7 @@ const PDFShipment = () => {
           Cancel
         </button>
       </div>
+    </div>
     </div>
   );
 };

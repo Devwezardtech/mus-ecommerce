@@ -61,6 +61,11 @@ const PrintShipment = () => {
 
   if (!order || !item) {
     return (
+      <div>
+             <div className="fixed w-full z-50">
+              <HeaderSeller />
+            </div>
+      
       <div className="p-4 text-red-500">
         <p>Order or item not found.</p>
         <button
@@ -70,10 +75,16 @@ const PrintShipment = () => {
           Back to Orders
         </button>
       </div>
+      </div>
     );
   }
 
   return (
+    <div>
+             <div className="fixed w-full z-50">
+              <HeaderSeller />
+            </div>
+
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="fixed w-full z-50">
         <HeaderSeller />
@@ -117,6 +128,7 @@ const PrintShipment = () => {
         </button>
       </div>
     </div>
+     </div>
   );
 };
 
