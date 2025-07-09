@@ -4,7 +4,7 @@ import api from "../../api/axios";
 import ShippingSlip from '../../components/shipment/ShippingSlip';
 import { useAuth } from '../../contexts/AuthContect';
 import { useReactToPrint } from 'react-to-print';
-import HeaderSeller from './HeaderSeller';
+import HeaderSeller from './HeaderSeller'
 
 const PrintShipment = () => {
   const { orderId, itemId } = useParams();

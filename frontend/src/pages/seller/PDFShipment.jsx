@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContect';
 import ShippingSlip from '../../components/shipment/ShippingSlip';
 import html2pdf from 'html2pdf.js';
+import HeaderSeller from './HeaderSeller'
 
 const PDFShipment = () => {
   const { orderId, itemId } = useParams();
