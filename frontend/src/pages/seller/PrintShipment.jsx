@@ -86,9 +86,6 @@ const PrintShipment = () => {
             </div>
 
     <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="fixed w-full z-50">
-        <HeaderSeller />
-      </div>
       <h2 className="pt-20 text-xl font-bold text-center mb-4">
         🖨️ Print Shipping Slip
       </h2>
