@@ -16,8 +16,12 @@ const PDFShipment = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem('token');
+    if (!token) {
+      alert("You are not logged in");
+      return navigate('/login'); // or wherever your login page is
+    }
       try {
-        const token = localStorage.getItem('token');
         const res = await api.get(
           `/orders/seller/${orderId}/${itemId}`,
           { headers: { Authorization: `Bearer ${token}` } }
