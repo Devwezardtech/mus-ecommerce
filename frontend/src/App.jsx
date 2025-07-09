@@ -30,7 +30,9 @@ import SellerOrders from "./pages/seller/SellerOrders";
 import AffiliateOrders from "./pages/affiliate/AffiliateOrders";
 import AffiliateProducts from "./pages/affiliate/AffiliateProducts";
 import AffiliateWithdrawable from "./pages/affiliate/AffiliateWithdrawable";
-import SellerDashboard from "./pages/seller/SellerDashboard"
+import SellerDashboard from "./pages/seller/SellerDashboard";
+import PDFShipment from "./pages/seller/PDFShipment";
+import PrintShipment from "./pages/seller/PrintShipment";
 
 
 
@@ -119,6 +121,22 @@ const App = () => {
     <Route path="/affiliate/showcase" element={<AffiliateShowcase />} />
     <Route path="/seller/profile" element={<SellerProfileMain />} />
     <Route path="/seller/orders" element={<SellerOrders />} />
+    <Route
+  path="/seller/order/:orderId/:itemId/pdf"
+  element={
+    <ProtectedRoute role="seller">
+      <PDFShipment />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/seller/order/:orderId/:itemId/print"
+  element={
+    <ProtectedRoute role="seller">
+      <PrintShipment />
+    </ProtectedRoute>
+  }
+/>
     <Route path="/affiliateproduct" element={<AffiliateProducts />} />
     <Route path="/affiliate/withdraw" element={<AffiliateWithdrawable />} />
 
