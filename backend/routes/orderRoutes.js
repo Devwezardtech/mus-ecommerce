@@ -170,4 +170,48 @@ router.put('/:id', auth, adminOnly, async (req, res) => {
 });
 
 
+// GET single order by orderId and itemId for seller (for print/PDF)
+router.get('/seller/:orderId/:itemId', auth, async (req, res) => {
+  try {
+    const { orderId, itemId } = req.params;
+
+    if (req.user.role !== 'seller') {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+
+    const order = await Order.findById(orderId)
+      .populate('userId', 'email name')
+      .populate('products.productId', 'name price photo createdBy');
+
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    // Find the item requested and verify it's owned by this seller
+    const item = order.products.find(p =>
+      p._id.toString() === itemId && p.productId?.createdBy?.toString() === req.user.id
+    );
+
+    if (!item) {
+      return res.status(403).json({ message: 'Item not found or not owned by seller' });
+    }
+
+    // Return only the matching item and order info
+    res.json({
+      order: {
+        _id: order._id,
+        address: order.address,
+        phone: order.phone,
+        paymentMethod: order.paymentMethod,
+        status: order.status,
+        createdAt: order.createdAt,
+        userId: order.userId,
+      },
+      item,
+    });
+  } catch (err) {
+    console.error('Error fetching specific seller order:', err);
+    res.status(500).json({ message: 'Failed to fetch seller order details' });
+  }
+});
+
+
 module.exports = router;

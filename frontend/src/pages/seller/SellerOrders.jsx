@@ -1,43 +1,51 @@
+// ✅ Refactored SellerOrders.jsx
+
 import React, { useEffect, useState } from 'react';
-import api from '../../api/axios';
+import api from "../../api/axios";
 import { useAuth } from '../../contexts/AuthContect';
 import HeaderSeller from './HeaderSeller';
 import Message from '../message';
+import { useNavigate } from 'react-router-dom';
 
 const SellerOrders = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState({ message: "", type: "" });
+  const [message, setMessage] = useState({ message: '', type: '' });
+  const navigate = useNavigate();
 
   const showMessage = (msg, type) => {
     setMessage({ message: msg, type });
-    setTimeout(() => setMessage({ message: "", type: "" }), 2000);
+    setTimeout(() => setMessage({ message: '', type: '' }), 2000);
   };
 
   const fetchSellerOrders = async () => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) return showMessage("Unauthorized access", "failed");
+      const token = localStorage.getItem('token');
+      if (!token) return showMessage('Unauthorized access', 'failed');
 
       setLoading(true);
-      const res = await api.get("/orders/seller", {
+      const res = await api.get('/orders/seller', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
     } catch (err) {
-      console.error("Error fetching seller orders:", err);
-      showMessage("Failed to fetch seller orders", "failed");
+      console.error('Error fetching seller orders:', err);
+      showMessage('Failed to fetch seller orders', 'failed');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (user?.role === "seller") {
+    if (user?.role === 'seller') {
       fetchSellerOrders();
     }
   }, [user]);
+
+  const handleAction = (actionType, orderId, productId) => {
+    navigate(`/seller/order/${orderId}/${productId}/${actionType}`);
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -55,53 +63,59 @@ const SellerOrders = () => {
         ) : (
           <div className="overflow-x-auto rounded-md border">
             <table className="min-w-full divide-y divide-gray-200 text-sm">
-             <thead className="bg-gray-100">
-  <tr>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Photo</th>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Product</th>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Buyer</th>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Address</th>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Phone</th>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Payment</th>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Qty</th>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Total</th>
-    <th className="px-4 py-2 text-left font-semibold text-gray-700">Status</th>
-  </tr>
-</thead>
-<tbody className="bg-white divide-y divide-gray-100">
-  {orders.map((order) =>
-    order.products
-      ?.filter((item) => item.productId?.createdBy === user.id)
-      .map((item) => (
-        <tr key={`${order._id}-${item._id}`} className="hover:bg-gray-50">
-          <td className="px-4 py-2">
-            {item.productId?.photo ? (
-              <img
-  src={item.productId.photo}
-  alt={item.productId.name}
-                className="w-16 h-16 object-cover rounded shadow"
-              />
-            ) : (
-              <div className="w-16 h-16 bg-gray-300 rounded"></div>
-            )}
-          </td>
-          <td className="px-4 py-2">{item.productId?.name || "N/A"}</td>
-          <td className="px-4 py-2">{order.userId?.email || "Unknown"}</td>
-          <td className="px-4 py-2">{order.address || "No address"}</td>
-          <td className="px-4 py-2">{order.phone || "No phone"}</td>
-          <td className="px-4 py-2">{order.paymentMethod || "N/A"}</td>
-          <td className="px-4 py-2">{item.quantity}</td>
-          <td className="px-4 py-2">₱{(item.price * item.quantity).toFixed(2)}</td>
-          <td className="px-4 py-2">{order.status}</td>
-        </tr>
-      ))
-  )}
-</tbody>
+              <thead className="bg-gray-100">
+                <tr>
+                  <th>Photo</th><th>Product</th><th>Buyer</th><th>Address</th><th>Phone</th>
+                  <th>Payment</th><th>Qty</th><th>Total</th><th>Status</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-100">
+                {orders.map((order) =>
+                  order.products
+                    ?.filter((item) => item.productId?.createdBy === user.id)
+                    .map((item) => (
+                      <tr key={`${order._id}-${item._id}`} className="hover:bg-gray-50">
+                        <td>
+                          {item.productId?.photo ? (
+                            <img
+                              src={item.productId.photo}
+                              alt={item.productId.name}
+                              className="w-16 h-16 object-cover rounded"
+                            />
+                          ) : (
+                            <div className="w-16 h-16 bg-gray-300 rounded"></div>
+                          )}
+                        </td>
+                        <td>{item.productId?.name}</td>
+                        <td>{order.userId?.email}</td>
+                        <td>{order.address}</td>
+                        <td>{order.phone}</td>
+                        <td>{order.paymentMethod}</td>
+                        <td>{item.quantity}</td>
+                        <td>₱{(item.price * item.quantity).toFixed(2)}</td>
+                        <td>{order.status}</td>
+                        <td className="space-x-2">
+                          <button
+                            onClick={() => handleAction('print', order._id, item._id)}
+                            className="text-green-600 hover:underline"
+                          >
+                            Print
+                          </button>
+                          <button
+                            onClick={() => handleAction('pdf', order._id, item._id)}
+                            className="text-blue-600 hover:underline"
+                          >
+                            PDF
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                )}
+              </tbody>
             </table>
           </div>
         )}
 
-        {/* Toast / Notification */}
         {message.message && (
           <div className="flex justify-center mt-4">
             <Message message={message.message} type={message.type} />
