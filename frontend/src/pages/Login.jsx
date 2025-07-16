@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContect";
 import Message from "./message";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ onClose, onSwitchToSignup, showMessage }) => {
   const [step, setStep] = useState(1); // Step 1: credentials, Step 2: OTP
@@ -10,6 +11,8 @@ const Login = ({ onClose, onSwitchToSignup, showMessage }) => {
   const [message, setMessage] = useState({ message: "", type: "" });
 
   const { requestLoginOtp, verifyLoginOtp } = useAuth();
+
+    const navigate = useNavigate();
 
   const [cooldown, setCooldown] = useState(30);
 
@@ -43,10 +46,10 @@ useEffect(() => {
       showMessage("Login successful!", "success");
 
       setTimeout(() => {
-        if (user.role === "admin") window.location.href = "/admin";
-        else if (user.role === "user") window.location.href = "/user";
-        else if (user.role === "seller") window.location.href = "/seller";
-        else if (user.role === "affiliate") window.location.href = "/affiliate";
+        if (user.role === "admin") navigate("/admin");
+        else if (user.role === "user") navigate("/user");
+        else if (user.role === "seller") navigate("/seller");
+        else if (user.role === "affiliate") navigate("/affiliate");
         else showMessage("Unknown role", "failed");
       }, 1000);
     } catch (err) {
