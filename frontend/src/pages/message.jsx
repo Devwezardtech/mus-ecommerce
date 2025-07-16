@@ -1,24 +1,22 @@
-// components/Toast.js
 const Message = ({ message, type }) => {
-  const bgColor =
-    type === "success" 
-    type === "loading" 
+  let bgColor = "";
+  let textColor = "";
 
-    if (type === "success"){
-      "bg-green-400",
-      "text-white"
-    }
-    else if (type === "loading"){
-      "bg-white",
-      "text-black"
-    }
-    else {
-      "bg-red-200",
-      "text-white"
-    }
+  if (type === "success") {
+    bgColor = "bg-green-400";
+    textColor = "text-white";
+  } else if (type === "loading") {
+    bgColor = "bg-white";
+    textColor = "text-black";
+  } else {
+    bgColor = "bg-red-200";
+    textColor = "text-white";
+  }
 
   return (
-    <div className={`fixed top-20 z-50 ${bgColor} px-2 py-1 backdrop-blur rounded shadow-lg animate-fade`}>
+    <div
+      className={`fixed top-20 z-50 ${bgColor} ${textColor} px-4 py-2 rounded shadow-lg backdrop-blur-md animate-fade`}
+    >
       {message}
     </div>
   );

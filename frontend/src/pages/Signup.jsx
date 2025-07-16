@@ -1,133 +1,95 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContect";
-import { useNavigate } from "react-router-dom";
 import Message from "./message";
 
-const Signup = () => {
+const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
+  const { signup, isAdminExists } = useAuth();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
-  const { signup, isAdminExists } = useAuth();
-  const navigate = useNavigate();
+  const [message, setMessage] = useState({ message: "", type: "" });
 
-  const [message, setMessage] = useState({message: "", type: ""})
-
-  const handleBack = () => {
-    navigate("/login"); // Redirect to the login page
-  };
-
-  const showMessage = (msg, type) => {
-    setMessage({ message: msg, type });
-    setTimeout(() => {
-      setMessage({ message: "", type: "" });
-    }, 1000);
-  };
-/*
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      await signup(name, email, password, role);
-      showMessage("Signup successful! please log in.", "success")
-      setTimeout(()=>{
-        navigate("/");
-      }, 1000)
-    }
-    catch {
-      showMessage("Signup failed", "failed");
-    }
-    
-  };
-
-  */
-
- const handleSubmit = async (e) => {
-    e.preventDefault();
     try {
-      showMessage("Loading...", "success")
+      showMessage("Sending OTP...", "loading");
       const result = await signup(name, email, password, role);
-      showMessage("Signup successful! OTP sent.", "success");
-      setTimeout(() => {
-        navigate("/verify-otp", { state: { email: result.email } });
-      }, 1500);
+      showMessage("OTP sent to your email!", "success");
+      onOtpSuccess(email); // pass email to parent
     } catch (err) {
-      showMessage(err.message, "failed");
+      showMessage(err.message || "Signup failed", "failed");
     }
   };
 
-   
   return (
-     <div>
-      <div className="bg-gray-100 flex items-center justify-center">
-        <h1 className="text-3xl mt-16">LOGO</h1>
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+      <div className="bg-gray-200 p-6 rounded w-96 border shadow-md">
+        <div className="flex justify-end">
+          <button
+            onClick={onClose}
+            className="bg-gray-200 px-2 rounded hover:bg-gray-300 m-2 hover:text-white"
+          >
+            X
+          </button>
+        </div>
+        <h2 className="text-2xl text-black-600 py-4">Signup</h2>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="w-full px-4 py-2 border rounded"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            className="w-full px-4 py-2 border rounded"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            className="w-full px-4 py-2 border rounded"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <select
+            className="w-full px-4 py-2 border rounded"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="user">User</option>
+            {!isAdminExists && <option value="admin">Admin</option>}
+            <option value="seller">Seller</option>
+            <option value="affiliate">Affiliate</option>
+          </select>
+          <button
+            type="submit"
+            className="w-full py-2 bg-gray-400 text-white rounded hover:bg-gray-300"
+          >
+            Sign Up
+          </button>
+        </form>
+        <div className="flex justify-between items-center mt-4">
+          <span>Already have an account?</span>
+          <button
+            className="text-blue-600 hover:underline"
+            onClick={onSwitchToLogin}
+          >
+            Login
+          </button>
+        </div>
+        <div className="mt-2">
+          {message.message && <Message {...message} />}
+        </div>
       </div>
-     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div className="bg-gray-200 flex flex-col items-center p-6 rounded border border-gray-300 shadow-md w-96">
-      <h2 className="text-2xl py-8 text-black-600 ">Signup</h2>
-      <form className="flex flex-col space-y-4 w-full rounded text-black-200 justify-center items-center" onSubmit={handleSubmit}>
-
-        <input className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-300" 
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-300"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-300" 
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        
-        <button className="w-20 py-1 bg-gray-400 text-gray-200 rounded hover:text-black hover:bg-gray-300" type="submit">Signup</button>
-        
-      {/* show this modals if no exists admin 
-        {!isAdminExists && (
-  <select
-    className="text-sm bg-gray-100"
-    value={role}
-    onChange={(e) => setRole(e.target.value)}
-  >
-    <option value="user">User</option>
-    <option value="admin">Admin</option>
-  </select>
-)}
-  */}
-
-  <select
-  className="text-sm bg-gray-100"
-  value={role}
-  onChange={(e) => setRole(e.target.value)}
->
-  <option value="user">User</option>
-  {!isAdminExists && <option value="admin">Admin</option>}
-  <option value="seller">Seller</option>
-  <option value="affiliate">Affiliate</option>
-</select>
-
-
-        
-      </form>
-      <div className="flex items-center">
-        <h5>If you already have an account?</h5>
-        <button className="w-20 m-1 py-1 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 hover:text-white" onClick={handleBack} >login</button>
-
-      </div>
-      
-    </div>
-    </div>
-    <div className="flex justify-center item-center"> 
-    {message.message && <Message message={message.message} type={message.type} />}
-</div>
     </div>
   );
 };

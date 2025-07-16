@@ -17,7 +17,6 @@ import HeaderUser from "./layouts/headeruser";
 import FrontPage from "./pages/FrontPage";
 import HeaderFrontPage from "./layouts/headerfrontPage";
 //import Chat from "./pages/chat";
-import VerifyOTP from "./pages/VerifyOTP";
 import AffiliateDashboard from "./pages/AffiliateDashboard";
 import PublicProductMerged from "./pages/PublicProductMerged";
 import SellerProfile from "./pages/SellerProfile";
@@ -113,8 +112,7 @@ const App = () => {
       <Route path="headerfrontpage" element={<HeaderFrontPage />} />
      {/* <Route path="/chat" element={<Chat />} /> */}
      
-     
-    <Route path="/verify-otp" element={<VerifyOTP />} /> 
+      
     <Route path="/product/public/:id" element={<PublicProductMerged />} />
     <Route path="/seller/:id" element={<SellerProfile />} />
     <Route path="/profile" element={<AffiliateProfile />} />

@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContect";
 import Message from "./message";
 
-const Login = () => {
+const Login = ({ onClose, onSwitchToSignup, showMessage }) => {
   const [step, setStep] = useState(1); // Step 1: credentials, Step 2: OTP
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,163 +10,152 @@ const Login = () => {
   const [message, setMessage] = useState({ message: "", type: "" });
 
   const { requestLoginOtp, verifyLoginOtp } = useAuth();
-  const navigate = useNavigate();
 
-  const showMessage = (msg, type) => {
-    setMessage({ message: msg, type });
-    setTimeout(() => setMessage({ message: "", type: "" }), 2000);
-  };
+  const [cooldown, setCooldown] = useState(30);
 
-  const handleExit = () => {
-    showMessage("loading...", "loading");
-    setTimeout(() => navigate("/"), 1000);
-  };
+useEffect(() => {
+  if (step === 2 && cooldown > 0) {
+    const timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
+    return () => clearTimeout(timer);
+  }
+}, [step, cooldown]);
 
-  const handleBack = () => {
-    navigate("/signup");
-  };
 
-  // Step 1: Submit email + password
+  // Step 1: Email + Password → Send OTP
   const handleRequestOtp = async (e) => {
     e.preventDefault();
     try {
-      showMessage("Loading...", "success")
+      showMessage("Sending OTP...", "loading");
       await requestLoginOtp(email, password);
       showMessage("OTP sent to your email", "success");
       setStep(2);
-    } catch (error) {
-      showMessage(error.message, "failed");
+    } catch (err) {
+      showMessage(err.message || "Login failed", "failed");
     }
   };
 
-  // Step 2: Submit OTP
+  // Step 2: Enter OTP → Verify
   const handleVerifyOtp = async (e) => {
-  e.preventDefault();
-  try {
-    showMessage("Verifying OTP...", "loading");
-    const user = await verifyLoginOtp(email, otp);
+    e.preventDefault();
+    try {
+      showMessage("Verifying OTP...", "loading");
+      const user = await verifyLoginOtp(email, otp);
+      showMessage("Login successful!", "success");
 
-    setTimeout(() => {
-      if (user.role === "admin") navigate("/admin");
-      else if (user.role === "user") navigate("/user");
-      else if (user.role === "seller") navigate("/seller");
-      else if (user.role === "affiliate") navigate("/affiliate");
-      else showMessage("Unknown role", "failed");
-    }, 1000);
-  } catch (error) {
-    showMessage(error.message, "failed");
-  }
-};
-
+      setTimeout(() => {
+        if (user.role === "admin") window.location.href = "/admin";
+        else if (user.role === "user") window.location.href = "/user";
+        else if (user.role === "seller") window.location.href = "/seller";
+        else if (user.role === "affiliate") window.location.href = "/affiliate";
+        else showMessage("Unknown role", "failed");
+      }, 1000);
+    } catch (err) {
+      showMessage(err.message, "failed");
+    }
+  };
 
   return (
-    <div>
-      <div className="flex justify-end item-end p-8 bg-gray-100">
-        <button onClick={handleExit}>X</button>
-      </div>
-
-      <div className="bg-gray-100 flex items-center justify-center ">
-        <h1 className="text-3xl mt-2">LOGO</h1>
-      </div>
-
-      <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-        <div className="bg-gray-200 flex flex-col items-center p-6 rounded-lg border border-gray-300 shadow-md w-96">
-          <h2 className="text-2xl py-8 text-black-600 ">
-            {step === 1 ? "Login" : "Enter OTP"}
-          </h2>
-
-          {step === 1 ? (
-            <form
-              className="flex flex-col space-y-4 w-full justify-center items-center"
-              onSubmit={handleRequestOtp}
-            >
-              <input
-                className="w-full px-4 py-2 border rounded"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <input
-                className="w-full px-4 py-2 border rounded"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <button
-                className="w-20 py-1 bg-gray-400 text-white rounded hover:bg-gray-300"
-                type="submit"
-              >
-                Next
-              </button>
-              <div className="flex items-center mt-2">
-                <h5>You don’t have an account?</h5>
-                <button
-                  onClick={handleBack}
-                  className="w-20 m-1 py-1 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 hover:text-white"
-                >
-                  SignUp
-                </button>
-              </div>
-            </form>
-          ) : (
-            <form
-  className="flex flex-col space-y-4 w-full justify-center items-center"
-  onSubmit={handleVerifyOtp}
->
-  <input
-    className="w-full px-4 py-2 border rounded"
-    type="text"
-    placeholder="Enter OTP"
-    value={otp}
-    onChange={(e) => setOtp(e.target.value)}
-    required
-  />
-
-  <button
-    className="w-20 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-    type="submit"
-  >
-    Verify
-  </button>
-
-  {/* Resend OTP Button */}
-  <button
-    type="button"
-    className="text-sm text-blue-500 hover:underline"
-    onClick={async () => {
-      try {
-        showMessage("Resending OTP...", "loading");
-        await requestLoginOtp(email, password);
-        showMessage("OTP resent to your email", "success");
-      } catch (err) {
-        showMessage(err.message, "failed");
-      }
-    }}
-  >
-    Resend OTP
-  </button>
-
-  <button
-    type="button"
-    onClick={() => setStep(1)}
-    className="text-sm text-gray-500 hover:underline"
-  >
-    Back to Login
-  </button>
-</form>
-
-          )}
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+      <div className="bg-gray-200 p-6 rounded w-96 border shadow-md">
+        <div className="flex justify-end">
+          <button
+            onClick={onClose}
+            className="bg-gray-200 px-2 rounded hover:bg-gray-300 m-2 hover:text-white"
+          >
+            X
+          </button>
         </div>
-      </div>
+        <h2 className="text-2xl text-black-600 py-4">
+          {step === 1 ? "Login" : "Enter OTP"}
+        </h2>
 
-      {/* Message Box */}
-      <div className="flex justify-center items-center">
+        {step === 1 ? (
+          <form onSubmit={handleRequestOtp} className="space-y-4">
+            <input
+              className="w-full px-4 py-2 border rounded"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              className="w-full px-4 py-2 border rounded"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="w-full py-2 bg-gray-400 text-white rounded hover:bg-gray-300"
+            >
+              Next
+            </button>
+            <div className="flex justify-between items-center">
+              <span>Don’t have an account?</span>
+              <button
+                onClick={onSwitchToSignup}
+                className="text-blue-600 hover:underline"
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
+        ) : (
+          <form onSubmit={handleVerifyOtp} className="space-y-4">
+            <input
+              className="w-full px-4 py-2 border rounded"
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="w-full py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            >
+              Verify
+            </button>
+
+            <div className="flex flex-col gap-1 items-start text-sm">
+              <button
+  type="button"
+  disabled={cooldown > 0}
+  className={`${
+    cooldown > 0 ? "text-gray-400" : "text-blue-500 hover:underline"
+  }`}
+  onClick={async () => {
+    try {
+      showMessage("Resending OTP...", "loading");
+      await requestLoginOtp(email, password);
+      showMessage("OTP resent to your email", "success");
+      setCooldown(30); // Restart cooldown
+    } catch (err) {
+      showMessage(err.message || "Failed to resend OTP", "failed");
+    }
+  }}
+>
+  {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend OTP"}
+</button>
+
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                className="text-gray-500 hover:underline"
+              >
+                Back to Login
+              </button>
+            </div>
+          </form>
+        )}
+
         {message.message && (
-          <Message message={message.message} type={message.type} />
+          <div className="mt-4">
+            <Message message={message.message} type={message.type} />
+          </div>
         )}
       </div>
     </div>
