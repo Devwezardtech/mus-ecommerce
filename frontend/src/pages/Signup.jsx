@@ -46,7 +46,8 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
           />
           <input
             type="email"
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 placeholder:text-white"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white placeholder:text-white"
+            
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
