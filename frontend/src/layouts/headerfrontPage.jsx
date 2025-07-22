@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Message from '../pages/message';
 
 const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
@@ -19,30 +19,32 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
   };
 
   return (
-    <nav className="bg-gray-200 p-4 shadow-lg relative z-50">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Ecommerce Website</h1>
+    <nav 
+    className="
+    bg-gray-200 py-2 px-4 shadow-lg relative z-50 
+    sm:p-3 sm:px-8
+    md:p-4 md:px-16
+    ">
+      <div className="flex justify-between items-center font-bold">
+        <h1 className="text-xl sm:text-2xl font-bold">Ecommerce Website</h1>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex justify-center gap-8">
-          <Link className="font-bold bg-gray-300 p-2 rounded shadow-md">Home</Link>
-          <Link className="font-bold bg-gray-300 p-2 rounded shadow-md" onClick={handleOrder}>
+        <div className="hidden md:flex justify-end gap-8">
+          <Link className="hover:text-blue-500">Home</Link>
+          <Link className="hover:text-blue-500" onClick={handleOrder}>
             Orders
           </Link>
-        </div>
-
-        <div className="hidden md:flex gap-4">
-          <button onClick={openLoginModal} className="bg-gray-300 p-2 rounded shadow-md hover:bg-gray-400">
+          <button onClick={openLoginModal} className="hover:text-blue-500">
             Login
           </button>
-          <button onClick={openSignupModal} className="bg-gray-300 p-2 rounded shadow-md hover:bg-gray-400">
+          <button onClick={openSignupModal} className="hover:text-blue-500">
             Signup
           </button>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button onClick={() => setMenuOpen(true)} className="md:hidden rounded">
-          <h3 className="text-4xl">≡</h3>
+          <h3 className="text-2xl ">≡</h3>
         </button>
       </div>
 
@@ -53,19 +55,19 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
       {/* Top Section */}
       <div>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold">Menu</h2>
-          <button onClick={() => setMenuOpen(false)} className="text-2xl">✕</button>
+          <h2 className="text-lg font-bold">Menu</h2>
+          <button onClick={() => setMenuOpen(false)} className="text-xl hover:text-blue-500">✕</button>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <Link onClick={() => setMenuOpen(false)} className="text-gray-700 hover:underline">Home</Link>
-          <Link onClick={handleOrder} className="text-gray-700 hover:underline">Orders</Link>
+        <div className="flex flex-col text-lg gap-2">
+          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl">Home</Link>
+          <Link onClick={handleOrder} className="hover:text-blue-500 hover:text-xl">Orders</Link>
           <button
             onClick={() => {
               setMenuOpen(false);
               openLoginModal(true);
             }}
-            className="text-gray-700 hover:underline text-left"
+            className="hover:text-blue-500 hover:text-xl text-left"
           >
             Login
           </button>
@@ -74,7 +76,7 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
               setMenuOpen(false);
               openSignupModal(true);
             }}
-            className="text-gray-700 hover:underline text-left"
+            className="hover:text-blue-500 hover:text-xl text-left"
           >
             Signup
           </button>
