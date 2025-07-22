@@ -25,11 +25,11 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-      <div className="bg-gray-200 p-6 rounded w-96 border shadow-md">
+      <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl w-full max-w-sm mx-14 border border-white/30 shadow-lg">
         <div className="flex justify-end">
           <button
             onClick={onClose}
-            className="bg-gray-200 px-2 rounded hover:bg-gray-300 m-2 hover:text-white"
+            className="px-2 rounded hover:bg-white/20 text-white hover:text-black text-xl"
           >
             X
           </button>
@@ -38,7 +38,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
         <form className="space-y-4" onSubmit={handleSubmit}>
           <input
             type="text"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white placeholder:text-white"
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -46,7 +46,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
           />
           <input
             type="email"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 placeholder:text-white"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -54,28 +54,36 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
           />
           <input
             type="password"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white placeholder:text-white"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <select
-            className="w-full px-4 py-2 border rounded"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="user">User</option>
-            {!isAdminExists && <option value="admin">Admin</option>}
-            <option value="seller">Seller</option>
-            <option value="affiliate">Affiliate</option>
-          </select>
-          <button
+         <label htmlFor="role" className="block mb-1 text-sm font-medium text-gray-700">
+  Select Role
+</label>
+<select
+  id="role"
+  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 placeholder:text-white"
+  value={role}
+  onChange={(e) => setRole(e.target.value)}
+>
+  <option value="user">User</option>
+  {!isAdminExists && <option value="admin">Admin</option>}
+  <option value="seller">Seller</option>
+  <option value="affiliate">Affiliate</option>
+</select>
+
+         <div className="flex justify-center mt-4">
+           <button
             type="submit"
-            className="w-full py-2 bg-gray-400 text-white rounded hover:bg-gray-300"
+            className="w-20 py-2 bg-gray-500 text-white rounded hover:bg-blue-400"
           >
             Sign Up
           </button>
+          </div>
+          
         </form>
         <div className="flex justify-between items-center mt-4">
           <span>Already have an account?</span>

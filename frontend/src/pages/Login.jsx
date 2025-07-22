@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContect";
 import Message from "./message";
-import { useNavigate } from "react-router-dom";
 
 const Login = ({ onClose, onSwitchToSignup, showMessage }) => {
   const [step, setStep] = useState(1); // Step 1: credentials, Step 2: OTP
@@ -11,8 +10,6 @@ const Login = ({ onClose, onSwitchToSignup, showMessage }) => {
   const [message, setMessage] = useState({ message: "", type: "" });
 
   const { requestLoginOtp, verifyLoginOtp } = useAuth();
-
-    const navigate = useNavigate();
 
   const [cooldown, setCooldown] = useState(30);
 
@@ -46,10 +43,10 @@ useEffect(() => {
       showMessage("Login successful!", "success");
 
       setTimeout(() => {
-        if (user.role === "admin") navigate("/admin");
-        else if (user.role === "user") navigate("/user");
-        else if (user.role === "seller") navigate("/seller");
-        else if (user.role === "affiliate") navigate("/affiliate");
+        if (user.role === "admin") window.location.href = "/admin";
+        else if (user.role === "user") window.location.href = "/user";
+        else if (user.role === "seller") window.location.href = "/seller";
+        else if (user.role === "affiliate") window.location.href = "/affiliate";
         else showMessage("Unknown role", "failed");
       }, 1000);
     } catch (err) {
@@ -58,12 +55,12 @@ useEffect(() => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-      <div className="bg-gray-200 p-6 rounded w-96 border shadow-md">
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 ">
+      <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl w-full max-w-sm mx-14 border border-white/30 shadow-lg">
         <div className="flex justify-end">
           <button
             onClick={onClose}
-            className="bg-gray-200 px-2 rounded hover:bg-gray-300 m-2 hover:text-white"
+            className="px-2 rounded hover:bg-white/20 text-white hover:text-black text-xl"
           >
             X
           </button>
@@ -75,7 +72,7 @@ useEffect(() => {
         {step === 1 ? (
           <form onSubmit={handleRequestOtp} className="space-y-4">
             <input
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white placeholder:text-white"
               type="email"
               placeholder="Email"
               value={email}
@@ -83,19 +80,22 @@ useEffect(() => {
               required
             />
             <input
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white placeholder:text-white"
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <button
+            <div className="flex justify-center">
+              <button
               type="submit"
-              className="w-full py-2 bg-gray-400 text-white rounded hover:bg-gray-300"
+              className="w-20 py-2 bg-gray-500 text-white rounded hover:bg-blue-400"
             >
-              Next
+              Login
             </button>
+            </div>
+            
             <div className="flex justify-between items-center">
               <span>Don’t have an account?</span>
               <button
