@@ -3,7 +3,7 @@ import api from "../api/axios"; // Centralized Axios instance
 import { useNavigate } from "react-router-dom";
 import HeaderFrontPage from "../layouts/headerfrontPage";
 import Message from "./message";
-import VerifyOtpModal from "./VerifyOtpModal";
+import VerifyOtpModal from "./verifyOtpModal";
 import Login from "./Login";
 import Signup from "./Signup";  
 
