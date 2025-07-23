@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 //import { FaFacebookF, FaTwitter, FaInstagram, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
@@ -30,7 +30,6 @@ const Footer = () => {
     <footer className="bg-gray-100 text-black w-full">
       <div className="max-w-6xl mx-auto px-4 py-10 flex flex-col gap-10">
         
-        {/* Top: Branding + Social */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">
             <h1 className="text-2xl font-bold">MyStore</h1>
@@ -47,7 +46,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom: Links + Copyright */}
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 border-t border-gray-700 pt-6">
           <div className="text-center text-green-900 md:text-right">
             &copy; {currentYear} MyStore. All rights reserved.
@@ -59,3 +57,4 @@ const Footer = () => {
 };
 
 export default Footer;
+*/
