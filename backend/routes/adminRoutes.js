@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getSalesStats, getWeeklyStats, getCategoryStats, getTodayRevenueBreakdown } = require('../controllers/adminController');
+const adminController = require('../controllers/adminController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
-router.get('/sales-stats', protect, isAdmin, getSalesStats);
-router.get('/weekly-revenue', protect, isAdmin, getWeeklyStats);
-router.get('/category-stats', protect, isAdmin, getCategoryStats);
-router.get('/today-revenue-breakdown', protect, isAdmin, getTodayRevenueBreakdown);
-
-
+// Use middleware + renamed controller functions
+router.get('/sales-stats', protect, isAdmin, adminController.SalesStats);
+router.get('/weekly-revenue', protect, isAdmin, adminController.WeeklyStats);
+router.get('/category-stats', protect, isAdmin, adminController.CategoryStats);
+router.get('/today-revenue-breakdown', protect, isAdmin, adminController.TodayRevenueBreakdown);
 
 module.exports = router;

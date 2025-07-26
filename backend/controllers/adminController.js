@@ -1,7 +1,7 @@
 const Order = require('../models/Order');
 
 // 1. Total sales revenue
-const getSalesStats = async (req, res) => {
+const SalesStats = async (req, res) => {
   try {
     const result = await Order.aggregate([
       { $match: { totalAmount: { $exists: true } } },
@@ -25,7 +25,7 @@ const getSalesStats = async (req, res) => {
 };
 
 // 2. Weekly revenue
-const getWeeklyStats = async (req, res) => {
+const WeeklyStats = async (req, res) => {
   try {
     const last7Days = new Date();
     last7Days.setDate(last7Days.getDate() - 6); // Last 7 days including today
@@ -50,7 +50,7 @@ const getWeeklyStats = async (req, res) => {
 };
 
 // 3. Category stats
-const getCategoryStats = async (req, res) => {
+const CategoryStats = async (req, res) => {
   try {
     const result = await Order.aggregate([
       { $match: { "orderItems.0": { $exists: true } } },
@@ -73,7 +73,7 @@ const getCategoryStats = async (req, res) => {
 };
 
 // 4. Today’s revenue breakdown by hour
-const getTodayRevenueBreakdown = async (req, res) => {
+const TodayRevenueBreakdown = async (req, res) => {
   try {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
@@ -105,8 +105,8 @@ const getTodayRevenueBreakdown = async (req, res) => {
 };
 
 module.exports = {
-  getSalesStats,
-  getWeeklyStats,
-  getCategoryStats,
-  getTodayRevenueBreakdown,
+  SalesStats,
+  WeeklyStats,
+  CategoryStats,
+  TodayRevenueBreakdown,
 };
