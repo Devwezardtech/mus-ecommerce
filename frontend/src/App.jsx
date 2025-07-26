@@ -17,7 +17,7 @@ import HeaderUser from "./layouts/headeruser";
 import FrontPage from "./pages/FrontPage";
 import HeaderFrontPage from "./layouts/headerfrontPage";
 //import Chat from "./pages/chat";
-import SellerDashboard from "./pages/SellerDashboard";
+import SellerDashboard from "./pages/seller/SellerDashboard";
 import AffiliateDashboard from "./pages/AffiliateDashboard";
 import PublicProductMerged from "./pages/PublicProductMerged";
 import SellerProfile from "./pages/SellerProfile";
