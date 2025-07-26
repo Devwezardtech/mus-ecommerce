@@ -3,10 +3,17 @@ const router = express.Router();
 const adminController = require('../controllers/adminController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
-// Admin-only stats routes
-router.get('/sales-stats', protect, isAdmin, adminController.SalesStats);
-router.get('/weekly-revenue', protect, isAdmin, adminController.WeeklyStats);
-router.get('/category-stats', protect, isAdmin, adminController.CategoryStats);
-router.get('/today-revenue-breakdown', protect, isAdmin, adminController.TodayRevenueBreakdown);
+// Define route path and method name mappings
+const routes = [
+  { path: '/sales-stats', method: 'SalesStats' },
+  { path: '/weekly-revenue', method: 'WeeklyStats' },
+  { path: '/category-stats', method: 'CategoryStats' },
+  { path: '/today-revenue-breakdown', method: 'TodayRevenueBreakdown' }
+];
+
+// Register routes dynamically
+routes.forEach(route => {
+  router.get(route.path, protect, isAdmin, adminController[route.method]);
+});
 
 module.exports = router;

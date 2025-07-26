@@ -1,5 +1,11 @@
 const Order = require('../models/Order');
 
+// Helper for error response
+const handleError = (res, error, label) => {
+  console.error(`${label} error:`, error);
+  res.status(500).json({ message: `Server Error: ${label}` });
+};
+
 // 1. Total Sales Revenue and Order Count
 const SalesStats = async (req, res) => {
   try {
@@ -14,24 +20,26 @@ const SalesStats = async (req, res) => {
       }
     ]);
 
-    const totalRevenue = result[0]?.totalRevenue || 0;
-    const totalOrders = result[0]?.totalOrders || 0;
-
+    const { totalRevenue = 0, totalOrders = 0 } = result[0] || {};
     res.json({ totalRevenue, totalOrders });
   } catch (error) {
-    console.error('SalesStats error:', error);
-    res.status(500).json({ message: 'Server Error: SalesStats' });
+    handleError(res, error, 'SalesStats');
   }
 };
 
-// 2. Weekly Revenue Breakdown
+// 2. Weekly Revenue Breakdown (last 7 days)
 const WeeklyStats = async (req, res) => {
   try {
     const last7Days = new Date();
     last7Days.setDate(last7Days.getDate() - 6);
 
     const result = await Order.aggregate([
-      { $match: { createdAt: { $gte: last7Days }, totalAmount: { $exists: true } } },
+      {
+        $match: {
+          createdAt: { $gte: last7Days },
+          totalAmount: { $exists: true }
+        }
+      },
       {
         $group: {
           _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
@@ -44,8 +52,7 @@ const WeeklyStats = async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    console.error('WeeklyStats error:', error);
-    res.status(500).json({ message: 'Server Error: WeeklyStats' });
+    handleError(res, error, 'WeeklyStats');
   }
 };
 
@@ -67,8 +74,7 @@ const CategoryStats = async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    console.error('CategoryStats error:', error);
-    res.status(500).json({ message: 'Server Error: CategoryStats' });
+    handleError(res, error, 'CategoryStats');
   }
 };
 
@@ -79,7 +85,12 @@ const TodayRevenueBreakdown = async (req, res) => {
     startOfDay.setHours(0, 0, 0, 0);
 
     const result = await Order.aggregate([
-      { $match: { createdAt: { $gte: startOfDay }, totalAmount: { $exists: true } } },
+      {
+        $match: {
+          createdAt: { $gte: startOfDay },
+          totalAmount: { $exists: true }
+        }
+      },
       {
         $group: {
           _id: { $hour: "$createdAt" },
@@ -98,8 +109,7 @@ const TodayRevenueBreakdown = async (req, res) => {
 
     res.json(formatted);
   } catch (error) {
-    console.error('TodayRevenueBreakdown error:', error);
-    res.status(500).json({ message: 'Server Error: TodayRevenueBreakdown' });
+    handleError(res, error, 'TodayRevenueBreakdown');
   }
 };
 
