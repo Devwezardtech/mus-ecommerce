@@ -1,6 +1,6 @@
 const Order = require('../models/Order');
 
-// 1. Total sales revenue
+// 1. Total Sales Revenue and Order Count
 const SalesStats = async (req, res) => {
   try {
     const result = await Order.aggregate([
@@ -19,16 +19,16 @@ const SalesStats = async (req, res) => {
 
     res.json({ totalRevenue, totalOrders });
   } catch (error) {
-    console.error('getSalesStats error:', error);
-    res.status(500).json({ message: 'Server Error: getSalesStats' });
+    console.error('SalesStats error:', error);
+    res.status(500).json({ message: 'Server Error: SalesStats' });
   }
 };
 
-// 2. Weekly revenue
+// 2. Weekly Revenue Breakdown
 const WeeklyStats = async (req, res) => {
   try {
     const last7Days = new Date();
-    last7Days.setDate(last7Days.getDate() - 6); // Last 7 days including today
+    last7Days.setDate(last7Days.getDate() - 6);
 
     const result = await Order.aggregate([
       { $match: { createdAt: { $gte: last7Days }, totalAmount: { $exists: true } } },
@@ -44,12 +44,12 @@ const WeeklyStats = async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    console.error('getWeeklyStats error:', error);
-    res.status(500).json({ message: 'Server Error: getWeeklyStats' });
+    console.error('WeeklyStats error:', error);
+    res.status(500).json({ message: 'Server Error: WeeklyStats' });
   }
 };
 
-// 3. Category stats
+// 3. Sales per Category
 const CategoryStats = async (req, res) => {
   try {
     const result = await Order.aggregate([
@@ -67,12 +67,12 @@ const CategoryStats = async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    console.error('getCategoryStats error:', error);
-    res.status(500).json({ message: 'Server Error: getCategoryStats' });
+    console.error('CategoryStats error:', error);
+    res.status(500).json({ message: 'Server Error: CategoryStats' });
   }
 };
 
-// 4. Today’s revenue breakdown by hour
+// 4. Today's Hourly Revenue Breakdown
 const TodayRevenueBreakdown = async (req, res) => {
   try {
     const startOfDay = new Date();
@@ -90,7 +90,6 @@ const TodayRevenueBreakdown = async (req, res) => {
       { $sort: { _id: 1 } }
     ]);
 
-    // Convert to readable format (hour labels)
     const formatted = result.map(item => ({
       hour: `${item._id}:00`,
       totalRevenue: item.totalRevenue,
@@ -99,8 +98,8 @@ const TodayRevenueBreakdown = async (req, res) => {
 
     res.json(formatted);
   } catch (error) {
-    console.error('getTodayRevenueBreakdown error:', error);
-    res.status(500).json({ message: 'Server Error: getTodayRevenueBreakdown' });
+    console.error('TodayRevenueBreakdown error:', error);
+    res.status(500).json({ message: 'Server Error: TodayRevenueBreakdown' });
   }
 };
 

@@ -3,7 +3,7 @@ const router = express.Router();
 const adminController = require('../controllers/adminController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
-// Use middleware + renamed controller functions
+// Admin-only stats routes
 router.get('/sales-stats', protect, isAdmin, adminController.SalesStats);
 router.get('/weekly-revenue', protect, isAdmin, adminController.WeeklyStats);
 router.get('/category-stats', protect, isAdmin, adminController.CategoryStats);
