@@ -1,83 +1,106 @@
 const Order = require('../models/Order');
 
+// 1. Total sales revenue
 const getSalesStats = async (req, res) => {
   try {
-    const monthlySales = await Order.aggregate([
+    const result = await Order.aggregate([
+      { $match: { totalAmount: { $exists: true } } },
       {
         $group: {
-          _id: { $month: '$createdAt' },
-          totalRevenue: { $sum: '$totalAmount' }, // FIXED
+          _id: null,
+          totalRevenue: { $sum: "$totalAmount" },
           totalOrders: { $sum: 1 }
         }
-      },
-      { $sort: { _id: 1 } }
+      }
     ]);
-    res.json(monthlySales);
+
+    const totalRevenue = result[0]?.totalRevenue || 0;
+    const totalOrders = result[0]?.totalOrders || 0;
+
+    res.json({ totalRevenue, totalOrders });
   } catch (error) {
-    res.status(500).json({ message: 'Error generating stats' });
+    console.error('getSalesStats error:', error);
+    res.status(500).json({ message: 'Server Error: getSalesStats' });
   }
 };
 
+// 2. Weekly revenue
 const getWeeklyStats = async (req, res) => {
   try {
-    const stats = await Order.aggregate([
+    const last7Days = new Date();
+    last7Days.setDate(last7Days.getDate() - 6); // Last 7 days including today
+
+    const result = await Order.aggregate([
+      { $match: { createdAt: { $gte: last7Days }, totalAmount: { $exists: true } } },
       {
         $group: {
-          _id: { $isoWeek: '$createdAt' },
-          totalRevenue: { $sum: '$totalAmount' }, // FIXED
-          totalOrders: { $sum: 1 }
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          totalRevenue: { $sum: "$totalAmount" },
+          orders: { $sum: 1 }
         }
       },
       { $sort: { _id: 1 } }
     ]);
-    res.json(stats);
+
+    res.json(result);
   } catch (error) {
-    res.status(500).json({ message: 'Error getting weekly stats' });
+    console.error('getWeeklyStats error:', error);
+    res.status(500).json({ message: 'Server Error: getWeeklyStats' });
   }
 };
 
+// 3. Category stats
 const getCategoryStats = async (req, res) => {
   try {
-    const stats = await Order.aggregate([
-      { $unwind: '$products' }, // FIXED
+    const result = await Order.aggregate([
+      { $match: { "orderItems.0": { $exists: true } } },
+      { $unwind: "$orderItems" },
       {
         $group: {
-          _id: '$products.category', // Requires `category` inside order products
-          total: { $sum: 1 }
+          _id: "$orderItems.category",
+          totalSales: { $sum: "$orderItems.price" },
+          totalQuantity: { $sum: "$orderItems.quantity" }
         }
       },
-      { $sort: { total: -1 } }
+      { $sort: { totalSales: -1 } }
     ]);
-    res.json(stats);
+
+    res.json(result);
   } catch (error) {
-    res.status(500).json({ message: 'Error getting category stats' });
+    console.error('getCategoryStats error:', error);
+    res.status(500).json({ message: 'Server Error: getCategoryStats' });
   }
 };
 
+// 4. Today’s revenue breakdown by hour
 const getTodayRevenueBreakdown = async (req, res) => {
   try {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
 
-    const endOfDay = new Date();
-    endOfDay.setHours(23, 59, 59, 999);
+    const result = await Order.aggregate([
+      { $match: { createdAt: { $gte: startOfDay }, totalAmount: { $exists: true } } },
+      {
+        $group: {
+          _id: { $hour: "$createdAt" },
+          totalRevenue: { $sum: "$totalAmount" },
+          orderCount: { $sum: 1 }
+        }
+      },
+      { $sort: { _id: 1 } }
+    ]);
 
-    const orders = await Order.find({
-      paidAt: { $gte: startOfDay, $lte: endOfDay }
-    });
+    // Convert to readable format (hour labels)
+    const formatted = result.map(item => ({
+      hour: `${item._id}:00`,
+      totalRevenue: item.totalRevenue,
+      orderCount: item.orderCount
+    }));
 
-    const todayRevenue = orders.reduce((sum, order) => sum + order.totalAmount, 0); // FIXED
-
-    const breakdown = new Array(24).fill(0);
-    orders.forEach((order) => {
-      const hour = new Date(order.paidAt).getHours();
-      breakdown[hour] += order.totalAmount; // FIXED
-    });
-
-    res.json({ todayRevenue, breakdown });
-  } catch (err) {
-    console.error('Error in getTodayRevenueBreakdown:', err);
-    res.status(500).json({ message: 'Server error' });
+    res.json(formatted);
+  } catch (error) {
+    console.error('getTodayRevenueBreakdown error:', error);
+    res.status(500).json({ message: 'Server Error: getTodayRevenueBreakdown' });
   }
 };
 
