@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom"; //temporary use HashRouter for testing, from browserRouter change to HashRouter
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContect";
 import ProtectedRoute from "./components/ProtectRoute";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -17,6 +17,7 @@ import HeaderUser from "./layouts/headeruser";
 import FrontPage from "./pages/FrontPage";
 import HeaderFrontPage from "./layouts/headerfrontPage";
 //import Chat from "./pages/chat";
+import SellerDashboard from "./pages/SellerDashboard";
 import AffiliateDashboard from "./pages/AffiliateDashboard";
 import PublicProductMerged from "./pages/PublicProductMerged";
 import SellerProfile from "./pages/SellerProfile";
@@ -29,10 +30,11 @@ import SellerOrders from "./pages/seller/SellerOrders";
 import AffiliateOrders from "./pages/affiliate/AffiliateOrders";
 import AffiliateProducts from "./pages/affiliate/AffiliateProducts";
 import AffiliateWithdrawable from "./pages/affiliate/AffiliateWithdrawable";
-import SellerDashboard from "./pages/seller/SellerDashboard";
-import PDFShipment from "./pages/seller/PDFShipment";
+import ShippingSlip from "./components/shipment/ShippingSlip";
 import PrintShipment from "./pages/seller/PrintShipment";
-
+import PDFShipment from "./pages/seller/PDFShipment";
+import AdminStrats from "./pages/admin/AdminStrats"
+import AllUsers from "./pages/admin/AllUsers"
 
 
 
@@ -51,16 +53,17 @@ const App = () => {
   return (
   <AuthProvider>
 
-  <HashRouter>  {/* Using HashRouter fixes 404 on Render from browserRouter change to HashRouter*/}
+  <BrowserRouter>
     <Routes>
       <Route path="/" element={<FrontPage/>} />
       <Route path="/login" element={<Login />} />
       <Route path="*" element={<Unauthorized />} />
       <Route
-        path="/admin"
+        path="/admin/stats"
         element={
           <ProtectedRoute role="admin">
-            <AdminDashboard />
+            <AdminStrats />
+            
          </ProtectedRoute>
         }
       />
@@ -112,36 +115,26 @@ const App = () => {
       <Route path="headerfrontpage" element={<HeaderFrontPage />} />
      {/* <Route path="/chat" element={<Chat />} /> */}
      
-      
+     
     <Route path="/product/public/:id" element={<PublicProductMerged />} />
     <Route path="/seller/:id" element={<SellerProfile />} />
     <Route path="/profile" element={<AffiliateProfile />} />
     <Route path="/affiliate/showcase" element={<AffiliateShowcase />} />
     <Route path="/seller/profile" element={<SellerProfileMain />} />
     <Route path="/seller/orders" element={<SellerOrders />} />
-    <Route
-  path="/seller/order/:orderId/:itemId/pdf"
-  element={
-    <ProtectedRoute role="seller">
-      <PDFShipment />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/seller/order/:orderId/:itemId/print"
-  element={
-    <ProtectedRoute role="seller">
-      <PrintShipment />
-    </ProtectedRoute>
-  }
-/>
     <Route path="/affiliateproduct" element={<AffiliateProducts />} />
     <Route path="/affiliate/withdraw" element={<AffiliateWithdrawable />} />
+    <Route path="/seller/shippingslip" element ={<ShippingSlip />} />
+    <Route path="/seller/order/:orderId/:itemId/print" element={<PrintShipment />} />
+<Route path="/seller/order/:orderId/:itemId/pdf" element={<PDFShipment />} />
+<Route path="/admin" element={<AdminDashboard />} />
+<Route path="/admin/Allusers" element={<AllUsers />} />
+
 
     
 
     </Routes>
-  </HashRouter>
+  </BrowserRouter>
 </AuthProvider>
 
 )

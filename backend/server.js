@@ -12,6 +12,8 @@ const cartRoutes = require("./routes/cart");
 const paymentRoutes = require("./routes/paymentRoutes");
 const affiliateRoutes = require("./routes/affiliate");
 const stripeRoutes = require('./routes/stripe');
+const adminRoutes = require('./routes/adminRoutes');
+
 
 const app = express();
 
@@ -33,6 +35,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
 app.use("/api/stripe", stripeRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Serve static frontend
 const staticPath = path.join(__dirname, "../frontend/dist");

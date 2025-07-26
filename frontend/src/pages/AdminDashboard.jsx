@@ -3,6 +3,7 @@ import api from "../api/axios";
 import HeaderAdmin from "../layouts/headeradmin";
 import Message from "./message";
 
+
 const AdminDashboard = () => {
   const [newProducts, setNewProducts] = useState({ name: "", description: "", price: "", image: null,});
   const [photo, setPhoto] = useState(null);
@@ -92,7 +93,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
 
       const method = editingProductId ? "put" : "post";
 
-      await api[method](url, formData, {
+      await axios[method](url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -166,7 +167,7 @@ const handleCancel = () => {
       try {
       const token = localStorage.getItem("token");
 
-      await api.delete(`/products/${deleteId}`, {
+       await api.delete(`/products/${deleteId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -210,75 +211,7 @@ const handleCancel = () => {
      
 
     <div className="bg-white-200 flex flex-col items-center justify-center p-4" >
-
-      {create && (
-  <div className="fixed inset-0 flex items-center flex-col justify-center bg-opacity-40 z-50">
-    <div className="bg-gray-200 p-4 rounded-lg m-20">
-       <div className="justify-center item-center flex m-2 justify-between">
-        <div>
-     <h2 className="font-semibold ">{editingProductId ? "Edit Product" : "Create Product"}</h2>
-     </div>
-     <button className="w-5 rounded text-white bg-gray-400 hover:bg-gray-200 hover:text-black" onClick={handleCancel}>X</button>
-   </div>
-
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 mb-6 ">
-      <input
-        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        type="text" maxLength={15} //length of text
-        placeholder="  Name"
-        value={newProducts.name}
-        onChange={(e) => setNewProducts({ ...newProducts, name: e.target.value })}
-      />
-      <input
-        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        type="text" maxLength={20} //length of text
-        placeholder="  Description"
-        value={newProducts.description}
-        onChange={(e) => setNewProducts({ ...newProducts, description: e.target.value })}
-      />
-      <input
-       className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        type="number"
-        placeholder="  Price"
-        value={newProducts.price}
-        onChange={(e) => setNewProducts({ ...newProducts, price: e.target.value })}
-      />
-      <input 
-      type="file" accept="image/*" onChange={handleImageChange} />
-      <div className="flex m-4 justify-center item-center">
-        {preview && (
-  <img 
-    className="rounded max-w-md shadow-lg w-60 hover:shadow-sm"
-    src={preview} 
-    alt="Preview" 
-  />
-)}
-        </div>
-      
-      <div className="justify-center text-center item-center">
-        <button type="submit" className=" w-40 bg-gray-500 hover:text-black text-white px-4 py-2 rounded hover:bg-gray-400">
-        {editingProductId ? "Update" : "Create"}
-       
-      </button>
-      </div>
-      
-    </form>
-    </div>
-  
-  </div>
-)}
-
-
-      <div className="flex items-center justify-center max-w-4xl p-6 pt-20 lg:pt-20 ">
-         <h2 className="text-2xl font-bold mb-4">All Products</h2> 
-       <button
-  onClick={() => setCreate(!create)}
-  className="mb-4 mx-8 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-300 hover:text-black"
->
-  {create ? "Cancel" : "Add New Product"}
-</button>
-
-      </div>
+      <div className="w-full max-w-5xl mt-14 sm:mt-16 md:mt-20 lg:mt-20">
 
 
 {products.length === 0 ? (
@@ -346,12 +279,6 @@ const handleCancel = () => {
             <td className="px-4 py-2 font-semibold">₱{product.price}</td>
             <td className="px-4 py-2 text-right space-x-2">
               <button
-                onClick={() => handleEdit(product)}
-                className="px-3 py-1 bg-gray-500 text-white rounded w-16 my-1 hover:bg-gray-300 hover:text-black"
-              >
-                Edit
-              </button>
-              <button
                 onClick={() => handleDelete(product._id)}
                 className="px-3 py-1 bg-gray-500 text-white rounded w-16 hover:bg-gray-300 hover:text-black"
               >
@@ -364,53 +291,13 @@ const handleCancel = () => {
     </table>
   </div>
 )}
-
-<div className="flex gap-2 my-4 justify-center">
-  {["users", "sellers", "affiliates"].map((role) => (
-    <button
-      key={role}
-      onClick={() => setSelectedTab(role)}
-      className={`px-4 py-2 rounded ${
-        selectedTab === role ? "bg-gray-700 text-white" : "bg-gray-300 text-black"
-      }`}
-    >
-      {role.charAt(0).toUpperCase() + role.slice(1)}
-    </button>
-  ))}
-</div>
-
-{allUsers[selectedTab].length === 0 ? (
-  <p className="text-center text-gray-500">No {selectedTab} found.</p>
-) : (
-  <div className="overflow-x-auto rounded-lg border mb-6">
-    <table className="min-w-full divide-y divide-gray-200 text-sm">
-      <thead className="bg-gray-100">
-        <tr>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Name</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Email</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Role</th>
-        </tr>
-      </thead>
-      <tbody className="bg-white divide-y divide-gray-100">
-        {allUsers[selectedTab].map((user) => (
-          <tr key={user._id} className="hover:bg-gray-50">
-            <td className="px-4 py-2">{user.name}</td>
-            <td className="px-4 py-2">{user.email}</td>
-            <td className="px-4 py-2 capitalize">{user.role}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-)}
-
-
     </div>
 
     {/* show message */}
     <div className="flex justify-center item-center"> 
     {message.message && <Message message={message.message} type={message.type} />}
 </div>
+     </div>
      </div>
   );
 };

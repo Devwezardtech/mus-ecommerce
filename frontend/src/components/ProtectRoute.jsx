@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContect";
 const ProtectedRoute = ({ children, role }) => {
   const { user, loading } = useAuth();
 
-  if (loading) return <div>Loading...</div>; // ⏳ Wait for auth to restore
+  if (loading) return <div>Loading...</div>; // Wait for auth to restore
 
   if (!user) return <Navigate to="/" replace />;
   
