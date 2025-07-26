@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
-import SalesChart from '../../components/charts/SalesChart'
-import WeeklyLineChart from '../../components/charts/WeeklyLineChart';
-import CategoryPieChart from '../../components/charts/CategoryPieChart';
+import SalesChart from '../../components/chart/SalesChart'
+import WeeklyLineChart from '../../components/chart/WeeklyLineChart';
+import CategoryPieChart from '../../components/chart/CategoryPieChart';
 import HeaderAdmin from '../../layouts/headeradmin'
-import TodayRevenueChart from "../../components/charts/TodayRevenueChart";
+import TodayRevenueChart from "../../components/chart/TodayRevenueChart";
 
 const AdminStrats = () => {
 return (
