@@ -3,8 +3,7 @@ const router = express.Router();
 const adminController = require('../controllers/adminControllers');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
-//DEBUG: Log available keys from adminController
-console.log('Available adminController keys:', Object.keys(adminController));
+console.log("Available adminController keys:", Object.keys(adminController));
 
 // Define route path and controller method name
 const routes = [
@@ -19,11 +18,11 @@ routes.forEach(({ path, method }) => {
   const handler = adminController[method];
 
   if (typeof handler !== 'function') {
-    console.error(`Route "${path}" skipped: Method "${method}" not found in adminController`);
-    return; // Skip route if handler is missing
+    console.error(`❌ Route "${path}" skipped: Method "${method}" not found or not a function in adminController`);
+    return;
   }
 
-  console.log(`Route registered: [GET] ${path} -> adminController.${method}`);
+  console.log(`✅ Route registered: [GET] ${path} -> adminController.${method}`);
   router.get(path, protect, isAdmin, handler);
 });
 

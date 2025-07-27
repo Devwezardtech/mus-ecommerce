@@ -118,5 +118,6 @@ module.exports = {
   SalesStats,
   WeeklyStats,
   CategoryStats,
-  TodayRevenueBreakdown
+  TodayRevenueBreakdown,
 };
+
