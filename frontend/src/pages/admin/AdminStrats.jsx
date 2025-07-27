@@ -1,6 +1,5 @@
 import SalesChart from '../../components/chart/SalesChart'
 import WeeklyLineChart from '../../components/chart/WeeklyLineChart';
-import CategoryPieChart from '../../components/chart/CategoryPieChart';
 import HeaderAdmin from '../../layouts/headeradmin'
 import TodayRevenueChart from "../../components/chart/TodayRevenueChart";
 
@@ -19,9 +18,6 @@ return (
          </div>
          <div className="mb-8">
             <WeeklyLineChart />
-         </div>
-         <div className="mb-8">
-            <CategoryPieChart />
          </div>
          
          

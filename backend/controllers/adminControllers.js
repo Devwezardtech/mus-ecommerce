@@ -57,28 +57,6 @@ const WeeklyStats = async (req, res) => {
   }
 };
 
-// 3. Sales per Product Category
-const CategoryStats = async (req, res) => {
-  try {
-    const stats = await Order.aggregate([
-      { $match: { "orderItems.0": { $exists: true } } },
-      { $unwind: "$orderItems" },
-      {
-        $group: {
-          _id: "$orderItems.category",
-          totalSales: { $sum: "$orderItems.price" },
-          totalQuantity: { $sum: "$orderItems.quantity" }
-        }
-      },
-      { $sort: { totalSales: -1 } }
-    ]);
-
-    res.json(stats);
-  } catch (error) {
-    handleError(res, error, 'CategoryStats');
-  }
-};
-
 // 4. Today's Hourly Revenue Breakdown
 const TodayRevenueBreakdown = async (req, res) => {
   try {
@@ -117,7 +95,6 @@ const TodayRevenueBreakdown = async (req, res) => {
 module.exports = {
   SalesStats,
   WeeklyStats,
-  CategoryStats,
   TodayRevenueBreakdown,
 };
 
