@@ -35,7 +35,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
 app.use("/api/stripe", stripeRoutes);
-app.use('/admin', adminRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Serve static frontend
 const staticPath = path.join(__dirname, "../frontend/dist");
