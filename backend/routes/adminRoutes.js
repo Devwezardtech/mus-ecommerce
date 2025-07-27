@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const adminController = require('../controllers/adminControllers');
+const adminController = require('../controllers/adminController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
 // Declare routes directly
