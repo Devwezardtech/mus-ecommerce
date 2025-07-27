@@ -35,7 +35,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
 app.use("/api/stripe", stripeRoutes);
-app.use('/api/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 
 // Serve static frontend
 const staticPath = path.join(__dirname, "../frontend/dist");
@@ -71,11 +71,15 @@ app.get("/affiliate/*", (req, res) => {
 });
 */}
 
+// Root route (Add first)
+app.get('/', (req, res) => {
+  res.send('<h1>✅ Backend is running successfully!</h1>');
+});
+
 // Fallback
 app.get("*", (req, res) => {
   res.sendFile(path.join(staticPath, "index.html"));
 });
-
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {

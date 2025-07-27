@@ -3,7 +3,10 @@ const router = express.Router();
 const adminController = require('../controllers/adminControllers');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
-// Define route path and method name mappings
+//DEBUG: Log available keys from adminController
+console.log('Available adminController keys:', Object.keys(adminController));
+
+// Define route path and controller method name
 const routes = [
   { path: '/sales-stats', method: 'SalesStats' },
   { path: '/weekly-revenue', method: 'WeeklyStats' },
@@ -11,9 +14,17 @@ const routes = [
   { path: '/today-revenue-breakdown', method: 'TodayRevenueBreakdown' }
 ];
 
-// Register routes dynamically
-routes.forEach(route => {
-  router.get(route.path, protect, isAdmin, adminController[route.method]);
+// Register routes dynamically with safety check
+routes.forEach(({ path, method }) => {
+  const handler = adminController[method];
+
+  if (typeof handler !== 'function') {
+    console.error(`Route "${path}" skipped: Method "${method}" not found in adminController`);
+    return; // Skip route if handler is missing
+  }
+
+  console.log(`Route registered: [GET] ${path} -> adminController.${method}`);
+  router.get(path, protect, isAdmin, handler);
 });
 
 module.exports = router;

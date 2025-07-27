@@ -1,15 +1,15 @@
 const Order = require('../models/Order');
 
-// Helper for error response
+// Helper: Central error handler
 const handleError = (res, error, label) => {
-  console.error(`${label} error:`, error);
-  res.status(500).json({ message: `Server Error: ${label}` });
+  console.error(`[AdminController] ${label} error:`, error);
+  res.status(500).json({ message: `Server Error during ${label}` });
 };
 
 // 1. Total Sales Revenue and Order Count
 const SalesStats = async (req, res) => {
   try {
-    const result = await Order.aggregate([
+    const stats = await Order.aggregate([
       { $match: { totalAmount: { $exists: true } } },
       {
         $group: {
@@ -20,8 +20,8 @@ const SalesStats = async (req, res) => {
       }
     ]);
 
-    const { totalRevenue = 0, totalOrders = 0 } = result[0] || {};
-    res.json({ totalRevenue, totalOrders });
+    const data = stats[0] || { totalRevenue: 0, totalOrders: 0 };
+    res.json(data);
   } catch (error) {
     handleError(res, error, 'SalesStats');
   }
@@ -30,13 +30,14 @@ const SalesStats = async (req, res) => {
 // 2. Weekly Revenue Breakdown (last 7 days)
 const WeeklyStats = async (req, res) => {
   try {
-    const last7Days = new Date();
-    last7Days.setDate(last7Days.getDate() - 6);
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - 6);
+    fromDate.setHours(0, 0, 0, 0); // normalize
 
-    const result = await Order.aggregate([
+    const stats = await Order.aggregate([
       {
         $match: {
-          createdAt: { $gte: last7Days },
+          createdAt: { $gte: fromDate },
           totalAmount: { $exists: true }
         }
       },
@@ -50,16 +51,16 @@ const WeeklyStats = async (req, res) => {
       { $sort: { _id: 1 } }
     ]);
 
-    res.json(result);
+    res.json(stats);
   } catch (error) {
     handleError(res, error, 'WeeklyStats');
   }
 };
 
-// 3. Sales per Category
+// 3. Sales per Product Category
 const CategoryStats = async (req, res) => {
   try {
-    const result = await Order.aggregate([
+    const stats = await Order.aggregate([
       { $match: { "orderItems.0": { $exists: true } } },
       { $unwind: "$orderItems" },
       {
@@ -72,7 +73,7 @@ const CategoryStats = async (req, res) => {
       { $sort: { totalSales: -1 } }
     ]);
 
-    res.json(result);
+    res.json(stats);
   } catch (error) {
     handleError(res, error, 'CategoryStats');
   }
@@ -81,13 +82,13 @@ const CategoryStats = async (req, res) => {
 // 4. Today's Hourly Revenue Breakdown
 const TodayRevenueBreakdown = async (req, res) => {
   try {
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    const result = await Order.aggregate([
+    const stats = await Order.aggregate([
       {
         $match: {
-          createdAt: { $gte: startOfDay },
+          createdAt: { $gte: today },
           totalAmount: { $exists: true }
         }
       },
@@ -101,10 +102,10 @@ const TodayRevenueBreakdown = async (req, res) => {
       { $sort: { _id: 1 } }
     ]);
 
-    const formatted = result.map(item => ({
-      hour: `${item._id}:00`,
-      totalRevenue: item.totalRevenue,
-      orderCount: item.orderCount
+    const formatted = stats.map(entry => ({
+      hour: `${entry._id}:00`,
+      totalRevenue: entry.totalRevenue,
+      orderCount: entry.orderCount
     }));
 
     res.json(formatted);
@@ -117,5 +118,5 @@ module.exports = {
   SalesStats,
   WeeklyStats,
   CategoryStats,
-  TodayRevenueBreakdown,
+  TodayRevenueBreakdown
 };
