@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const adminController = require('../controllers/adminController');
+const adminController = require('../controllers/adminControllers');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
 // Define route path and method name mappings
