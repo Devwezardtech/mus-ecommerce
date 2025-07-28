@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { SalesStats, WeeklyStats, TodayRevenueBreakdown, getCategoryStats } = require("../controllers/adminController");
+const { SalesStats, WeeklyStats, TodayRevenueBreakdown, CategoryStats } = require("../controllers/adminController");
 
-router.get("/sales-stats", protect, isAdmin, SalesStats);
-router.get("/weekly-revenue", protect, isAdmin, WeeklyStats);
-router.get("/today-revenue-breakdown", protect, isAdmin, TodayRevenueBreakdown);
-router.get("/category-stats", protect, isAdmin, getCategoryStats);
+router.get("/sales-stats", SalesStats);
+router.get("/weekly-revenue", WeeklyStats);
+router.get("/today-revenue-breakdown", TodayRevenueBreakdown);
+router.get("/category-stats", CategoryStats);
 
 module.exports = router;

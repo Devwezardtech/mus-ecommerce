@@ -94,7 +94,7 @@ const TodayRevenueBreakdown = async (req, res) => {
 };
 
 
-const getCategoryStats = async (req, res) => {
+const CategoryStats = async (req, res) => {
   try {
  const stats = await Product.aggregate([
       {
@@ -115,7 +115,7 @@ module.exports = {
   SalesStats,
   WeeklyStats,
   TodayRevenueBreakdown,
-  getCategoryStats
+  CategoryStats
 
 };
 
