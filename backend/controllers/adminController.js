@@ -1,4 +1,5 @@
 const Order = require('../models/Order');
+const Product = require('../models/Product');
 
 // Helper: Central error handler
 const handleError = (res, error, label) => {
@@ -6,7 +7,7 @@ const handleError = (res, error, label) => {
   res.status(500).json({ message: `Server Error during ${label}` });
 };
 
-// 1. Total Sales Revenue and Order Count
+// Total Sales Revenue and Order Count
 const SalesStats = async (req, res) => {
   try {
     const stats = await Order.aggregate([
@@ -27,7 +28,7 @@ const SalesStats = async (req, res) => {
   }
 };
 
-// 2. Weekly Revenue Breakdown (last 7 days)
+// Weekly Revenue Breakdown (last 7 days)
 const WeeklyStats = async (req, res) => {
   try {
     const fromDate = new Date();
@@ -57,7 +58,7 @@ const WeeklyStats = async (req, res) => {
   }
 };
 
-// 4. Today's Hourly Revenue Breakdown
+// Today's Hourly Revenue Breakdown
 const TodayRevenueBreakdown = async (req, res) => {
   try {
     const today = new Date();
@@ -92,9 +93,29 @@ const TodayRevenueBreakdown = async (req, res) => {
   }
 };
 
+
+const getCategoryStats = async (req, res) => {
+  try {
+ const stats = await Product.aggregate([
+      {
+        $group: {
+          _id: '$category',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to get category stats' });
+  }
+};
+
 module.exports = {
   SalesStats,
   WeeklyStats,
   TodayRevenueBreakdown,
+  getCategoryStats
+
 };
 

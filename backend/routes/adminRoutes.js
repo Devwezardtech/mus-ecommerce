@@ -1,15 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const {
-  SalesStats,
-  WeeklyStats,
-  TodayRevenueBreakdown,
-} = require("../controllers/adminController"); // path match filename
 
-const { protect, isAdmin } = require("../middleware/authMiddleware");
+const { SalesStats, WeeklyStats, TodayRevenueBreakdown, getCategoryStats } = require("../controllers/adminController");
 
 router.get("/sales-stats", protect, isAdmin, SalesStats);
 router.get("/weekly-revenue", protect, isAdmin, WeeklyStats);
 router.get("/today-revenue-breakdown", protect, isAdmin, TodayRevenueBreakdown);
+router.get("/category-stats", protect, isAdmin, getCategoryStats);
 
 module.exports = router;
