@@ -21,7 +21,7 @@ const VerifyOtpModal = ({ email, onClose, onSuccess, showMessage }) => {
     setMessage("");
 
     try {
-      const res = await api.post("/auth/verify-otp", { email, otp });
+     await api.post("/api/auth/verify-otp", { email, otp });
 
       showMessage?.("Email verified! Please login.", "success");
       setMessage("Verified successfully.");
@@ -39,7 +39,7 @@ const VerifyOtpModal = ({ email, onClose, onSuccess, showMessage }) => {
   const handleResend = async () => {
     try {
       setMessage("Resending OTP...");
-      const res = await api.post("/auth/resend-otp", { email });
+     await api.post("/api/auth/resend-otp", { email });
 
       showMessage?.("OTP resent successfully!", "success");
       setMessage("OTP resent successfully!");

@@ -19,6 +19,10 @@ router.post("/signup", async (req, res) => {
     console.log("Signup payload:", req.body); // for debugging
     const { name, email, password, role } = req.body;
 
+    if (!role || !["admin", "user", "seller", "affiliate"].includes(role)) {
+      return res.status(400).json({ error: "Invalid role selected" });
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ error: "Email already exists" });
 
@@ -44,7 +48,7 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({ message: "OTP sent to email", email });
   } catch (error) {
-    console.error("Signup route failed:", error); // 🔥 Add this
+    console.error("Signup route failed:", error);
     res.status(500).json({ error: "Signup failed." });
   }
 });
@@ -57,7 +61,7 @@ router.post("/verify-otp", async (req, res) => {
   if (user.isVerified) return res.status(400).json({ error: "Already verified" });
 
   if (user.otp !== otp || Date.now() > user.otpExpires) {
-    return res.status(400).json({ error: "Invalid or expired OTP" });
+    return res.status(400).json({ error: "Invalid or expired OTP" })
   }
 
   user.isVerified = true;
@@ -93,6 +97,7 @@ router.post("/login", async (req, res) => {
 // Login OTP Request
 router.post("/login-request-otp", async (req, res) => {
   const { email, password } = req.body;
+  console.log("Login OTP request:", email, password); // <- check frontend payload
   const user = await User.findOne({ email });
   if (!user) return res.status(401).json({ error: "Invalid email or password" });
 

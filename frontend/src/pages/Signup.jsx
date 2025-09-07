@@ -9,16 +9,16 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
-  const [message, setMessage] = useState({ message: "", type: "" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       showMessage("Sending OTP...", "loading");
-      const result = await signup(name, email, password, role);
+      await signup(name, email, password, role);
       showMessage("OTP sent to your email!", "success");
       onOtpSuccess(email); // pass email to parent
     } catch (err) {
+      // since AuthContext throws Error(msg), just use err.message
       showMessage(err.message || "Signup failed", "failed");
     }
   };
@@ -26,6 +26,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
       <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl w-full max-w-sm mx-14 border border-white/30 shadow-lg">
+        {/* Close button */}
         <div className="flex justify-end">
           <button
             onClick={onClose}
@@ -34,7 +35,9 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
             X
           </button>
         </div>
+
         <h2 className="text-2xl text-black-600 py-4">Signup</h2>
+
         <form className="space-y-4" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -47,7 +50,6 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
           <input
             type="email"
             className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white placeholder:text-white"
-            
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -61,31 +63,33 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-         <label htmlFor="role" className="block mb-1 text-sm font-medium text-gray-700">
-  Select Role
-</label>
-<select
-  id="role"
-  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 placeholder:text-white"
-  value={role}
-  onChange={(e) => setRole(e.target.value)}
->
-  <option value="user">User</option>
-  {!isAdminExists && <option value="admin">Admin</option>}
-  <option value="seller">Seller</option>
-  <option value="affiliate">Affiliate</option>
-</select>
 
-         <div className="flex justify-center mt-4">
-           <button
-            type="submit"
-            className="w-20 py-2 bg-gray-500 text-white rounded hover:bg-blue-400"
+          {/* Role dropdown */}
+          <label htmlFor="role" className="block mb-1 text-sm font-medium text-white">
+            Select Role
+          </label>
+          <select
+            id="role"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
           >
-            Sign Up
-          </button>
+            <option value="user">User</option>
+            {!isAdminExists && <option value="admin">Admin</option>}
+            <option value="seller">Seller</option>
+            <option value="affiliate">Affiliate</option>
+          </select>
+
+          <div className="flex justify-center mt-4">
+            <button
+              type="submit"
+              className="w-20 py-2 bg-gray-500 text-white rounded hover:bg-blue-400"
+            >
+              Sign Up
+            </button>
           </div>
-          
         </form>
+
         <div className="flex justify-between items-center mt-4">
           <span>Already have an account?</span>
           <button
@@ -95,9 +99,8 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
             Login
           </button>
         </div>
-        <div className="mt-2">
-          {message.message && <Message {...message} />}
-        </div>
+
+        {/* If parent handles messages, no need for local Message */}
       </div>
     </div>
   );

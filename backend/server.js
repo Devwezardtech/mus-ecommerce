@@ -5,6 +5,32 @@ const cors = require("cors");
 const path = require("path");
 //const history = require("connect-history-api-fallback");
 
+const app = express();
+
+// Updated CORS configuration for production
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://mus-ecommerce-shop.onrender.com",
+  process.env.CLIENT_ORIGIN
+].filter(Boolean); // Remove undefined values
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
+app.options("*", cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
+}));
+
+app.use(express.json());
+
 const orderRoutes = require("./routes/orderRoutes");
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/products");
@@ -13,19 +39,6 @@ const paymentRoutes = require("./routes/paymentRoutes");
 const affiliateRoutes = require("./routes/affiliate");
 const stripeRoutes = require('./routes/stripe');
 const adminRoutes = require('./routes/adminRoutes');
-
-
-const app = express();
-
-// Allow frontend Render domain
-app.use(cors({
-  origin: ["https://mus-ecommerce-shop.onrender.com"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-}));
-
-app.use(express.json());
 
 // API Routes
 app.use("/api/auth", authRoutes);

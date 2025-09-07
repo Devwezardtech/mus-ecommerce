@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   // New function to check admin status
   const checkIfAdminExists = async () => {
   try {
-    const res = await api.get("/auth/admin-exists");
+    const res = await api.get("/api/auth/admin-exists");
     setIsAdminExists(res.data.exists); // true or false
   } catch (error) {
     console.error("Error checking admin existence:", error);
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   // Request OTP after valid email & password
   const requestLoginOtp = async (email, password) => {
     try {
-      const res = await api.post("/auth/login-request-otp", {
+      const res = await api.post("/api/auth/login-request-otp", {
         email,
         password,
       });
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   // Verify OTP and login (called after OTP is entered)
   const verifyLoginOtp = async (email, otp) => {
     try {
-      const res = await api.post("/auth/login-otp-verify", {
+      const res = await api.post("/api/auth/login-otp-verify", {
         email,
         otp,
       });
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
   // SignUp
   const signup = async (name, email, password, role) => {
     try {
-      const res = await api.post("/auth/signup", {
+      const res = await api.post("/api/auth/signup", {
         name,
         email,
         password,

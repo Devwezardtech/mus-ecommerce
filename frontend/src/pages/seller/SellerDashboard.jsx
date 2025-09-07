@@ -26,8 +26,8 @@ const SellerDashboard = () => {
   const fetchProducts = async () => {
     try {
       showMessage("Loading...", "loading");
-      const res = await api.get("/products");
-      setProducts(res.data);
+      const res = await api.get("/api/products");
+      setProducts(Array.isArray(res.data) ? res.data : res.data.products || []);
     } catch (error) {
       console.error("Failed to fetch products:", error.message);
     }
@@ -81,7 +81,7 @@ const handleSubmit = async (e) => {
     return;
   }
 
-  const url = editingProductId ? `/products/${editingProductId}` : "/products";
+  const url = editingProductId ? `/api/products/${editingProductId}` : "/api/products";
   const method = editingProductId ? "put" : "post";
 
   const payload = {
@@ -139,7 +139,7 @@ const handleSubmit = async (e) => {
       stock: product.stock,
       commission: product.commission,
       image: product.photo,
-      photoId: product.photoId, // Needed for update
+      photoId: product.photoId,
     });
     setEditingProductId(product._id);
     setPreview(product.photo);
@@ -156,7 +156,7 @@ const handleSubmit = async (e) => {
 
     try {
       const token = localStorage.getItem("token");
-      await api.delete(`/products/${deleteId}`, {
+      await api.delete(`/api/products/${deleteId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

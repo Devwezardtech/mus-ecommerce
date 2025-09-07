@@ -20,8 +20,6 @@ const showMessage = (msg, type) => {
     }, 2000);
   };
 
-
-  const { logout } = useAuth(); //  Get user from Auth context
   const navigate = useNavigate(); //  Initialize useNavigate
 
   useEffect(() => {
@@ -46,8 +44,8 @@ const showMessage = (msg, type) => {
   const handleAddToCart = async (productId) => {
     const token = localStorage.getItem("token"); //  fetch token
     try {
-      const res = await api.post(
-        "/cart",
+       await api.post(
+        "/api/cart",
         {
           productId,
           quantity: 1,

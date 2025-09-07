@@ -25,7 +25,7 @@ const SellerOrders = () => {
       if (!token) return showMessage('Unauthorized access', 'failed');
 
       setLoading(true);
-      const res = await api.get('/orders/seller', {
+      const res = await api.get('/api/orders/seller', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);

@@ -24,7 +24,7 @@ const PDFShipment = () => {
     }
       try {
         const res = await api.get(
-          `/orders/seller/${orderId}/${itemId}`,
+          `/api/orders/seller/${orderId}/${itemId}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setOrder(res.data.order);

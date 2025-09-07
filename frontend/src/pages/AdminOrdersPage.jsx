@@ -31,7 +31,7 @@ const AdminOrdersPage = () => {
       }
 
       showMessage("loading...", "loadig")
-      const res = await api.get('/orders/admin', {
+      const res = await api.get('/api/orders/admin', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -47,7 +47,7 @@ const AdminOrdersPage = () => {
     try {
       const token = localStorage.getItem('token');
       await api.put(
-        `/orders/${orderId}`,
+        `/api/orders/${orderId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

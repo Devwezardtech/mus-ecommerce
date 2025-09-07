@@ -30,7 +30,7 @@ const showMessage = (msg, type) => {
   const fetchOrders = async () => {
     try {
       showMessage("loading...", "loading")
-      const res = await api.get("/orders/user", {
+      const res = await api.get("api/orders/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);

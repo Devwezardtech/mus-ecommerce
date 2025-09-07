@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import api from "../api/axios"; // Centralized Axios instance
-import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
 import HeaderFrontPage from "../layouts/headerfrontPage";
 import Message from "./message";
 import VerifyOtpModal from "./verifyOtpModal";
@@ -21,10 +20,6 @@ const FrontPage = () => {
 
   const [email, setEmail] = useState("");
 
-
-
-  const navigate = useNavigate();
-
   const showMessage = (msg, type) => {
     setMessage({ message: msg, type });
     setTimeout(() => setMessage({ message: "", type: "" }), 2000);
@@ -37,7 +32,7 @@ const FrontPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await api.get("/products");
+      const res = await api.get("/api/products");
       setProducts(res.data);
     } catch (error) {
       const errMsg = error.response?.data?.message || "Failed to fetch products";

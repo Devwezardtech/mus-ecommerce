@@ -35,13 +35,13 @@ const PublicProductMerged = () => {
 
     try {
       await api.post(
-        "/cart",
+        "/api/cart",
         { productId: product._id, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       showMessage("Added to cart");
     } catch (err) {
-      showMessage("Failed to add to cart", "failed");
+      showMessage("Failed to add to cart", "failed", err);
     }
   };
 
@@ -64,22 +64,22 @@ const PublicProductMerged = () => {
   useEffect(() => {
     const fetchProductAndRelated = async () => {
       try {
-        const res = await api.get(`/products/public/${id}`);
+        const res = await api.get(`/api/products/public/${id}`);
         const fetchedProduct = res.data;
         setProduct(fetchedProduct);
 
         // Fetch seller's other products
         if (fetchedProduct.createdBy) {
-          const sellerRes = await api.get(`/products?seller=${fetchedProduct.createdBy}`);
+          const sellerRes = await api.get(`/api/products?seller=${fetchedProduct.createdBy}`);
           setSellerProducts(sellerRes.data.filter((p) => p._id !== fetchedProduct._id));
         }
 
         // Fetch affiliate shared products (if ref present)
         if (refCode) {
-          const refRes = await api.get(`/users/ref/${refCode}`);
+          const refRes = await api.get(`/api/users/ref/${refCode}`);
           const affiliate = refRes.data;
           if (affiliate?._id) {
-            const affiliateProdRes = await api.get(`/products?sharedBy=${affiliate._id}`);
+            const affiliateProdRes = await api.get(`/api/products?sharedBy=${affiliate._id}`);
             setAffiliateProducts(affiliateProdRes.data);
           }
         }

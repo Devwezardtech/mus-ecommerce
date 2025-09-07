@@ -20,8 +20,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
   const [deleteId, setDeleteId] = useState(null);
 
   //show notification or alert message
-  const [message, setMessage] = useState({message: "", type: ""})// store message
-
+  const [message, setMessage] = useState({message: "", type: ""})
    
   //this alert message
     const showMessage = (message, type) => {
@@ -35,7 +34,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
   const fetchAllUsers = async () => {
   try {
     const token = localStorage.getItem("token");
-    const res = await api.get("/auth/all-users", {
+    const res = await api.get("/api/auth/all-users", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setAllUsers(res.data);
@@ -52,7 +51,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
   const fetchProducts = async () => {
     try {
       showMessage("Loading...", "loading")
-      const res = await api.get("/products");
+      const res = await api.get("/api/products");
       console.log("Fetched products:", res.data); // Debug
       setProducts(res.data);
     } catch (error) {
@@ -88,12 +87,12 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
       }
 
       const url = editingProductId
-        ? `/products/${editingProductId}`
-        : "/products";
+        ? `/api/products/${editingProductId}`
+        : "/api/products";
 
       const method = editingProductId ? "put" : "post";
 
-      await axios[method](url, formData, {
+      await api[method](url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -167,7 +166,7 @@ const handleCancel = () => {
       try {
       const token = localStorage.getItem("token");
 
-       await api.delete(`/products/${deleteId}`, {
+       await api.delete(`/api/products/${deleteId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

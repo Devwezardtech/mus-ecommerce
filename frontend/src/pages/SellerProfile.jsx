@@ -14,10 +14,10 @@ const SellerProfile = () => {
     const fetchSellerData = async () => {
       try {
         // 1️⃣ Fetch seller profile (public)
-        const sellerRes = await api.get(`/auth/${id}`);  setSeller(sellerRes.data);
+        const sellerRes = await api.get(`/api/auth/${id}`);  setSeller(sellerRes.data);
 
         // Fetch seller's products (public)
-        const productsRes = await api.get(`/products?seller=${id}`);
+        const productsRes = await api.get(`/api/products?seller=${id}`);
         setProducts(productsRes.data);
       } catch (err) {
         console.error("Error fetching seller profile:", err);

@@ -49,8 +49,8 @@ const CheckoutPage = () => {
 
     if (method === 'cod') {
       try {
-        const response = await api.post(
-          '/orders',
+         await api.post(
+          '/api/orders',
           {
             products,
             totalAmount: total,
@@ -63,15 +63,15 @@ const CheckoutPage = () => {
 
         showMessage("Order placed!", "success");
         setTimeout(() => navigate('/orders'), 1000);
-      } catch (err) {
-        showMessage("Failed to Place Order", "failed");
+      } catch(err){
+        showMessage("Failed to Place Order", "failed", err);
       }
     }
 
      else if (method === 'card') {
       try {
         const res = await api.post(
-          "/stripe/create-checkout-session",
+          "/api/stripe/create-checkout-session",
           { products, totalAmount: total },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -88,7 +88,7 @@ const CheckoutPage = () => {
       // GCash, GrabPay, PayMaya
       try {
         const res = await api.post(
-          '/payments/create-payment',
+          '/api/payments/create-payment',
           {
             amount: total,
             name: form.name || 'Customer',
@@ -100,7 +100,7 @@ const CheckoutPage = () => {
         );
         window.location.href = res.data.url;
       } catch (err) {
-        showMessage("₱2000 minimum required for online payment. Please use COD.", "failed");
+        showMessage("₱2000 minimum required for online payment. Please use COD.", "failed", err);
       }
     }
   };

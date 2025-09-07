@@ -40,12 +40,12 @@ const AffiliateDashboard = () => {
         const token = localStorage.getItem("token");
 
         // Products
-        const res = await api.get("/products");
+        const res = await api.get("/api/products");
         setProducts(res.data);
 
         // Referral Code: Check if already exists, else auto-generate
         const profileRes = await api
-        .get("/affiliate/profile", {
+        .get("/api/affiliate/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -53,7 +53,7 @@ const AffiliateDashboard = () => {
           setRefCode(profileRes.data.refCode);
         } else {
           const gen = await api.post(
-            "/affiliate/generate",
+            "/api/affiliate/generate",
             {},
             { headers: { Authorization: `Bearer ${token}` } }
           );
