@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContect';
 import Message from '../pages/message';
 
@@ -8,6 +8,8 @@ const HeaderAdmin = () => {
   const [showLogout, setShowLogout] = useState(false);
   const [message, setMessage] = useState({ message: "", type: "" });
   const [menuOpen, setMenuOpen] = useState(false); // for mobile menu toggle
+
+  const navigate = useNavigate();
 
   const showMessage = (message, type) => {
     setMessage({ message, type });
@@ -20,7 +22,9 @@ const HeaderAdmin = () => {
   const confirmLogout = () => {
     setShowLogout(false);
     showMessage("Loading...", "loading");
+    navigate("/")
     setTimeout(() => logout(), 1000);
+    
   };
   const cancelLogout = () => {
     setShowLogout(false);

@@ -62,19 +62,20 @@ const FrontPage = () => {
 
       <div className="p-4 bg-gray-100">
         {products.length === 0 ? (
-          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-16 px-4 py-8">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-5 px-4 py-8">
             {Array.from({ length: 32 }).map((_, index) => (
               <div
                 key={index}
-                className="bg-gray-200 p-4 rounded shadow animate-pulse space-y-4"
+                className="bg-gray-200 p-1 rounded shadow animate-pulse space-y-1"
               >
-                <div className="h-48 bg-gray-300 rounded"></div>
-                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                <div className="h-28 bg-gray-300 rounded"></div>
+                  <div className="h-4 bg-gray-300 rounded w-3/4"></div>
                 <div className="h-4 bg-gray-300 rounded w-5/6"></div>
                 <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                <div className="flex justify-between mt-2">
-                  <div className="h-8 w-20 bg-gray-300 rounded"></div>
-                  <div className="h-8 w-20 bg-gray-300 rounded"></div>
+                <div className="h-4 bg-gray-300 rounded w-1/4"></div>
+                <div className="flex justify-between mx-1 gap-1">
+                  <div className="h-5 w-20 bg-gray-300 rounded"></div>
+                  <div className="h-5 w-20 bg-gray-300 rounded"></div>
                 </div>
               </div>
             ))}

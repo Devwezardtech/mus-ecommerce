@@ -10,7 +10,7 @@ const AllUsers = () => {
     const fetchAllUsers = async () => {
   try {
     const token = localStorage.getItem("token");
-    const res = await api.get("/auth/all-users", {
+    const res = await api.get("/api/auth/all-users", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setAllUsers(res.data);
