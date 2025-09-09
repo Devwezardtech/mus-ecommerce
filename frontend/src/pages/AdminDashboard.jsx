@@ -20,9 +20,6 @@ const AdminDashboard = () => {
     }
 
 
-
- 
-
   // Fetch products
   const fetchProducts = async () => {
     try {
@@ -59,7 +56,7 @@ const AdminDashboard = () => {
         },
       });
       showMessage("Deleted Sucessfully", "success")
-      fetchProducts(); 
+      fetchProducts(); // Refresh list
     } catch (error) {
       console.error("Error deleting product:", error.message);
     }
@@ -96,8 +93,8 @@ const AdminDashboard = () => {
       )}
      
 
-    <div className="bg-white-200 flex flex-col items-center justify-center p-4" >
-      <div className="w-full max-w-5xl mt-14 sm:mt-16 md:mt-20 lg:mt-20">
+    <div className="bg-white-200 flex flex-col items-center justify-center" >
+      <div className="w-full sm:max-w-full md:max-w-full lg:max-w-full mt-14 sm:mt-16 md:mt-20 lg:mt-20 lg:px-14">
 
 
 {products.length === 0 ? (
@@ -140,29 +137,85 @@ const AdminDashboard = () => {
   </div>
 ) : (
   <div className="overflow-x-auto rounded-lg border">
-    <table className="min-w-full divide-y divide-gray-200 text-sm">
+    <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm">
       <thead className="bg-gray-100">
         <tr>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Image</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Name</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Description</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Description</th>
           <th className="px-4 py-3 text-left font-semibold text-gray-700">Price</th>
-          <th className="px-4 py-3 text-right font-semibold text-gray-700">Actions</th>
+          <th className="font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3 ">Actions</th>
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-100">
         {products.map((product) => (
           <tr key={product._id} className="hover:bg-gray-50">
-            <td className="px-4 py-2">
+            <td className="px-2 py-1 md:px-4 md:py-2 lg:px-4 lg:py-2">
               <img
                 src={product.photo}
                 alt={product.name}
-                className="w-20 h-20 object-cover rounded"
+                className="w-10 h-10 object-cover rounded md:w-20 md:h-20 lg:w-20 lg:h-20"
               />
             </td>
-            <td className="px-4 py-2 font-medium">{product.name}</td>
-            <td className="px-4 py-2">{product.description}</td>
-            <td className="px-4 py-2 font-semibold">₱{product.price}</td>
+
+            {/**
+             * display for products name
+             */}
+            <td className="px-4 py-2 font-medium"> 
+   <span className="block md:hidden">
+    {product.name.length > 6 ? product.name.slice(0, 6) + "..." : product.name}
+  </span>
+
+  <span className="hidden md:block lg:hidden">
+    {product.name.length > 15 ? product.name.slice(0, 15) + "..." : product.name}
+  </span>
+
+  <span className="hidden lg:block">
+    {product.name.length > 30 ? product.name.slice(0, 30) + "..." : product.name}
+  </span>
+            </td>
+
+             {/**
+             * display for description
+             */}
+            <td className="px-4 py-2 font-medium">
+  <span className="block md:hidden">
+    {product.description.length > 6 ? product.description.slice(0, 6) + "..." : product.description}
+  </span>
+
+  <span className="hidden md:block lg:hidden">
+    {product.description.length > 15 ? product.description.slice(0, 15) + "..." : product.description}
+  </span>
+
+  <span className="hidden lg:block">
+    {product.description.length > 30 ? product.description.slice(0, 30) + "..." : product.description}
+  </span>
+</td>
+
+
+            
+            {/**
+             * for price
+             */}
+             <td className="px-4 py-2 font-semibold">
+  <span className="block md:hidden">
+    ₱{product.price.toString().length > 4 
+      ? product.price.toString().slice(0, 4) + "..." 
+      : product.price}
+  </span>
+
+  <span className="hidden md:block lg:hidden">
+    ₱{product.price.toString().length > 8 
+      ? product.price.toString().slice(0, 8) + "..." 
+      : product.price}
+  </span>
+
+  <span className="hidden lg:block">
+    ₱{product.price}
+  </span>
+</td>
+
+
             <td className="px-4 py-2 text-right space-x-2">
               <button
                 onClick={() => handleDelete(product._id)}
