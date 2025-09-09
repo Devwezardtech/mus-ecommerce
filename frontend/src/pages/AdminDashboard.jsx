@@ -5,21 +5,9 @@ import Message from "./message";
 
 
 const AdminDashboard = () => {
-  const [newProducts, setNewProducts] = useState({ name: "", description: "", price: "", image: null,});
-  const [photo, setPhoto] = useState(null);
-  const [preview, setPreview] = useState(null);
   const [products, setProducts] = useState([]);
-  const [editingProductId, setEditingProductId] = useState(null);
-  const [create, setCreate] = useState(false);
-  const [allUsers, setAllUsers] = useState({ users: [], sellers: [], affiliates: [] });
-const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
-
-
-  //for modals
   const [showDelete, setShowDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
-
-  //show notification or alert message
   const [message, setMessage] = useState({message: "", type: ""})
    
   //this alert message
@@ -30,18 +18,6 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
         setMessage({message: "", type: ""});
       }, 2000)
     }
-  
-  const fetchAllUsers = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    const res = await api.get("/api/auth/all-users", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setAllUsers(res.data);
-  } catch (err) {
-    console.error("Error fetching users:", err);
-  }
-};
 
 
 
@@ -61,96 +37,7 @@ const [selectedTab, setSelectedTab] = useState("users"); // which tab is active
 
   useEffect(() => {
     fetchProducts();
-     fetchAllUsers(); //for fetching all users
-  }, []);
-
-  // Create or update product
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!newProducts.name || !newProducts.description || !newProducts.price) {
-      showMessage("All fields are required.", "failed");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("name", newProducts.name);
-    formData.append("description", newProducts.description);
-    formData.append("price", newProducts.price);
-    if (photo) formData.append("photo", photo);
-
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        showMessage("You are not logged in.");
-        return;
-      }
-
-      const url = editingProductId
-        ? `/api/products/${editingProductId}`
-        : "/api/products";
-
-      const method = editingProductId ? "put" : "post";
-
-      await api[method](url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      //use modal message if created and edited
-      if(method === "put"){
-        showMessage("Updated", "success")
-      }
-      else {
-        showMessage("Created Successfully", "success")
-      }
-
-      fetchProducts();
-      setNewProducts({ name: "", description: "", price: "" });
-      setPhoto(null);
-      setPreview(null);
-      setEditingProductId(null);
-    } catch (error) {
-      console.error("Error submitting product:", error.message);
-    }
-    setCreate(false); 
-  };
-
-
-const handleCancel = () => {
-  setCreate(false);
-  setNewProducts({ name: "", description: "", price: "" });
-  setPhoto(null);
-  setPreview(null);
-  setEditingProductId(null);
-  showMessage("Canceled");
-};
-
-
-  // Image preview
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setPhoto(file);
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    } else {
-      setPreview(null);
-    }
-  };
-
-  // Edit product
-  const handleEdit = (product) => {
-    setNewProducts({
-      name: product.name,
-      description: product.description,
-      price: product.price,
-    });
-    setEditingProductId(product._id);
-    setPreview(`/products/${product._id}/photo`);
-    setCreate(true);
-  };
+  },[]);
 
   //modals for delete code line 113 to 145
     // Delete product modals show
@@ -172,7 +59,7 @@ const handleCancel = () => {
         },
       });
       showMessage("Deleted Sucessfully", "success")
-      fetchProducts(); // Refresh list
+      fetchProducts(); 
     } catch (error) {
       console.error("Error deleting product:", error.message);
     }

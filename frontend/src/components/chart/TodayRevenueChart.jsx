@@ -34,12 +34,13 @@ const TodayRevenueChart = () => {
       } catch (err) {
         console.error('Failed to fetch today revenue breakdown:', err);
 
-        // Fallback demo data if API fails
+        /* Fallback demo data if API fails
         setTodayRevenue(32500);
         setChartData({
           series: [{ name: 'Revenue', data: [2000, 3500, 2800, 4500, 3000, 4700, 5000] }],
           categories: ['9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm'],
         });
+        */
       }
     };
 
