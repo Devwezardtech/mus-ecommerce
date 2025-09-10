@@ -38,8 +38,8 @@ const AllUsers = () => {
     <button
       key={role}
       onClick={() => setSelectedTab(role)}
-      className={`px-4 py-2 rounded ${
-        selectedTab === role ? "bg-gray-700 text-white" : "bg-gray-300 text-black"
+      className={`px-4 py-2 shadow-md ${
+        selectedTab === role ? "bg-blue-500 text-white" : "bg-blue-300 text-black"
       }`}
     >
       {role.charAt(0).toUpperCase() + role.slice(1)}
@@ -48,7 +48,7 @@ const AllUsers = () => {
 </div>
 
 {allUsers[selectedTab].length === 0 ? (
-   <div className="overflow-x-auto rounded-lg border mb-6 md:w-3/4 lg:w-2/3 mx-auto">
+   <div className="overflow-x-auto border mb-6 md:w-3/4 lg:w-2/3 mx-auto">
   <table className="min-w-full divide-y divide-gray-200 text-sm">
     <thead className="bg-gray-100">
       <tr>
@@ -68,7 +68,7 @@ const AllUsers = () => {
 </div>
 
 ) : (
-  <div className="overflow-x-auto rounded-lg border mb-6 md:w-3/4 lg:w-2/3 mx-auto">
+  <div className="overflow-x-auto border mb-6 md:w-3/4 lg:w-2/3 mx-auto">
     <table className="min-w-full divide-y divide-gray-200 text-sm">
       <thead className="bg-gray-100">
         <tr>

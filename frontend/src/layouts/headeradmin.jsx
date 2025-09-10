@@ -42,7 +42,11 @@ const HeaderAdmin = () => {
         <Link className="hover:text-blue-500" to="/admin/stats">Home</Link>
         <Link className="hover:text-blue-500" to="/Admin">All Product</Link>
         
-        <Link className="hover:text-blue-500" to="/admin/orders">Orders</Link>
+        {/*
+        
+        //for orders
+        
+        <Link className="hover:text-blue-500" to="/admin/orders">Orders</Link>*/}
         <Link className="hover:text-blue-500" to="/admin/allUsers">User</Link>
        {
         /*
@@ -78,7 +82,12 @@ const HeaderAdmin = () => {
         <div className="flex flex-col text-lg gap-2">
           <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/admin/stats">Home</Link>
            <Link className="hover:text-blue-500 hover:text-xl" to="/Admin">All Product</Link>
-          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/admin/orders">Orders</Link>
+         {/* 
+
+         // this show for orders in admin manage
+         
+         
+         <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/admin/orders">Orders</Link> */}
           <Link to="/admin/AllUsers" className="hover:text-blue-500 hover:text-xl">User</Link>
           <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 hover:text-xl text-left">Logout</button>
         </div>

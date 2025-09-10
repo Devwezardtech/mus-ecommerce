@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+/*import React, { useEffect, useState } from 'react';
 import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import HeaderAdmin from '../layouts/headeradmin'; 
@@ -203,8 +203,6 @@ const AdminOrdersPage = () => {
     </div>
   )}
 </div>
-
-  {/* message login successful or failed */}
 <div className="flex justify-center item-center"> 
     {message.message && <Message message={message.message} type={message.type} />}
 </div>
@@ -214,3 +212,4 @@ const AdminOrdersPage = () => {
 };
 
 export default AdminOrdersPage;
+*/

@@ -82,11 +82,11 @@ const AdminDashboard = () => {
       {/* this line for modals*/}
       {showDelete && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg mx-6">
             <p>Are you sure you want to delete this product?</p>
             <div className="mt-4 flex justify-end gap-2">
-              <button onClick={handleDeclien} className="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-              <button onClick={handleConfirm} className="px-4 py-2 bg-red-500 text-white rounded">Delete</button>
+              <button onClick={handleDeclien} className="px-4 py-2 bg-blue-500 hover:bg-blue-400 text-white rounded">Cancel</button>
+              <button onClick={handleConfirm} className="px-4 py-2 bg-red-500 text-white hover:bg-red-400 rounded">Delete</button>
             </div>
           </div>
         </div>

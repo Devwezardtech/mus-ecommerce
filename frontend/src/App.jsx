@@ -10,7 +10,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderHistoryPage from "./components/OrderHistoryPage";
-import AdminOrdersPage from "./pages/AdminOrdersPage";
+//import AdminOrdersPage from "./pages/AdminOrdersPage";
 import UserOrderHistory from "./pages/UserOrderHistory";
 import HeaderAdmin from "./layouts/headeradmin";
 import HeaderUser from "./layouts/headeruser";
@@ -106,7 +106,7 @@ const App = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/orders" element={<OrderHistoryPage />} />
-      <Route path="/admin/orders" element={<AdminOrdersPage />} />
+     {/* <Route path="/admin/orders" element={<AdminOrdersPage />} /> */}
       <Route path="/user/orders" element={<UserOrderHistory />} />
       <Route path="/admin/header" element={<HeaderAdmin />}/>
       <Route path="/user/header" element={<HeaderUser/>} />
