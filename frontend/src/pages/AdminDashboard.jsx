@@ -105,7 +105,7 @@ const AdminDashboard = () => {
           <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
           <th className="lg:text-left sm:text-center md:text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
           <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Description</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Price</th>
+          <th className="px-2 py-1 text-left font-semibold text-gray-700">Price</th>
           <th className="font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Actions</th>
         </tr>
       </thead>
@@ -149,7 +149,7 @@ const AdminDashboard = () => {
           <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
           <th className="lg:text-left sm:text-center md:text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
           <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Description</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Price</th>
+          <th className="px-2 py-1 text-left font-semibold text-gray-700">Price</th>
           <th className="font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3 ">Actions</th>
         </tr>
       </thead>
