@@ -136,12 +136,12 @@ const AdminDashboard = () => {
     </table>
   </div>
 ) : (
-  <div className="overflow-x-auto rounded-lg border">
-    <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm">
-      <thead className="bg-gray-100">
+  <div className="overflow-x-auto">
+    <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm lg:text-md">
+      <thead className="bg-gray-50">
         <tr>
           <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
-          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
+          <th className="lg:text-left sm:text-center md:text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
           <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Description</th>
           <th className="px-4 py-3 text-left font-semibold text-gray-700">Price</th>
           <th className="font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3 ">Actions</th>
@@ -216,10 +216,10 @@ const AdminDashboard = () => {
 </td>
 
 
-            <td className="px-4 py-2 text-right space-x-2">
+            <td className="px-2 text-center space-x-1">
               <button
                 onClick={() => handleDelete(product._id)}
-                className="px-3 py-1 bg-gray-500 text-white rounded w-16 hover:bg-gray-300 hover:text-black"
+                className="px-1 py-1 bg-red-400 text-white rounded w-16 hover:bg-red-500"
               >
                 Delete
               </button>
