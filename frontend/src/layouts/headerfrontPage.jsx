@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Message from '../pages/message';
 
 const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {

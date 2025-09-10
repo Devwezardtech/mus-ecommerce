@@ -10,7 +10,6 @@ const SellerDashboard = () => {
   const [products, setProducts] = useState([]);
   const [editingProductId, setEditingProductId] = useState(null);
   const [create, setCreate] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("users");
 
   const [showDelete, setShowDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -185,11 +184,11 @@ const handleSubmit = async (e) => {
       {/* this line for modals*/}
       {showDelete && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg mx-6">
             <p>Are you sure you want to delete this product?</p>
             <div className="mt-4 flex justify-end gap-2">
-              <button onClick={handleDeclien} className="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-              <button onClick={handleConfirm} className="px-4 py-2 bg-red-500 text-white rounded">Delete</button>
+              <button onClick={handleDeclien} className="px-4 py-2 bg-blue-500 hover:bg-blue-400 text-white rounded">Cancel</button>
+              <button onClick={handleConfirm} className="px-4 py-2 bg-red-500 text-white hover:bg-red-400 rounded">Delete</button>
             </div>
           </div>
         </div>
@@ -283,38 +282,47 @@ const handleSubmit = async (e) => {
       </div>
 
 
+<div className="bg-white-200 flex flex-col items-center justify-center" >
+      <div className="w-full sm:max-w-full md:max-w-full lg:max-w-full mt-14 sm:mt-16 md:mt-20 lg:mt-20 lg:px-14"></div>
+      
 {products.length === 0 ? (
-  <div className="overflow-x-auto rounded-lg justify-center item-center shadow-sm bg-white w-full max-w-5xl animate-pulse" >
-    <table className="min-w-full lg:min-w-60 mx-1 lg:mx-40 divide-y divide-gray-200 text-sm ">
-      <thead className="bg-gray-100">
+  <div className="overflow-x-aut">
+    <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm lg:text-md">
+      <thead className="bg-gray-50">
         <tr>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Image</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Name</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Description</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Price</th>
-          <th className="px-4 py-3 text-right font-semibold text-gray-700">Actions</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
+          <th className="lg:text-left sm:text-center md:text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Description</th>
+          <th className="px-2 py-1 text-left font-semibold text-gray-700">Price</th>
+          <th className="font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Actions</th>
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-100">
-        {[...Array(12)].map((_, index) => (
-          <tr key={index}>
-            <td className="px-4 py-3">
-              <div className="w-16 h-16 bg-gray-200 rounded"></div>
+        {[...Array(15)].map((_, index) => (
+          <tr key={index} className="hover:bg-gray-50 animate-pulse">
+            {/* Image */}
+            <td className="px-2 py-1 md:px-4 md:py-2 lg:px-4 lg:py-2">
+              <div className="w-10 h-10 md:w-20 md:h-20 lg:w-20 lg:h-20 bg-gray-200 rounded"></div>
             </td>
-            <td className="px-4 py-3">
-              <div className="h-4 w-24 bg-gray-200 rounded"></div>
+
+            {/* Name */}
+            <td className="px-4 py-2">
+              <div className="h-4 w-12 md:w-24 lg:w-32 bg-gray-200 rounded"></div>
             </td>
-            <td className="px-4 py-3">
-              <div className="h-4 w-40 bg-gray-200 rounded"></div>
+
+            {/* Description */}
+            <td className="px-4 py-2">
+              <div className="h-4 w-12 md:w-28 lg:w-40 bg-gray-200 rounded"></div>
             </td>
-            <td className="px-4 py-3">
-              <div className="h-4 w-16 bg-gray-200 rounded"></div>
+
+            {/* Price */}
+            <td className="px-4 py-2">
+              <div className="h-4 w-12 md:w-16 lg:w-20 bg-gray-200 rounded"></div>
             </td>
-            <td className="px-4 py-3 text-right">
-              <div className="flex justify-end space-x-2">
-                <div className="w-12 h-6 bg-gray-200 rounded"></div>
-                <div className="w-12 h-6 bg-gray-200 rounded"></div>
-              </div>
+
+            {/* Actions */}
+            <td className="px-2 text-center space-x-1">
+              <div className="inline-block w-12 h-6 bg-gray-200 rounded"></div>
             </td>
           </tr>
         ))}
@@ -322,40 +330,96 @@ const handleSubmit = async (e) => {
     </table>
   </div>
 ) : (
-  <div className="overflow-x-auto rounded-lg border">
-    <table className="min-w-full divide-y divide-gray-200 text-sm">
-      <thead className="bg-gray-100">
+  <div className="overflow-x-auto">
+    <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm lg:text-md">
+      <thead className="bg-gray-50">
         <tr>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Image</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Name</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Description</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Price</th>
-          <th className="px-4 py-3 text-right font-semibold text-gray-700">Actions</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
+          <th className="lg:text-left sm:text-center md:text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Description</th>
+          <th className="px-2 py-1 text-left font-semibold text-gray-700">Price</th>
+          <th className="font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3 ">Actions</th>
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-100">
         {products.map((product) => (
           <tr key={product._id} className="hover:bg-gray-50">
-            <td className="px-4 py-2">
+            <td className="px-2 py-1 md:px-4 md:py-2 lg:px-4 lg:py-2">
               <img
                 src={product.photo}
                 alt={product.name}
-                className="w-20 h-20 object-cover rounded"
+                className="w-10 h-10 object-cover rounded md:w-20 md:h-20 lg:w-20 lg:h-20"
               />
             </td>
-            <td className="px-4 py-2 font-medium">{product.name}</td>
-            <td className="px-4 py-2">{product.description}</td>
-            <td className="px-4 py-2 font-semibold">₱{product.price}</td>
-            <td className="px-4 py-2 text-right space-x-2">
+
+            {/**
+             * display for products name
+             */}
+            <td className="px-4 py-2 font-medium"> 
+   <span className="block md:hidden">
+    {product.name.length > 6 ? product.name.slice(0, 6) + "..." : product.name}
+  </span>
+
+  <span className="hidden md:block lg:hidden">
+    {product.name.length > 15 ? product.name.slice(0, 15) + "..." : product.name}
+  </span>
+
+  <span className="hidden lg:block">
+    {product.name.length > 30 ? product.name.slice(0, 30) + "..." : product.name}
+  </span>
+            </td>
+
+             {/**
+             * display for description
+             */}
+            <td className="px-4 py-2 font-medium">
+  <span className="block md:hidden">
+    {product.description.length > 6 ? product.description.slice(0, 6) + "..." : product.description}
+  </span>
+
+  <span className="hidden md:block lg:hidden">
+    {product.description.length > 15 ? product.description.slice(0, 15) + "..." : product.description}
+  </span>
+
+  <span className="hidden lg:block">
+    {product.description.length > 30 ? product.description.slice(0, 30) + "..." : product.description}
+  </span>
+</td>
+
+
+            
+            {/**
+             * for price
+             */}
+             <td className="px-4 py-2 font-semibold">
+  <span className="block md:hidden">
+    ₱{product.price.toString().length > 4 
+      ? product.price.toString().slice(0, 4) + "..." 
+      : product.price}
+  </span>
+
+  <span className="hidden md:block lg:hidden">
+    ₱{product.price.toString().length > 8 
+      ? product.price.toString().slice(0, 8) + "..." 
+      : product.price}
+  </span>
+
+  <span className="hidden lg:block">
+    ₱{product.price}
+  </span>
+</td>
+
+
+            <td className="px-2 text-center space-x-1">
               <button
                 onClick={() => handleEdit(product)}
-                className="px-3 py-1 bg-gray-500 text-white rounded w-16 my-1 hover:bg-gray-300 hover:text-black"
+                className="px-1 py-1 bg-blue-500 text-white rounded w-16 my-1 hover:bg-blue-400"
               >
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(product._id)}
-                className="px-3 py-1 bg-gray-500 text-white rounded w-16 hover:bg-gray-300 hover:text-black"
+                className="px-1 py-1 bg-red-400 text-white rounded w-16 hover:bg-red-500"
               >
                 Delete
               </button>
@@ -367,55 +431,14 @@ const handleSubmit = async (e) => {
   </div>
 )}
 
-{/*
-<div className="flex gap-2 my-4 justify-center">
-  {["users", "sellers", "affiliates"].map((role) => (
-    <button
-      key={role}
-      onClick={() => setSelectedTab(role)}
-      className={`px-4 py-2 rounded ${
-        selectedTab === role ? "bg-gray-700 text-white" : "bg-gray-300 text-black"
-      }`}
-    >
-      {role.charAt(0).toUpperCase() + role.slice(1)}
-    </button>
-  ))}
-</div>
-
-
-{allUsers[selectedTab].length === 0 ? (
-  <p className="text-center text-gray-500">No {selectedTab} found.</p>
-) : (
-  <div className="overflow-x-auto rounded-lg border mb-6">
-    <table className="min-w-full divide-y divide-gray-200 text-sm">
-      <thead className="bg-gray-100">
-        <tr>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Name</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Email</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Role</th>
-        </tr>
-      </thead>
-      <tbody className="bg-white divide-y divide-gray-100">
-        {allUsers[selectedTab].map((user) => (
-          <tr key={user._id} className="hover:bg-gray-50">
-            <td className="px-4 py-2">{user.name}</td>
-            <td className="px-4 py-2">{user.email}</td>
-            <td className="px-4 py-2 capitalize">{user.role}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-)}
-*/}
-
 
     </div>
 
-    {/* show message */}
+     {/* show message */}
     <div className="flex justify-center item-center"> 
     {message.message && <Message message={message.message} type={message.type} />}
 </div>
+     </div>
      </div>
   );
 };
