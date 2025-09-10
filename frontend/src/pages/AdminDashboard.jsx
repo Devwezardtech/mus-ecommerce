@@ -5,7 +5,7 @@ import Message from "./message";
 
 
 const AdminDashboard = () => {
-  const [products, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [showDelete, setShowDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [message, setMessage] = useState({message: "", type: ""})
