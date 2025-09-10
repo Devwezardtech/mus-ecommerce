@@ -5,7 +5,7 @@ import Message from "./message";
 
 
 const AdminDashboard = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProduct] = useState([]);
   const [showDelete, setShowDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [message, setMessage] = useState({message: "", type: ""})
@@ -98,37 +98,43 @@ const AdminDashboard = () => {
 
 
 {products.length === 0 ? (
-  <div className="overflow-x-auto rounded-lg justify-center item-center shadow-sm bg-white w-full max-w-5xl animate-pulse" >
-    <table className="min-w-full lg:min-w-60 mx-1 lg:mx-40 divide-y divide-gray-200 text-sm ">
-      <thead className="bg-gray-100">
+  <div className="overflow-x-aut">
+    <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm lg:text-md">
+      <thead className="bg-gray-50">
         <tr>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Image</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Name</th>
-          <th className="px-4 py-3 text-left font-semibold text-gray-700">Description</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
+          <th className="lg:text-left sm:text-center md:text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
+          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Description</th>
           <th className="px-4 py-3 text-left font-semibold text-gray-700">Price</th>
-          <th className="px-4 py-3 text-right font-semibold text-gray-700">Actions</th>
+          <th className="font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Actions</th>
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-100">
-        {[...Array(12)].map((_, index) => (
-          <tr key={index}>
-            <td className="px-4 py-3">
-              <div className="w-16 h-16 bg-gray-200 rounded"></div>
+        {[...Array(15)].map((_, index) => (
+          <tr key={index} className="hover:bg-gray-50 animate-pulse">
+            {/* Image */}
+            <td className="px-2 py-1 md:px-4 md:py-2 lg:px-4 lg:py-2">
+              <div className="w-10 h-10 md:w-20 md:h-20 lg:w-20 lg:h-20 bg-gray-200 rounded"></div>
             </td>
-            <td className="px-4 py-3">
-              <div className="h-4 w-24 bg-gray-200 rounded"></div>
+
+            {/* Name */}
+            <td className="px-4 py-2">
+              <div className="h-4 w-12 md:w-24 lg:w-32 bg-gray-200 rounded"></div>
             </td>
-            <td className="px-4 py-3">
-              <div className="h-4 w-40 bg-gray-200 rounded"></div>
+
+            {/* Description */}
+            <td className="px-4 py-2">
+              <div className="h-4 w-12 md:w-28 lg:w-40 bg-gray-200 rounded"></div>
             </td>
-            <td className="px-4 py-3">
-              <div className="h-4 w-16 bg-gray-200 rounded"></div>
+
+            {/* Price */}
+            <td className="px-4 py-2">
+              <div className="h-4 w-12 md:w-16 lg:w-20 bg-gray-200 rounded"></div>
             </td>
-            <td className="px-4 py-3 text-right">
-              <div className="flex justify-end space-x-2">
-                <div className="w-12 h-6 bg-gray-200 rounded"></div>
-                <div className="w-12 h-6 bg-gray-200 rounded"></div>
-              </div>
+
+            {/* Actions */}
+            <td className="px-2 text-center space-x-1">
+              <div className="inline-block w-12 h-6 bg-gray-200 rounded"></div>
             </td>
           </tr>
         ))}
