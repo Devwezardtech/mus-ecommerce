@@ -40,7 +40,7 @@ const HeaderAdmin = () => {
         {/* Destop Menu */}
         <div className="hidden md:flex justify-end gap-8">
         <Link className="hover:text-blue-500" to="/admin/stats">Home</Link>
-        <Link className="hover:text-blue-500" to="/Admin">All Product</Link>
+        <Link className="hover:text-blue-500" to="/Admin">Product</Link>
         
         {/*
         
@@ -73,7 +73,7 @@ const HeaderAdmin = () => {
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end">
-       <div className="bg-white w-3/4 h-full p-4 shadow-lg flex flex-col justify-between">
+       <div className="bg-white w-1/2 h-full p-4 shadow-lg flex flex-col justify-between">
        <div>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-bold">Menu</h2>
@@ -81,7 +81,7 @@ const HeaderAdmin = () => {
         </div>
         <div className="flex flex-col text-lg gap-2">
           <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/admin/stats">Home</Link>
-           <Link className="hover:text-blue-500 hover:text-xl" to="/Admin">All Product</Link>
+           <Link className="hover:text-blue-500 hover:text-xl" to="/Admin">Product</Link>
          {/* 
 
          // this show for orders in admin manage
