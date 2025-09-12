@@ -401,10 +401,10 @@ const handleSubmit = async (e) => {
 </td>
 
 
-            <td className="px-2 text-center space-x-1">
+            <td className="text-center space-x-1 py-2">
               <button
                 onClick={() => handleEdit(product)}
-                className="px-1 py-1 bg-blue-500 text-white rounded w-16 my-1 hover:bg-blue-400"
+                className="px-1 py-1 bg-blue-500 text-white rounded w-16 my-2 hover:bg-blue-400"
               >
                 Edit
               </button>
