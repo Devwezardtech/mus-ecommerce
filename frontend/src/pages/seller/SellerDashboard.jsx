@@ -195,7 +195,7 @@ const handleSubmit = async (e) => {
       )}
      
 <div className="bg-white-200 flex flex-col">
-    <div className=" lg:px-20" >
+    <div className="lg:px-20" >
       <div className="items-center justify-center">
 
       {create && (
@@ -211,14 +211,14 @@ const handleSubmit = async (e) => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 mb-6 ">
       <input
         className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        type="text" maxLength={15} //length of text
+        type="text"
         placeholder="  Name"
         value={newProducts.name}
         onChange={(e) => setNewProducts({ ...newProducts, name: e.target.value })}
       />
       <input
         className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        type="text" maxLength={20} //length of text
+        type="text"
         placeholder="  Description"
         value={newProducts.description}
         onChange={(e) => setNewProducts({ ...newProducts, description: e.target.value })}
@@ -273,7 +273,7 @@ const handleSubmit = async (e) => {
 
 
 <div className="bg-white-200 flex flex-col" >
-      <div className="w-full sm:max-w-full md:max-w-full lg:max-w-full mt-14 sm:mt-16 md:mt-20 lg:mt-20 lg:px-14"></div>
+      <div className="w-full sm:max-w-full md:max-w-full lg:max-w-full mt-14 sm:mt-16 md:mt-20 lg:mt-20"></div>
       
 {products.length === 0 ? (
   <div className="overflow-x-aut">
@@ -346,7 +346,7 @@ const handleSubmit = async (e) => {
             {/**
              * display for products name
              */}
-            <td className="px-4 py-2 font-medium"> 
+            <td className="px-2 py-1 font-medium"> 
    <span className="block md:hidden">
     {product.name.length > 6 ? product.name.slice(0, 6) + "..." : product.name}
   </span>
@@ -363,7 +363,7 @@ const handleSubmit = async (e) => {
              {/**
              * display for description
              */}
-            <td className="px-4 py-2 font-medium">
+            <td className="px-2 py-1 font-medium">
   <span className="block md:hidden">
     {product.description.length > 6 ? product.description.slice(0, 6) + "..." : product.description}
   </span>
@@ -382,7 +382,7 @@ const handleSubmit = async (e) => {
             {/**
              * for price
              */}
-             <td className="px-4 py-2 font-semibold">
+             <td className="px-2 py-1 font-semibold">
   <span className="block md:hidden">
     ₱{product.price.toString().length > 4 
       ? product.price.toString().slice(0, 4) + "..." 
