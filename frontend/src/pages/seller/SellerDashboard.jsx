@@ -325,17 +325,17 @@ const handleSubmit = async (e) => {
     <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm lg:text-md">
       <thead className="bg-gray-50">
         <tr>
-          <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
+          <th className="text-center font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
           <th className="lg:text-left sm:text-center md:text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
           <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Description</th>
           <th className="px-2 py-1 text-left font-semibold text-gray-700">Price</th>
-          <th className="font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3 ">Actions</th>
+          <th className="font-semibold text-gray-700 px-1 py-1 lg:px-4 lg:py-3 ">Actions</th>
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-100">
         {products.map((product) => (
           <tr key={product._id} className="hover:bg-gray-50">
-            <td className="px-2 py-1 md:px-4 md:py-2 lg:px-4 lg:py-2">
+            <td className="pl-4 px-2 py-1 md:px-4 md:py-2 lg:px-4 lg:py-2">
               <img
                 src={product.photo}
                 alt={product.name}
@@ -382,7 +382,7 @@ const handleSubmit = async (e) => {
             {/**
              * for price
              */}
-             <td className="px-2 py-1 font-semibold">
+             <td className=" px-2 py-1 font-semibold">
   <span className="block md:hidden">
     ₱{product.price.toString().length > 4 
       ? product.price.toString().slice(0, 4) + "..." 
@@ -401,20 +401,21 @@ const handleSubmit = async (e) => {
 </td>
 
 
-            <td className="text-center space-x-1 py-2">
-              <button
-                onClick={() => handleEdit(product)}
-                className="px-1 py-1 bg-blue-500 text-white rounded w-16 my-2 hover:bg-blue-400"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(product._id)}
-                className="px-1 py-1 bg-red-400 text-white rounded w-16 hover:bg-red-500"
-              >
-                Delete
-              </button>
-            </td>
+           <td className="left-0 px-2 py-1 pb-5 text-center space-y-2 space-x-1 ">
+  <button
+    onClick={() => handleEdit(product)}
+    className="px-2 py-1 bg-blue-500 text-white rounded w-16 hover:bg-blue-400 ml-1"
+  >
+    Edit
+  </button>
+  <button
+    onClick={() => handleDelete(product._id)}
+    className="ml-2 px-2 py-1 bg-red-400 text-white rounded w-16 hover:bg-red-500"
+  >
+    Delete
+  </button>
+</td>
+
           </tr>
         ))}
       </tbody>
