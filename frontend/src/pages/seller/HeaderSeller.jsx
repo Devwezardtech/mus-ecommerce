@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContect'
 import Message from '../message';
 
-const HeaderSeller = () => {
+const HeaderSeller = ({ onAddProduct }) => {
   const { logout } = useAuth();
   const [showLogout, setShowLogout] = useState(false);
   const [message, setMessage] = useState({ message: "", type: "" });
@@ -45,6 +45,10 @@ const HeaderSeller = () => {
        <Link className="hover:text-blue-500" to="/chat">Chat</Link>
         */
         }
+        <button 
+            onClick={onAddProduct} className="hover:text-blue-500">
+            Add Product
+          </button>
          <button 
           onClick={handleLogout} 
           className="hover:text-blue-500"
@@ -76,6 +80,10 @@ const HeaderSeller = () => {
           <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/seller">Home</Link>
            <Link className="hover:text-blue-500 hover:text-xl" to="/seller">Product</Link>
          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/seller/orders">Orders</Link>
+         <button 
+            onClick={onAddProduct} className="hover:text-blue-500 hover:text-xl text-left">
+            Add Product
+          </button>
           <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 hover:text-xl text-left">Logout</button>
         </div>
         </div>

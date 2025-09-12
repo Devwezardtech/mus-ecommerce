@@ -178,7 +178,7 @@ const handleSubmit = async (e) => {
   return (
     <div>
        <div className="fixed w-full z-50">
-        <HeaderSeller />
+        <HeaderSeller onAddProduct={() => setCreate(true)} />
       </div>
 
       {/* this line for modals*/}
@@ -194,8 +194,9 @@ const handleSubmit = async (e) => {
         </div>
       )}
      
-
-    <div className="bg-white-200 flex flex-col items-center justify-center p-4" >
+<div className="bg-white-200 flex flex-col">
+    <div className=" lg:px-20" >
+      <div className="items-center justify-center">
 
       {create && (
   <div className="fixed inset-0 flex items-center flex-col justify-center bg-opacity-40 z-50">
@@ -268,27 +269,16 @@ const handleSubmit = async (e) => {
   
   </div>
 )}
+</div>
 
 
-      <div className="flex items-center justify-center max-w-4xl p-6 pt-20 lg:pt-20 ">
-         <h2 className="text-2xl font-bold mb-4">All Products</h2> 
-       <button
-  onClick={() => setCreate(!create)}
-  className="mb-4 mx-8 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-300 hover:text-black"
->
-  {create ? "Cancel" : "Add New Product"}
-</button>
-
-      </div>
-
-
-<div className="bg-white-200 flex flex-col items-center justify-center" >
+<div className="bg-white-200 flex flex-col" >
       <div className="w-full sm:max-w-full md:max-w-full lg:max-w-full mt-14 sm:mt-16 md:mt-20 lg:mt-20 lg:px-14"></div>
       
 {products.length === 0 ? (
   <div className="overflow-x-aut">
-    <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm lg:text-md">
-      <thead className="bg-gray-50">
+    <table className="w-full min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm lg:text-md">
+      <thead className="bg-gray-50 ">
         <tr>
           <th className="text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Image</th>
           <th className="lg:text-left sm:text-center md:text-left font-semibold text-gray-700 px-2 py-1 lg:px-4 lg:py-3">Name</th>
@@ -322,6 +312,7 @@ const handleSubmit = async (e) => {
 
             {/* Actions */}
             <td className="px-2 text-center space-x-1">
+              <div className="inline-block w-12 h-6 bg-gray-200 rounded"></div>
               <div className="inline-block w-12 h-6 bg-gray-200 rounded"></div>
             </td>
           </tr>
@@ -438,6 +429,7 @@ const handleSubmit = async (e) => {
     <div className="flex justify-center item-center"> 
     {message.message && <Message message={message.message} type={message.type} />}
 </div>
+     </div>
      </div>
      </div>
   );
