@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import api from "../api/axios";
-import { useAuth } from "../contexts/AuthContect"; // Import Auth context
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import HeaderUser from "../layouts/headeruser";
 import Message from "./message";
-import AffiliateProducts from "./affiliate/AffiliateProducts";
+//import AffiliateProducts from "./affiliate/AffiliateProducts";
 
 
 const UserDashboard = () => {
@@ -31,7 +30,7 @@ const showMessage = (msg, type) => {
   const fetchProducts = async () => {
     try {
       showMessage("Loading...", "loading")
-      const res = await api.get("/products");
+      const res = await api.get("/api/products");
       console.log("Fetched products:", res.data); // Debug
       setProducts(res.data);
      
@@ -153,8 +152,11 @@ const showMessage = (msg, type) => {
               
             </div>
           ))}
-        </div>
-        <AffiliateProducts />
+      </div>
+       {/**
+      <AffiliateProducts />
+      */} 
+        
         </div>
       )}
     </div>
