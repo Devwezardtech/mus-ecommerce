@@ -4,7 +4,7 @@ import Message from "../message";
 import HeaderSeller from "./HeaderSeller";
 
 const SellerDashboard = () => {
-  const [newProducts, setNewProducts] = useState({ name: "", description: "", price: "", stock: "", commission: "", image: null });
+  const [newProducts, setNewProducts] = useState({ name: "", description: "", price: "", stock: "", commission: "", photo: null, photoId:"" });
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(null);
   const [products, setProducts] = useState([]);
@@ -44,7 +44,7 @@ const handleSubmit = async (e) => {
     return;
   }
 
-  let imageUrl = newProducts.image;
+  let imageUrl = newProducts.photo;
   let publicId = newProducts.photoId;
 
   if (photo) {
@@ -57,6 +57,8 @@ const handleSubmit = async (e) => {
         method: "POST",
         body: cloudData,
       });
+
+      if (!uploadRes.ok) throw new Error("Image upload failed");
 
       const uploadData = await uploadRes.json();
 
@@ -84,10 +86,15 @@ const handleSubmit = async (e) => {
   const method = editingProductId ? "put" : "post";
 
   const payload = {
-    ...newProducts,
-    image: imageUrl,
-    photoId: publicId,
-  };
+  name: newProducts.name.trim(),
+  description: newProducts.description.trim(),
+  price: parseFloat(newProducts.price),
+  stock: parseInt(newProducts.stock) || 0,
+  commission: parseFloat(newProducts.commission) || 0.2,
+  photo: imageUrl || newProducts.photo,
+  photoId: publicId || newProducts.photoId,
+};
+
 
   try {
     await api[method](url, payload, {
@@ -98,7 +105,15 @@ const handleSubmit = async (e) => {
 
     showMessage(method === "put" ? "Updated" : "Created Successfully", "success");
     fetchProducts();
-    setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", image: null, photoId: "" });
+   setNewProducts({ 
+  name: "", 
+  description: "", 
+  price: "", 
+  stock: "", 
+  commission: "", 
+  photo: null, 
+  photoId: "" 
+});
     setPhoto(null);
     setPreview(null);
     setEditingProductId(null);
@@ -113,7 +128,7 @@ const handleSubmit = async (e) => {
 
   const handleCancel = () => {
   setCreate(false);
-  setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", image: null, photoId: "" });
+  setNewProducts({ name: "", description: "", price: "", stock: "", commission: "", photo: null, photoId: "" });
   setPhoto(null);
   setPreview(null);
   setEditingProductId(null);
@@ -137,7 +152,7 @@ const handleSubmit = async (e) => {
       price: product.price,
       stock: product.stock,
       commission: product.commission,
-      image: product.photo,
+      photo: product.photo,
       photoId: product.photoId,
     });
     setEditingProductId(product._id);

@@ -7,7 +7,7 @@ const Product = require("../models/Product");
 
 const router = express.Router();
 
-// ✅ Auth Middleware
+// Auth Middleware
 const authenticateToken = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).json({ error: "No token provided." });
@@ -24,10 +24,14 @@ const authenticateToken = (req, res, next) => {
 // CREATE product (Cloudinary image sent from frontend)
 router.post("/", authenticateToken, async (req, res) => {
   try {
-    const { name, description, price, commission, stock, image, photoId } = req.body;
+    const { name, description, price, commission, stock, photo, photoId } = req.body;
 
-    if (!name || !description || !price || !image || !photoId) {
+    if (!name || !description || !price ) {
       return res.status(400).json({ error: "All fields and image are required." });
+    }
+
+    if (!photo || !photoId) {
+      return res.status(400).json({ error: "Product image is required." });
     }
 
     const product = new Product({
@@ -37,8 +41,9 @@ router.post("/", authenticateToken, async (req, res) => {
       stock,
       commission: commission || 0.2,
       createdBy: req.user.id,
-      photo: image,      // secure_url from Cloudinary
-      photoId: photoId,  // public_id from Cloudinary
+      photo,     // secure_url from Cloudinary
+      photoId, // public_id from Cloudinary
+      createdBy: req.user.id,
     });
 
     await product.save();
@@ -50,7 +55,7 @@ router.post("/", authenticateToken, async (req, res) => {
 
 
 
-// ✅ GET all or by seller
+// GET all or by seller
 router.get("/", async (req, res) => {
   try {
     const { seller } = req.query;
@@ -62,7 +67,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ✅ GET single product (public)
+// GET single product (public)
 router.get("/public/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -73,7 +78,7 @@ router.get("/public/:id", async (req, res) => {
   }
 });
 
-// ✅ Seller-only products
+// Seller-only products
 router.get("/my-products", authenticateToken, async (req, res) => {
   try {
     const products = await Product.find({ createdBy: req.user.id });
@@ -83,17 +88,17 @@ router.get("/my-products", authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ UPDATE product (and image)
+// UPDATE product (and image)
 router.put("/:id", authenticateToken, upload.single("photo"), async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ error: "Product not found" });
 
-    if (req.user.role !== "admin" && product.createdBy.toString() !== req.user.id) {
+    if (product.createdBy.toString() !== req.user.id) {
       return res.status(403).json({ error: "Not authorized" });
     }
 
-    const { name, description, price, commission, stock } = req.body;
+    const { name, description, price, commission, stock, photo, photoId } = req.body;
 
     const updates = {
       name,
@@ -103,14 +108,14 @@ router.put("/:id", authenticateToken, upload.single("photo"), async (req, res) =
       stock,
     };
 
-    // ✅ Replace photo on Cloudinary if new one is uploaded
-    if (req.file) {
+    // Replace photo on Cloudinary if new one is uploaded
+    if (photo && photoId && (photo !== product.photo)) {
       // Delete old photo from Cloudinary
       if (product.photoId) {
         await cloudinary.uploader.destroy(product.photoId);
       }
-      updates.photo = req.file.path;
-      updates.photoId = req.file.filename;
+      updates.photo = photo;
+      updates.photoId = photoId;
     }
 
     const updated = await Product.findByIdAndUpdate(req.params.id, updates, { new: true });
@@ -120,7 +125,7 @@ router.put("/:id", authenticateToken, upload.single("photo"), async (req, res) =
   }
 });
 
-// ✅ DELETE product + Cloudinary image
+// DELETE product + Cloudinary image
 router.delete("/:id", authenticateToken, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -142,7 +147,7 @@ router.delete("/:id", authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ Unshare product (affiliate)
+// Unshare product (affiliate)
 router.put("/:id/unshare", authenticateToken, async (req, res) => {
   try {
     const { affiliateId } = req.body;
