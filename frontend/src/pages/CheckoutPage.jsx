@@ -167,8 +167,8 @@ const CheckoutPage = () => {
 
         {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-            <div className="bg-white p-6 rounded-lg shadow-xl w-96">
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 ">
+            <div className="bg-white p-5 rounded-lg shadow-xl ">
               <h3 className="text-xl font-bold mb-4">Confirm Your Order</h3>
               <p className="mb-4">Are you sure you want to place this order?</p>
               <div className="flex justify-end space-x-3">
