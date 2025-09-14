@@ -9,10 +9,6 @@ const OrderHistoryPage = () => {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
-  const handleBack = () => {
-    navigate('/user');
-  };
-
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -20,7 +16,7 @@ const OrderHistoryPage = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/orders/my', {
+      const res = await api.get('/api/orders/my', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -32,6 +28,10 @@ const OrderHistoryPage = () => {
     }
   };
 
+  const goto = () => {
+    navigate("//user/orders")
+  }
+
   return (
     <div>
       <div className="fixed w-full z-50" >
@@ -42,12 +42,6 @@ const OrderHistoryPage = () => {
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h6 className="text-md font-semibold text-gray-900">Your Orders</h6>
-          <button
-            onClick={handleBack}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow"
-          >
-            Back
-          </button>
         </div>
 
         {loading ? (
@@ -55,7 +49,9 @@ const OrderHistoryPage = () => {
         ) : orders.length === 0 ? (
           <p className="text-gray-500">No orders yet.</p>
         ) : (
-          <div className="space-y-6">
+          <div>
+            <button onClick={goto}>
+              <div className='space-y-4'>
             {orders.map((order) => (
               <div
                 key={order._id}
@@ -82,6 +78,8 @@ const OrderHistoryPage = () => {
                 </div>
               </div>
             ))}
+            </div>
+            </button>
           </div>
         )}
       </div>
