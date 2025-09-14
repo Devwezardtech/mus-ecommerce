@@ -37,10 +37,6 @@ const CheckoutPage = () => {
     }, 1000);
   };
 
-  const handleBack = () => {
-    navigate('/cart');
-  };
-
   const placeOrder = async () => {
     const token = localStorage.getItem("token");
     const referralBy = localStorage.getItem("referralBy");
