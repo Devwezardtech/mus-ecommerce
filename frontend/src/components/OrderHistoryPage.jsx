@@ -29,7 +29,7 @@ const OrderHistoryPage = () => {
   };
 
   const goto = () => {
-    navigate("//user/orders")
+    navigate("/user/orders")
   }
 
   return (
@@ -49,15 +49,14 @@ const OrderHistoryPage = () => {
         ) : orders.length === 0 ? (
           <p className="text-gray-500">No orders yet.</p>
         ) : (
-          <div>
-            <button onClick={goto}>
-              <div className='space-y-4'>
+          <div className="space-y-6">
             {orders.map((order) => (
               <div
                 key={order._id}
-                className="bg-white rounded-lg shadow-md p-6 border border-gray-200"
+                className="bg-white rounded-md shadow-md p-6 border border-gray-200 hover:bg-gray-50"
               >
-                <div className="mb-4">
+                <button onClick={goto}>
+                <div className="mb-4 text-start">
                   <p><span className="font-medium text-gray-700">Order ID:</span> {order._id}</p>
                   <p><span className="font-medium text-gray-700">Status:</span> {order.status}</p>
                   <p><span className="font-medium text-gray-700">Total:</span> ₱{order.totalAmount}</p>
@@ -66,20 +65,22 @@ const OrderHistoryPage = () => {
                   <p><span className="font-medium text-gray-700">Phone:</span> {order.phone}</p>
                 </div>
 
-                <div>
+                <div className='text-start'>
                   <h4 className="text-lg font-semibold text-gray-800 mb-2">Items:</h4>
-                  <ul className="list-disc list-inside space-y-1 text-gray-700">
+                  <ul className=" space-y-1 text-gray-700">
                     {(order.products || []).map((item, idx) => (
                       <li key={idx}>
-                        {item.productId?.name || 'Unknown Product'} - {item.quantity} pcs - ₱{item.price}
+                        <p>Product: {item.productId?.name || 'Unknown Product'}</p>
+                         <p>Quantity: {item.quantity}
+                         </p> 
+                         <p>Price: ₱{item.price} </p> 
                       </li>
                     ))}
                   </ul>
                 </div>
+                </button>
               </div>
             ))}
-            </div>
-            </button>
           </div>
         )}
       </div>
