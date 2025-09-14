@@ -18,13 +18,6 @@ const showMessage = (msg, type) => {
     }, 2000);
   };
 
-
-
-  const handleBack = () => {
-    navigate("/user"); // Redirect to the users page
-  };
-
-
    useEffect(() => {
     fetchCart();
   }, []);  
@@ -33,7 +26,7 @@ const showMessage = (msg, type) => {
   //quantity, remove, buy
   const incrementQty = async (productId) => {
   try {
-    await api.put(`/cart/increment/${productId}`, {}, {
+    await api.put(`/api/cart/increment/${productId}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchCart();
@@ -44,11 +37,12 @@ const showMessage = (msg, type) => {
 
 const decrementQty = async (productId) => {
   try {
-    await api.put(`/cart/decrement/${productId}`, {}, {
+    await api.put(`/api/cart/decrement/${productId}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchCart();
-  } catch (err) {
+  } catch (error) {
+    console.error("error", error)
     showMessage("Minimum quantity is 1");
   }
 };
@@ -56,7 +50,7 @@ const decrementQty = async (productId) => {
 const removeFromCart = async (productId) => {
   
   try {
-    await api.delete(`/cart/${productId}`, {
+    await api.delete(`/api/cart/${productId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchCart();
@@ -88,7 +82,7 @@ const removeFromCart = async (productId) => {
   const fetchCart = async () => {
   try {
     showMessage("Loading...", "loading");
-    const res = await api.get("/cart", {
+    const res = await api.get("/api/cart", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -109,29 +103,23 @@ const removeFromCart = async (productId) => {
         <HeaderUser/>
       </div>
       
-  <div className="px-4 py-6">
-    <button
-      onClick={handleBack}
-      className="px-3 py-1 bg-gray-400 m-1 text-white rounded hover:bg-gray-300 hover:text-black"
-    >
-      Back
-    </button>
+  <div className="pt-8 min-w-full md:min-w-full lg:min-w-full text-sm lg:text-lg md:text-md">
 
     {cartItems.length === 0 ? (
       <div className=" w-full p-4 text-center text-gray-600 min-h-[700px] flex items-center justify-center">
     <p className="text-md font-semibold">Your cart is empty...</p>
   </div>
     ) : (
-      <div className="overflow-x-auto pt-6 lg:pt-10">
+      <div className="w-full min-w-full md:min-w-full lg:min-w-full pt-6 lg:pt-10">
         <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-          <thead className="bg-gray-100 text-gray-700 text-left">
+          <thead className="bg-gray-100 text-gray-700 text-center md:text-sm lg:text-md text-sm">
             <tr>
-              <th className="p-3 border-b">Image</th>
-              <th className="p-3 border-b">Name</th>
-              <th className="p-3 border-b">Price</th>
-              <th className="p-3 border-b">Quantity</th>
-              <th className="p-3 border-b">Total</th>
-              <th className="p-3 border-b text-center">Actions</th>
+              <th className="p-1 border-b">Image</th>
+              <th className="p-1 border-b">Name</th>
+              <th className="p-1 border-b">Price</th>
+              <th className="p-1 border-b">Quantity</th>
+              <th className="p-1 border-b">Total</th>
+              <th className="p-1 border-b">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -143,26 +131,29 @@ const removeFromCart = async (productId) => {
                     <img
                       src={item.productId.photo}
                       alt={item.productId.name}
-                      className="h-16 w-20 object-cover rounded shadow"
+                      className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:h-16 object-cover rounded shadow"
                     />
                   </td>
-                  <td className="p-3 border-b">{item.productId.name}</td>
-                  <td className="p-3 border-b">₱{item.productId.price}</td>
-                  <td className="p-3 border-b">{item.quantity}</td>
-                  <td className="p-3 border-b font-semibold">
+                  <td className="p-1 border-b text-center">{item.productId.name}</td>
+                  <td className="p-1 border-b text-center">₱{item.productId.price}</td>
+                  <td className="border-b text-center ">{item.quantity}</td>
+                  <td className="p-1 border-b font-semibold">
                     ₱{item.quantity * item.productId.price}
                   </td>
-                  <td className="p-3 text-center space-x-2">
-                    <button
+                  <td className="p-1 text-center space-y-1 lg:space-x-2">
+
+                    {/**
+                     * 
+                     *  <button
                       onClick={() => incrementQty(item.productId._id)}
-                      className="px-2 py-1 bg-gray-400 rounded text-white hover:bg-gray-300 hover:text-black"
+                      className="px-1 py-1 bg-gray-400 rounded text-white hover:bg-gray-300 hover:text-black"
                     >
                       +
                     </button>
                     <button
                       onClick={() => decrementQty(item.productId._id)}
                       disabled={item.quantity <= 1}
-                      className={`px-2 py-1 rounded text-white ${
+                      className={`px-1 py-1 rounded text-white ${
                         item.quantity <= 1
                           ? "bg-gray-300 cursor-not-allowed"
                           : "bg-gray-400 text-white hover:bg-gray-300 hover:text-black"
@@ -170,18 +161,23 @@ const removeFromCart = async (productId) => {
                     >
                       -
                     </button>
-                    <button
-                      onClick={() => removeFromCart(item.productId._id)}
-                      className="px-4 py-1 bg-gray-400 rounded text-white hover:bg-gray-300 hover:text-black"
-                    >
-                      Remove
-                    </button>
-                    <button
+                     * 
+                     */}
+                   
+                   <button
                       onClick={() => handleBuy(item)}
                       className="px-4 py-1 bg-gray-400 rounded text-white hover:bg-gray-300 hover:text-black"
                     >
                       Buy
                     </button>
+                    
+                    <button
+                      onClick={() => removeFromCart(item.productId._id)}
+                      className="px-1 py-1 bg-gray-400 rounded text-white hover:bg-gray-300 hover:text-black"
+                    >
+                      Remove
+                    </button>
+                    
                   </td>
                 </tr>
               ))}
