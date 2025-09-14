@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../api/axios';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import HeaderUser from '../layouts/headeruser';
 import Message from './message';
 
@@ -8,7 +8,7 @@ const UserOrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
    const [message, setMessage] = useState({message: "", type: ""});
 
 const showMessage = (msg, type) => {
@@ -16,11 +16,6 @@ const showMessage = (msg, type) => {
     setTimeout(() => {
       setMessage({ message: "", type: "" });
     }, 2000);
-  };
-
-
-  const handleBack = () => {
-    navigate('/user');
   };
 
   useEffect(() => {
@@ -46,24 +41,18 @@ const showMessage = (msg, type) => {
       <div className="fixed w-full">
          <HeaderUser />
       </div>
-      <div className="mx-4 my-1 pt-8 md:pt-10 lg:pt-12">
-        <button
-          onClick={handleBack}
-          className="mt-10 px-3 py-1 bg-gray-300 m-1 text-black rounded hover:bg-gray-200 hover:text-black lg:mx-16"
-        >
-          Back
-        </button>
+      <div className=" pt-12 md:pt-8 lg:pt-10">
 
-        <div className="overflow-x-auto rounded-lg py-1 sm:py-2 md:py-4 lg:py-8 px-1 sm:px-4 md:px-8 lg:px-16">
-          <table className="min-w-full divide-y divide-gray-200 text-sm">
+        <div className="overflow-x-auto rounded-lg py-1 sm:py-2 md:py-4 lg:py-8">
+          <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm">
             <thead className="bg-gray-100">
               <tr>
-                <th className="px-4 py-3 text-left font-semibold text-gray-700">Status</th>
-                <th className="px-4 py-3 text-left font-semibold text-gray-700">Payment</th>
-                <th className="px-4 py-3 text-left font-semibold text-gray-700">Address</th>
-                <th className="px-4 py-3 text-left font-semibold text-gray-700">Product</th>
-                <th className="px-4 py-3 text-left font-semibold text-gray-700">Quantity</th>
-                <th className="px-4 py-3 text-left font-semibold text-gray-700">Price (₱)</th>
+                <th className="px-1 py-1 text-left font-semibold text-gray-700">Status</th>
+                <th className="px-1 py-1 text-left font-semibold text-gray-700">Payment</th>
+                <th className="px-1 py-1 text-left font-semibold text-gray-700">Address</th>
+                <th className="px-1 py-1 text-left font-semibold text-gray-700">Product</th>
+                <th className="px-1 py-1 text-left font-semibold text-gray-700">Quantity</th>
+                <th className="px-1 py-1 text-left font-semibold text-gray-700">Price (₱)</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
@@ -94,10 +83,10 @@ const showMessage = (msg, type) => {
                 orders.map((order) =>
                   (order.products || []).map((p, index) => (
                     <tr key={`${order._id}-${index}`} className="hover:bg-gray-50">
-                      <td className="px-4 py-2">{order.status || "N/A"}</td>
-                      <td className="px-4 py-2">{order.paymentMethod || "N/A"}</td>
-                      <td className="px-4 py-2">{order.address || "N/A"}</td>
-                      <td className="px-4 py-2 flex items-center gap-2">
+                      <td className="px-1 py-1">{order.status || "N/A"}</td>
+                      <td className="px-1 py-1">{order.paymentMethod || "N/A"}</td>
+                      <td className="px-1 py-1">{order.address || "N/A"}</td>
+                      <td className="px-1 py-1 flex items-center gap-2">
   {p.productId?.photo && (
     <img
       src={p.productId.photo}

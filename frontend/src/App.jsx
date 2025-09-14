@@ -35,6 +35,7 @@ import PrintShipment from "./pages/seller/PrintShipment";
 import PDFShipment from "./pages/seller/PDFShipment";
 import AdminStrats from "./pages/admin/AdminStrats"
 import AllUsers from "./pages/admin/AllUsers"
+//import ModalsOrderHistory from "./pages/seller/Modaluserhistory";
 
 
 
@@ -129,6 +130,7 @@ const App = () => {
 <Route path="/seller/order/:orderId/:itemId/pdf" element={<PDFShipment />} />
 <Route path="/admin" element={<AdminDashboard />} />
 <Route path="/admin/Allusers" element={<AllUsers />} />
+{/*<Route path="/user/orders/modalsorder" element={<ModalsOrderHistory />} /> */}
 
 
     
