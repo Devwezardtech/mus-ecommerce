@@ -150,13 +150,7 @@ const CheckoutPage = () => {
 
         <h3 className="text-lg font-semibold mt-6 text-center">Total: ₱{total}</h3>
 
-        <div className="flex justify-between mt-6 space-x-2">
-          <button
-            onClick={handleBack}
-            className="w-full py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-          >
-            Back
-          </button>
+        <div className="flex justify-between mt-6 space-x-3">
           <button
             onClick={handleCancel}
             className="w-full py-2 bg-red-500 text-white rounded hover:bg-red-600"
@@ -180,7 +174,7 @@ const CheckoutPage = () => {
               <div className="flex justify-end space-x-3">
                 <button
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                  className="px-4 py-2 bg-red-500 rounded hover:bg-red-600 text-white"
                 >
                   Cancel
                 </button>
