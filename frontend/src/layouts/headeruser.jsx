@@ -43,73 +43,100 @@ const HeaderUser = () => {
    
 
    return (
-      <nav className="bg-gray-200 p-3 shadow-lg px-4 lg:px-16">
+      <nav 
+    className="bg-gray-200 py-2 px-4 shadow-lg relative z-50 sm:p-3 sm:px-8 md:p-4 md:px-16">
+      <div className="flex justify-between items-center font-bold">
+        <h1 className="text-xl sm:text-2xl font-bold">Ecommerce Website</h1>
 
-         <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold">Ecommerce Website</h1>
-               
+        {/* Destop Menu */}
+        <div className="hidden md:flex justify-end gap-8">
+        <Link className="hover:text-blue-500" to="/user">Home</Link>
+        <Link className="hover:text-blue-500" to="/user/orders">Order</Link>
         
-              <div className="hidden md:flex justify-center gap-8 mt-4">
-                <Link className='font-bold bg-gray-300 p-2 rounded shadow-md' to="/user">Home</Link>
-                <Link className='font-bold bg-gray-300 p-2 rounded shadow-md' to="/user/orders">Orders</Link>
-                <Link className='font-bold bg-gray-300 p-2 rounded shadow-md' to="/cart" >Cart</Link>
-              </div>
+        {/*
         
-               <button 
-                  onClick={handleLogout} 
-                  className="hidden md:block bg-gray-300 p-2 mx-20 rounded shadow-md"
-                >
-                  Logout
-                </button>
+        //for orders
         
-                <button 
-                  onClick={() => setMenuOpen(!menuOpen)} 
-                  className="md:hidden rounded"
-                >
-                  {menuOpen ? <h4 className='text-2xl p-1 '>X</h4> : <h3 className='text-4xl'>≡</h3>}
-                </button>
+        <Link className="hover:text-blue-500" to="/admin/orders">Orders</Link>*/}
+        <Link className="hover:text-blue-500" to="/cart" >Cart</Link>
+       {
+        /*
+       <Link className="hover:text-blue-500" to="/chat">Chat</Link>
+        */
+        }
+         <button 
+          onClick={handleLogout} 
+          className="hover:text-blue-500"
+        >
+          Logout
+        </button>
+      </div>
+      {/* Mobile Menu Toggle */}
+        <button onClick={() => setMenuOpen(true)} className="md:hidden rounded">
+          <h3 className="text-2xl ">≡</h3>
+        </button>
+       
+      </div>
+
+      
+      
+
+      {/* Mobile Dropdown Menu */}
+      {menuOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end">
+       <div className="bg-white w-1/2 h-full p-4 shadow-lg flex flex-col justify-between">
+       <div>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-lg font-bold">Menu</h2>
+          <button onClick={() => setMenuOpen(false)} className="text-xl hover:text-blue-500">✕</button>
+        </div>
+        <div className="flex flex-col text-lg gap-2">
+          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/user" >Home</Link>
+           <Link className="hover:text-blue-500 hover:text-xl" to="/user/orders">Orders</Link>
+         {/* 
+
+         // this show for orders in admin manage
+         
+         
+         <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/admin/orders">Orders</Link> */}
+          <Link to="/cart" className="hover:text-blue-500 hover:text-xl">Cart</Link>
+          <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 hover:text-xl text-left">Logout</button>
+        </div>
+        </div>
+
+         {/* Footer Section */}
+              <div className="border-t pt-4 text-xs text-gray-500">
+                <div className="flex flex-col gap-2">
+                  <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>About</Link>
+                  <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Help & Support</Link>
+                  <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Terms of Service</Link>
+                  <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Privacy Policy</Link>
                 </div>
+                <p className="mt-4 text-center">© 2025 Ecommerce</p>
+              </div>
 
-                   {/* Mobile Menu */}
-                      {menuOpen && (
-                        <div className="flex px-6 right-0 absolute bg-gray-100 border border-gray-100 bg-white-1000 rounded-md shadow-lg  w-40">
-                          <div className="md:hidden top-1 h-80 mt-4 flex  flex-col gap-2 inset-0 bg-copacity-40 z-50 ">
-                            <Link className='bg-gray-300 p-2 rounded hover:text-white hover:bg-gray-400 w-20 shadow-md' to="/user" >Home</Link>
-                            <Link className='bg-gray-300 p-2 rounded hover:text-white hover:bg-gray-400 w-20 shadow-md' to="/user/orders">Orders</Link>
-                             <Link className='bg-gray-300 p-2 rounded hover:text-white hover:bg-gray-400 w-20 shadow-md' to="/cart" >Cart</Link>
-                            <button 
+        </div>
+        </div>
+      )}
 
-                              onClick={() => { setMenuOpen(false); handleLogout(); }} 
-                              className="bg-gray-400 p-2 w-20 rounded shadow-md text-white hover:bg-gray-300 hover:text-black">
-                              Logout
-                            </button>
-                          </div>
-                        </div>
-                      )}
-
-
-
-         {/* this line for modals show confirmation for logout*/}
+      {/* Logout Modal */}
       {showLogout && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-gray-200 p-6 rounded-lg shadow-lg">
-            <p>Are you sure you want to logout?</p>
-            <div className="mt-4 flex justify-end gap-2">
-              <button onClick={cancelLogout} className="px-4 py-2 bg-gray-300 hover:bg-gray-400 hover:text-white rounded">Cancel</button>
-              <button onClick={confirmLogout} className="px-4 py-2 bg-gray-300 hover:bg-gray-400 hover:text-white rounded">Ok</button>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <p className="mb-4 text-lg">Are you sure you want to logout?</p>
+            <div className="flex justify-end gap-2">
+              <button onClick={cancelLogout} className="px-3 py-2 bg-blue-500 text-white hover:bg-blue-400 rounded-lg">Cancel</button>
+              <button onClick={confirmLogout} className="px-6 py-2 bg-red-500 hover:bg-red-400 text-white rounded-lg">Ok</button>
             </div>
           </div>
         </div>
       )}
-         
-         <div>
-            {/*show message */}
-            <div className="flex justify-center item-center"> 
-    {message.message && <Message message={message.message} type={message.type} />}
-</div>
-            
-         </div>
-      </nav>
+
+      {/* Message Alert */}
+      <div className="flex justify-center items-center mt-2">
+        {message.message && <Message message={message.message} type={message.type} />}
+      </div>
+    </nav>
    );
 }
 
