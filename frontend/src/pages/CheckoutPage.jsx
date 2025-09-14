@@ -122,20 +122,21 @@ const CheckoutPage = () => {
             onChange={handleChange}
           />
           <input
-            name="phone"
-            placeholder="Phone Number"
-            className="w-full px-4 py-2 border rounded"
-            onChange={handleChange}
-          />
-          <input
             name="address"
             placeholder="Address"
             className="w-full px-4 py-2 border rounded"
             onChange={handleChange}
           />
+          <div className='flex gap-2'>
+             <input
+            name="phone"
+            placeholder="09**********"
+            className="w-full px-4 py-2 border rounded"
+            onChange={handleChange}
+          />
           <select
             name="paymentMethod"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-3 py-3 border rounded bg-white text-gray-700 focus:ring-2 focus:ring-blue-500 appearance-none"
             onChange={handleChange}
           >
             <option value="cod">Cash on Delivery</option>
@@ -144,6 +145,7 @@ const CheckoutPage = () => {
             <option value="grab_pay">Grab Pay</option>
             <option value="paymaya">PayMaya</option>
           </select>
+          </div>
         </div>
 
         <h3 className="text-lg font-semibold mt-6 text-center">Total: ₱{total}</h3>
