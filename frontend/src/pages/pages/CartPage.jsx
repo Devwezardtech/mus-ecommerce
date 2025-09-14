@@ -22,9 +22,9 @@ const showMessage = (msg, type) => {
     fetchCart();
   }, []);  
 
-
+//temp comment
   //quantity, remove, buy
-  const incrementQty = async (productId) => {
+  /*const incrementQty = async (productId) => {
   try {
     await api.put(`/api/cart/increment/${productId}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
@@ -46,6 +46,7 @@ const decrementQty = async (productId) => {
     showMessage("Minimum quantity is 1");
   }
 };
+*/
 
 const removeFromCart = async (productId) => {
   
@@ -111,8 +112,8 @@ const removeFromCart = async (productId) => {
   </div>
     ) : (
       <div className="w-full min-w-full md:min-w-full lg:min-w-full pt-6 lg:pt-10">
-        <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-          <thead className="bg-gray-100 text-gray-700 text-center md:text-sm lg:text-md text-sm">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead className="bg-blue-500 text-gray-700 text-center text-white md:text-sm lg:text-md text-sm">
             <tr>
               <th className="p-1 border-b">Image</th>
               <th className="p-1 border-b">Name</th>
@@ -126,22 +127,26 @@ const removeFromCart = async (productId) => {
             {cartItems
               .filter((item) => item.productId !== null)
               .map((item) => (
-                <tr key={item.productId._id} className="hover:bg-gray-50">
-                  <td className="p-3 border-b">
-                    <img
-                      src={item.productId.photo}
-                      alt={item.productId.name}
-                      className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:h-16 object-cover rounded shadow"
-                    />
-                  </td>
+                <tr key={item.productId._id} className="hover:bg-gray-50 justify-center items-center">
+                  <td className="py-1 px-2 border-b w-24 text-center">
+  <div className="flex justify-center items-center">
+    <img
+      src={item.productId.photo}
+      alt={item.productId.name}
+      className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 object-cover rounded shadow-lg"
+    />
+  </div>
+</td>
                   <td className="p-1 border-b text-center">{item.productId.name}</td>
                   <td className="p-1 border-b text-center">₱{item.productId.price}</td>
                   <td className="border-b text-center ">{item.quantity}</td>
-                  <td className="p-1 border-b font-semibold">
+                  <td className="p-1 border-b font-semibold text-center">
                     ₱{item.quantity * item.productId.price}
                   </td>
-                  <td className="p-1 text-center space-y-1 lg:space-x-2">
 
+                  <td className="px-1 py-3 border-b text-center">
+
+                    
                     {/**
                      * 
                      *  <button
@@ -163,22 +168,23 @@ const removeFromCart = async (productId) => {
                     </button>
                      * 
                      */}
-                   
-                   <button
-                      onClick={() => handleBuy(item)}
-                      className="px-4 py-1 bg-gray-400 rounded text-white hover:bg-gray-300 hover:text-black"
-                    >
-                      Buy
-                    </button>
-                    
-                    <button
-                      onClick={() => removeFromCart(item.productId._id)}
-                      className="px-1 py-1 bg-gray-400 rounded text-white hover:bg-gray-300 hover:text-black"
-                    >
-                      Remove
-                    </button>
-                    
-                  </td>
+  <div className="flex flex-col md:flex-row justify-center items-center gap-2">
+    <button
+      onClick={() => handleBuy(item)}
+      className="px-6 py-1 bg-green-400 rounded text-white hover:bg-green-500"
+    >
+      Buy
+    </button>
+
+    <button
+      onClick={() => removeFromCart(item.productId._id)}
+      className="px-3 py-1 bg-red-400 rounded text-white hover:bg-red-500"
+    >
+      Remove
+    </button>
+  </div>
+</td>
+
                 </tr>
               ))}
           </tbody>
