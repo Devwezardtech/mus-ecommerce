@@ -4,7 +4,7 @@ const User = require("../models/User");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 
-// 📧 Nodemailer setup
+// Nodemailer setup
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// 🔐 Signup with OTP
+// Signup with OTP
 router.post("/signup", async (req, res) => {
   try {
     console.log("Signup payload:", req.body); // for debugging
