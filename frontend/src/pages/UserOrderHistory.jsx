@@ -43,16 +43,16 @@ const showMessage = (msg, type) => {
       </div>
       <div className=" pt-12 md:pt-8 lg:pt-10">
 
-        <div className="overflow-x-auto rounded-lg py-1 sm:py-2 md:py-4 lg:py-8">
+        <div className="flex flex-cols overflow-x-auto rounded-lg py-1 px-1 sm:px-1 md:px-4 lg:px-8 justify-center items-center sm:py-2 md:py-4 lg:py-8">
           <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm">
-            <thead className="bg-gray-100">
+            <thead className='bg-blue-500 text-white'>
               <tr>
-                <th className="px-1 py-1 text-left font-semibold text-gray-700">Status</th>
-                <th className="px-1 py-1 text-left font-semibold text-gray-700">Payment</th>
-                <th className="px-1 py-1 text-left font-semibold text-gray-700">Address</th>
-                <th className="px-1 py-1 text-left font-semibold text-gray-700">Product</th>
-                <th className="px-1 py-1 text-left font-semibold text-gray-700">Quantity</th>
-                <th className="px-1 py-1 text-left font-semibold text-gray-700">Price (₱)</th>
+                <th className="px-1 py-1 font-semibold ">Status</th>
+                <th className="px-1 py-1 font-semibold ">Payment</th>
+                <th className="px-1 py-1 font-semibold ">Address</th>
+                <th className="px-1 py-1 font-semibold">Product</th>
+                <th className="px-1 py-1 font-semibold">Quantity</th>
+                <th className="px-1 py-1 font-semibold">Price (₱)</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
@@ -82,22 +82,25 @@ const showMessage = (msg, type) => {
               ) : (
                 orders.map((order) =>
                   (order.products || []).map((p, index) => (
-                    <tr key={`${order._id}-${index}`} className="hover:bg-gray-50">
+                    <tr key={`${order._id}-${index}`} className="hover:bg-gray-50 text-center">
+                      
                       <td className="px-1 py-1">{order.status || "N/A"}</td>
                       <td className="px-1 py-1">{order.paymentMethod || "N/A"}</td>
                       <td className="px-1 py-1">{order.address || "N/A"}</td>
-                      <td className="px-1 py-1 flex items-center gap-2">
-  {p.productId?.photo && (
-    <img
-      src={p.productId.photo}
-      alt={p.productId?.name || "Product"}
-      className="h-10 w-10 object-cover rounded"
-    />
-  )}
-  {!p.productId?.photo && (
-    <span>{p.productId?.name || "Unknown Product"}</span>
-  )}
+                      <td className="px-1 py-1">
+  <div className="flex items-center justify-center gap-2">
+    {p.productId?.photo ? (
+      <img
+        src={p.productId.photo}
+        alt={p.productId?.name || "Product"}
+        className="h-10 w-10 object-cover rounded"
+      />
+    ) : (
+      <span>{p.productId?.name || "Unknown Product"}</span>
+    )}
+  </div>
 </td>
+
 
                       <td className="px-4 py-2">{p.quantity}</td>
                       <td className="px-4 py-2">₱{p.price.toFixed(2)}</td>

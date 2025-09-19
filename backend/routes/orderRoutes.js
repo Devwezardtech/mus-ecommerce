@@ -44,7 +44,7 @@ router.post('/', auth, async (req, res) => {
       await product.save();
     }
 
-    // 🔍 Ensure each product has valid ObjectId and price
+    // Ensure each product has valid ObjectId and price
     const validatedProducts = products.map((item) => ({
       productId: item.productId,       //  should be ObjectId string
       quantity: item.quantity,

@@ -5,8 +5,8 @@ const auth = require('../middleware/auth'); // if you use token middleware
 
 const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
 
-// ✅ Optional log to check if secret key is loaded (remove in production)
-console.log("✅ PAYMONGO_SECRET_KEY is loaded:", !!PAYMONGO_SECRET_KEY);
+// Optional log to check if secret key is loaded (remove in production)
+console.log("PAYMONGO_SECRET_KEY is loaded:", !!PAYMONGO_SECRET_KEY);
 
 const paymongoHeaders = {
   Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY + ':').toString('base64')}`,

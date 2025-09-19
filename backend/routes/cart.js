@@ -20,7 +20,7 @@ const authenticateToken = (req, res, next) => {
 };
 
 
-// ✅ GET /api/cart - Get all items from user's cart
+// GET /api/cart - Get all items from user's cart
 router.get("/", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -37,7 +37,7 @@ router.get("/", authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ POST /api/cart - Add item to user's cart
+// POST /api/cart - Add item to user's cart
 router.post("/", authenticateToken, async (req, res) => {
   const { productId, quantity } = req.body;
   const userId = req.user.id;
@@ -74,7 +74,7 @@ router.post("/", authenticateToken, async (req, res) => {
 });
 
 //quantity and remove item from cart
-// ✅ Increment quantity
+// Increment quantity
 router.put("/increment/:productId", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -94,7 +94,7 @@ router.put("/increment/:productId", authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ Decrement quantity
+//  Decrement quantity
 router.put("/decrement/:productId", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -118,7 +118,7 @@ router.put("/decrement/:productId", authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ Remove from cart
+// Remove from cart
 router.delete("/:productId", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id;
