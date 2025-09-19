@@ -43,8 +43,8 @@ const showMessage = (msg, type) => {
       </div>
       <div className=" pt-12 md:pt-8 lg:pt-10">
 
-        <div className="flex flex-cols overflow-x-auto rounded-lg py-2 px-2 sm:px-2 md:px-4 lg:px-8 justify-center items-center sm:py-2 md:py-4 lg:py-8">
-          <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm">
+        <div className="flex flex-cols overflow-x-auto rounded-lg py-2  justify-center items-center sm:py-2 md:py-4 lg:py-8">
+          <table className="min-w-full md:min-w-full lg:min-w-full divide-y divide-gray-200 text-sm px-2 sm:px-2 md:px-4 lg:px-8">
             <thead className='bg-blue-500 text-white'>
               <tr>
                 <th className="px-1 py-1 font-semibold ">Status</th>

@@ -112,7 +112,7 @@ const removeFromCart = async (productId) => {
   </div>
     ) : (
       <div className="w-full min-w-full md:min-w-full lg:min-w-full pt-6 lg:pt-10">
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full bg-white border border-gray-200" >
           <thead className="bg-blue-500 text-gray-700 text-center text-white md:text-sm lg:text-md text-sm">
             <tr>
               <th className="p-1 border-b">Image</th>
