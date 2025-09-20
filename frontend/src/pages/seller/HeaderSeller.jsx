@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContect'
 import Message from '../message';
 
@@ -9,12 +9,15 @@ const HeaderSeller = ({ onAddProduct }) => {
   const [message, setMessage] = useState({ message: "", type: "" });
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const navigate = useNavigate
+
   const handleLogout = () => setShowLogout(true);
 
   const confirmLogout = () => {
     setShowLogout(false);
     showMessage("Logging out...", "loading");
     setTimeout(() => logout(), 1000);
+    navigate("/")
   };
 
   const cancelLogout = () => {

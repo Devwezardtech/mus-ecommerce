@@ -11,13 +11,13 @@ const HeaderAffiliate = () => {
   const [showLogout, setShowLogout] = useState(false);
   const [message, setMessage] = useState({ message: "", type: "" });
 
-  // ✅ Toast
+  // Toast
   const showMessage = (msg, type = "success") => {
     setMessage({ message: msg, type });
     setTimeout(() => setMessage({ message: "", type: "" }), 2000);
   };
 
-  // ✅ Navigation handlers
+  // Navigation handlers
   const goHome = () => {
     setMenuOpen(false);
     navigate("/affiliate");

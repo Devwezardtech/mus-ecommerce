@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContect';  // Import Link for navigation
 import Message from '../pages/message';
 
@@ -10,6 +10,8 @@ const HeaderUser = () => {
    
       //message of alert
       const [message, setMessage] = useState({message: "", type: ""})
+
+      const navigate = useNavigate();
    
       //this alert message
        const showMessage = (message, type) => {
@@ -32,6 +34,7 @@ const HeaderUser = () => {
         
        setTimeout(()=>{
          logout(); // call logout from context
+         navigate("/")
        }, 1000)
       
      };
