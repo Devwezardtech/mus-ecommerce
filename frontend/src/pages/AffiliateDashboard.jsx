@@ -73,8 +73,33 @@ const AffiliateDashboard = () => {
     <div className="fixed w-full z-50">
       <HeaderAffiliate />
     </div >
-    <div className="pt-20 p-4 bg-gray-100 min-h-screen">
+    <div className="p-4 bg-gray-100 min-h-screen">
+      
       {/* Products List */}
+
+      {products.length === 0 ? (
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mt-5 gap-4 py-8 lg:mt-16">
+            {Array.from({ length: 32 }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-gray-200 rounded shadow-sm animate-pulse p-1 space-y-1 hover:shadow-lg lg:space-y-4 lg:p-4"
+              >
+                <div className="h-28 bg-gray-300 rounded lg:h-48"></div>
+                <div className="flex flex-col justify-center items-center gap-2">
+                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+                <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                
+                   <div className="flex justify-between mx-1 gap-1 lg:mt-2 h-5 w-20 bg-gray-300 lg:h-8 rounded">
+                </div>
+                </div>
+               
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="pt-10 sm:pt-14 md:pt-16 lg:pt-18">
+
       <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {products.map((product) => (
           <div key={product._id}>
@@ -115,6 +140,8 @@ const AffiliateDashboard = () => {
           </div>
         ))}
       </div>
+      </div>
+        )};
 
       {/* Modal */}
       {modalProduct && (

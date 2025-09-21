@@ -16,7 +16,7 @@ const PublicProductMerged = () => {
   const [copied, setCopied] = useState(false);
   const [message, setMessage] = useState({ message: "", type: "" });
 
-  const link = `${window.location.origin}/product/public/${id}${refCode ? `?ref=${refCode}` : ""}`;
+  const link = `${window.location.origin}#${`/product/public/${id}${refCode ? `?ref=${refCode}` : ""}`}`;
 
   const showMessage = (msg, type = "success") => {
     setMessage({ message: msg, type });
@@ -90,7 +90,7 @@ const PublicProductMerged = () => {
     };
 
     fetchProductAndRelated();
-  }, [id]);
+  }, [id, refCode]);
 
   if (!product) return <div className="text-center mt-32">Loading...</div>;
 

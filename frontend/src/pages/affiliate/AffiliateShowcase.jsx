@@ -81,7 +81,7 @@ const AffiliateShowcase = () => {
           <div className="pt-2 sm:pt-2 md:pt-6 lg:pt-10">
   <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-center">
     {showcase.map((product) => {
-      const referralLink = `${window.location.origin}/api/product/public/${product._id}?ref=${refCode}`;
+      const referralLink = `${window.location.origin}#${`/product/public/${product._id}?ref=${refCode}`}`;
       const commissionAmount = (product.price * product.commission).toFixed(2);
 
       return (
