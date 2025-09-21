@@ -95,18 +95,22 @@ const AffiliateDashboard = () => {
                           <p className="text-sx text-sm text-gray-500 sm:text-sm md:text-sm lg:text-md">
                             Stock: {product.stock}
                           </p>
-                        </div>
-              <p className="text-sm text-blue-600">
-                Commission: ₱{(product.price * product.commission).toFixed(2)} ({Math.round(product.commission * 100)}%)
+                          <p className="text-sm text-blue-600">
+                Earn: ₱{(product.price * product.commission).toFixed(2)} ({Math.round(product.commission * 100)}%)
               </p>
+                        </div>
               </div>
             </button>
-            <button
+            <div  className="w-full flex items-center justify-center">
+               <button
               onClick={() => addToShowcase(product)}
-              className="mt-2 w-full bg-green-500 text-white rounded py-1 hover:bg-green-600"
+              className="p-1 bg-green-500 text-white text-sm rounded hover:bg-blue-500 sm:text-base md:text-base lg:text-md"
             >
               Add to Showcase
             </button>
+
+            </div>
+           
           </div>
           </div>
         ))}
