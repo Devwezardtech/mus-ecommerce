@@ -20,7 +20,7 @@ const AffiliateOrders = () => {
   const fetchAffiliateOrders = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await api.get("/affiliate/orders", {
+      const res = await api.get("/api/affiliate/orders", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -111,13 +111,14 @@ const AffiliateOrders = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {order.products.map((item, idx) => {
+                    if (!item.productId) return null;
                     const { name, photo, price, commission } = item.productId;
                     const earnings = (price * commission * item.quantity).toFixed(2);
 
                     return (
                       <div key={idx} className="flex gap-4 border rounded p-2">
                         <img
-                          src={item.productId.photo}
+                          src={photo}
                           alt={name}
                           className="w-20 h-20 object-cover rounded"
                         />

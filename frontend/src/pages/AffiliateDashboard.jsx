@@ -11,6 +11,7 @@ const AffiliateDashboard = () => {
   const [modalProduct, setModalProduct] = useState(null);
   const [message, setMessage] = useState({ message: "", type: "" });
 
+
   const showMessage = (msg, type) => {
     setMessage({ message: msg, type });
     setTimeout(() => setMessage({ message: "", type: "" }), 2000);
@@ -22,11 +23,10 @@ const AffiliateDashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await api.post(
-        "/affiliate/showcase",
+        "/api/affiliate/showcase",
         { productId: product._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setShowcase((prev) => [...prev, product]);
       showMessage("Added to showcase", "success");
     } catch (error) {
       showMessage(error.response?.data?.error || "Failed to add", "failed");
