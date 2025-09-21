@@ -93,7 +93,7 @@ const HeaderAffiliate = () => {
           <button onClick={() => setMenuOpen(false)} className="text-xl hover:text-blue-500">✕</button>
         </div>
         <div className="flex flex-col text-lg gap-2">
-         <button className="hover:text-blue-500 text-left" onClick={goHome}>home</button>
+         <button className="hover:text-blue-500 text-left" onClick={goHome}>Home</button>
           <button onClick={goProfile} className="hover:text-blue-500 hover:text-xl text-left" >Profile</button>
            <button className="hover:text-blue-500 hover:text-xl text-left" onClick={goShowcase}>Showcase</button>
          <button onClick={goAffiliateOrder} className="hover:text-blue-500 hover:text-xl text-left" >Orders</button>
@@ -125,29 +125,23 @@ const HeaderAffiliate = () => {
 
       
 
-      {/* Logout Confirmation */}
+     {/* Logout Modal */}
       {showLogout && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg">
-            <p className="mb-4">Are you sure you want to logout?</p>
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <p className="mb-4 text-lg">Are you sure you want to logout?</p>
             <div className="flex justify-end gap-2">
-              <button onClick={cancelLogout} className="px-3 py-2 bg-gray-300 rounded">
-                Cancel
-              </button>
-              <button onClick={confirmLogout} className="px-3 py-2 bg-gray-300 rounded">
-                Ok
-              </button>
+              <button onClick={cancelLogout} className="px-3 py-2 bg-blue-500 text-white hover:bg-blue-400 rounded-lg">Cancel</button>
+              <button onClick={confirmLogout} className="px-6 py-2 bg-red-500 hover:bg-red-400 text-white rounded-lg">Ok</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Toast Message */}
-      {message.message && (
-        <div className="flex justify-center mt-2">
-          <Message message={message.message} type={message.type} />
-        </div>
-      )}
+      {/* Message Alert */}
+      <div className="flex justify-center items-center mt-2">
+        {message.message && <Message message={message.message} type={message.type} />}
+      </div>
     </nav>
   );
 };

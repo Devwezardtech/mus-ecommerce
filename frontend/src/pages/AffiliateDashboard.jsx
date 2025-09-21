@@ -75,23 +75,31 @@ const AffiliateDashboard = () => {
     </div >
     <div className="pt-20 p-4 bg-gray-100 min-h-screen">
       {/* Products List */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {products.map((product) => (
-          <div key={product._id} className="bg-white p-4 rounded shadow hover:shadow-md transition">
-            <button onClick={() => setModalProduct(product)} className="w-full">
+          <div key={product._id}>
+            <div className="bg-gray-250 mb-4 pb-2 flex flex-col rounded shadow-md hover:shadow-lg transition-shadow duration-300 gap-2 w-auto h-auto">
+            <button onClick={() => setModalProduct(product)}>
+              <div className="flex flex-col items-center justify-center">
              <img
   src={product.photo}
   alt={product.name}
-  className="h-48 w-full object-cover rounded mb-2"
+  className="h-28 w-28 object-cover rounded shadow sm:h-32 sm:w-32 md:h-40 md:w-40 lg:h-60 lg:w-60 "
 />
-
-              <h3 className="font-semibold text-gray-800">{product.name}</h3>
-              <p className="text-sm text-gray-600">{product.description}</p>
-              <p className="text-lg font-bold text-gray-700">₱{product.price}</p>
-              <p className="text-sm text-gray-600">Stock: {product.stock}</p>
+<div>
+                          <strong className="text-gray-800 text-sm font-semibold sm:text-base md:text-md lg:text-lg">{product.name}</strong>
+                          <p className="text-xs">{product.description}</p>
+                          <p>
+                            <strong className="text-sm font-semibold sm:text-base md:text-md lg:text-lg">${product.price}</strong>
+                          </p>
+                          <p className="text-sx text-sm text-gray-500 sm:text-sm md:text-sm lg:text-md">
+                            Stock: {product.stock}
+                          </p>
+                        </div>
               <p className="text-sm text-blue-600">
                 Commission: ₱{(product.price * product.commission).toFixed(2)} ({Math.round(product.commission * 100)}%)
               </p>
+              </div>
             </button>
             <button
               onClick={() => addToShowcase(product)}
@@ -99,6 +107,7 @@ const AffiliateDashboard = () => {
             >
               Add to Showcase
             </button>
+          </div>
           </div>
         ))}
       </div>

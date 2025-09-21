@@ -19,7 +19,7 @@ const AffiliateShowcase = () => {
   const removeFromShowcase = async (productId) => {
     try {
       const token = localStorage.getItem("token");
-      await api.delete(`/affiliate/showcase/${productId}`, {
+      await api.delete(`/api/affiliate/showcase/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowcase((prev) => prev.filter((p) => p._id !== productId));
@@ -40,13 +40,13 @@ const AffiliateShowcase = () => {
         const token = localStorage.getItem("token");
 
         // Get showcase
-        const showcaseRes = await api.get("/affiliate/showcase", {
+        const showcaseRes = await api.get("/api/affiliate/showcase", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setShowcase(showcaseRes.data);
 
         // Get or generate ref code
-        const profileRes = await api.get("/affiliate/profile", {
+        const profileRes = await api.get("/api/affiliate/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -54,7 +54,7 @@ const AffiliateShowcase = () => {
           setRefCode(profileRes.data.refCode);
         } else {
           const gen = await api.post(
-            "/affiliate/generate",
+            "/api/affiliate/generate",
             {},
             { headers: { Authorization: `Bearer ${token}` } }
           );
