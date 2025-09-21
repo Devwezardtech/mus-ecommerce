@@ -74,11 +74,9 @@ const AffiliateShowcase = () => {
       <div className="fixed w-full z-50">
         <HeaderAffiliate />
       </div>
-      <div className="pt-20 px-4 bg-gray-100 min-h-screen">
-        <h2 className="text-2xl font-bold mb-6">My Showcase</h2>
-
+      <div className="pt-14 px-4 bg-gray-100 min-h-screen">
         {showcase.length === 0 ? (
-          <p className="text-gray-600">You haven’t shared any products yet.</p>
+          <p className="text-gray-600 pt-4 ">You haven’t shared any products yet.</p>
         ) : (
           <div className="pt-2 sm:pt-2 md:pt-6 lg:pt-10">
   <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-center">
@@ -89,12 +87,12 @@ const AffiliateShowcase = () => {
       return (
         <div
           key={product._id}
-          className="bg-gray-250 mb-4 pb-2 flex flex-col rounded shadow-md hover:shadow-lg transition-shadow duration-300 gap-2 w-auto h-auto"
+          className="bg-gray-250 mb-4 pb-2 flex flex-col rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 gap-2 w-auto h-auto"
         >
           <img
             src={product.photo}
             alt={product.name}
-            className="h-28 w-28 object-cover rounded shadow sm:h-32 sm:w-32 md:h-40 md:w-40 lg:h-60 lg:w-60 mx-auto"
+            className="h-28 w-28 object-cover rounded shadow-sm sm:h-32 sm:w-32 md:h-40 md:w-40 lg:h-60 lg:w-60 mx-auto"
           />
           <div className="px-2 text-center">
             <strong className="text-gray-800 text-sm font-semibold sm:text-base md:text-md lg:text-lg">
@@ -116,13 +114,13 @@ const AffiliateShowcase = () => {
           <div className="flex items-center justify-center gap-1">
             <button
               onClick={() => handleCopy(referralLink)}
-              className="p-1 bg-gray-400 text-white text-sm rounded hover:bg-gray-300 hover:text-black sm:text-base md:text-base lg:text-md"
+              className="p-1 bg-green-500 text-white text-sm rounded hover:bg-green-400 sm:text-base md:text-base lg:text-md"
             >
               Share
             </button>
             <button
               onClick={() => removeFromShowcase(product._id)}
-              className="p-1 bg-gray-400 text-white text-sm rounded hover:bg-gray-300 hover:text-black sm:text-base md:text-base lg:text-md"
+              className="p-1 bg-red-500 text-white text-sm rounded hover:bg-red-400 sm:text-base md:text-base lg:text-md"
             >
               Remove
             </button>
