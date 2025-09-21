@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContect'
 import Message from "../message";
 
@@ -44,6 +44,7 @@ const HeaderAffiliate = () => {
     setShowLogout(false);
     showMessage("Logging out...", "loading");
     setTimeout(() => logout(), 1000);
+    navigate("/");
   };
 
   const cancelLogout = () => {
@@ -54,64 +55,75 @@ const HeaderAffiliate = () => {
   return (
     <nav className="bg-gray-200 p-2 shadow-lg px-4 lg:px-16">
       {/* Top Bar */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Affiliate Dashboard</h1>
+             <div className="flex justify-between items-center font-bold">
+        <h1 className="text-xl sm:text-2xl font-bold">Affiliate Dashboard</h1>
 
-        {/* Mobile menu toggle */}
-        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden bg-gray-300 p-2 rounded">
-          {menuOpen ? <span>X</span> : <span>≡</span>}
-        </button>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex gap-8">
-          <button className="bg-gray-300 p-2 rounded shadow-md font-bold" onClick={goHome}>
-            Home
-          </button>
-          <button className="bg-gray-300 p-2 rounded shadow-md font-bold" onClick={goProfile}>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex justify-end gap-8">
+          <button className="hover:text-blue-500" onClick={goHome}>
+            Home</button>
+          <button className="hover:text-blue-500" onClick={goProfile}>
             Profile
           </button>
-          <button className="bg-gray-300 p-2 rounded shadow-md font-bold" onClick={goShowcase}>
+          <button  className="hover:text-blue-500" onClick={goShowcase}>
             Showcase
           </button>
-          <button className="bg-gray-300 p-2 rounded shadow-md font-bold" onClick={goAffiliateOrder}>
+          <button  className="hover:text-blue-500" onClick={goAffiliateOrder}>
             Order
           </button>
-        </div>
-
-        {/* Desktop Logout */}
-        <button onClick={handleLogout} className="hidden md:block bg-gray-300 p-2 rounded shadow-md">
-          Logout
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="fixed right-2 ">
-        <div className="md:hidden mt-4 flex flex-col gap-2 bg-gray-100 p-4 rounded shadow-md">
-          <button onClick={goHome} className="bg-gray-300 p-2 rounded shadow-md">
-            Home
-          </button>
-          <button onClick={goProfile} className="bg-gray-300 p-2 rounded shadow-md">
-            Profile
-          </button>
-          <button onClick={goShowcase} className="bg-gray-300 p-2 rounded shadow-md">
-            Showcase
-          </button>
-          <button onClick={goAffiliateOrder} className="bg-gray-300 p-2 rounded shadow-md">
-            Order
-          </button>
-          <button
-            onClick={() => {
-              setMenuOpen(false);
-              handleLogout();
-            }}
-            className="bg-gray-400 p-2 text-white rounded shadow-md"
-          >
+          <button  className="hover:text-blue-500" onClick={handleLogout}>
             Logout
           </button>
         </div>
+
+        {/* Mobile Menu Toggle */}
+        <button onClick={() => setMenuOpen(true)} className="md:hidden rounded">
+          <h3 className="text-2xl ">≡</h3>
+        </button>
+      </div>
+
+      {/* Slide-in Mobile Menu */}
+
+      {menuOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end">
+       <div className="bg-white w-1/2 h-full p-4 shadow-lg flex flex-col justify-between">
+       <div>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-lg font-bold">Menu</h2>
+          <button onClick={() => setMenuOpen(false)} className="text-xl hover:text-blue-500">✕</button>
+        </div>
+        <div className="flex flex-col text-lg gap-2">
+         <button className="hover:text-blue-500 text-left" onClick={goHome}>home</button>
+          <button onClick={goProfile} className="hover:text-blue-500 hover:text-xl text-left" >Profile</button>
+           <button className="hover:text-blue-500 hover:text-xl text-left" onClick={goShowcase}>Showcase</button>
+         <button onClick={goAffiliateOrder} className="hover:text-blue-500 hover:text-xl text-left" >Orders</button>
+          <button onClick={() => {
+              setMenuOpen(false);
+              handleLogout();
+            }} className="hover:text-blue-500 hover:text-xl text-left">Logout</button>
+        </div>
+        </div>
+
+         {/* Footer Section */}
+              <div className="border-t pt-4 text-xs text-gray-500">
+                <div className="flex flex-col gap-2">
+                  <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>About</Link>
+                  <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Help & Support</Link>
+                  <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Terms of Service</Link>
+                  <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Privacy Policy</Link>
+                </div>
+                <p className="mt-4 text-center">© 2025 Ecommerce</p>
+              </div>
+
+        </div>
         </div>
       )}
+
+
+
+
+
+      
 
       {/* Logout Confirmation */}
       {showLogout && (
