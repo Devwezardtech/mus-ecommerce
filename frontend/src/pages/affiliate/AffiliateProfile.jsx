@@ -11,8 +11,9 @@ const AffiliateProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await api.get(`/auth/${user.id}`);
+        const res = await api.get(`/api/auth/user/${user.id}`);
         setProfile(res.data);
+        console.log("data of profile", profile);
       } catch (error) {
         console.error("Failed to load profile", error);
       } finally {
@@ -21,17 +22,26 @@ const AffiliateProfile = () => {
     };
 
     if (user?.id) fetchProfile();
-  }, [user]);
+  }, [user, profile]);
 
-  if (loading) return <div className="text-center mt-32">Loading profile...</div>;
+  if (loading) return <div >
+    <div className="fixed w-full z-50">
+              <HeaderAffiliate />
+            </div>
+
+           <div>
+             <div className="text-center pt-20 ">Loading profile...</div>
+            </div>
+    
+    </div>;
 
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="fixed w-full z-50">
               <HeaderAffiliate />
             </div>
-            <div className="pt-20">
-               <div className=" max-w-xl mx-auto bg-white p-6 rounded shadow">
+            <div className="">
+               <div className=" max-w-xl mx-auto bg-white p-6 rounded">
         <h2 className="text-2xl font-bold mb-4">Affiliate Profile</h2>
         <p><strong>Name:</strong> {profile?.name}</p>
         <p><strong>Email:</strong> {profile?.email}</p>
