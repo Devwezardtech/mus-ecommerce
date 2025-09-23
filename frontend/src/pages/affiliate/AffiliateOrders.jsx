@@ -79,7 +79,6 @@ const AffiliateOrders = () => {
       </div>
 
       <div className="pt-20 p-6 max-w-6xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4">Your Referred Orders</h2>
 
         {orders.length === 0 ? (
           <p className="text-gray-600">No referred orders yet.</p>
