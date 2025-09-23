@@ -129,9 +129,9 @@ const AffiliateDashboard = () => {
             <div  className="w-full flex items-center justify-center">
                <button
               onClick={() => addToShowcase(product)}
-              className="p-1 bg-green-500 text-white text-sm rounded hover:bg-blue-500 sm:text-base md:text-base lg:text-md"
+              className="py-1  bg-green-500 text-white text-sm rounded hover:bg-blue-500 sm:text-base md:text-base lg:text-md mx-2 sm:mx-2 md:mx-3 px-7 "
             >
-              Add to Showcase
+              Add
             </button>
 
             </div>

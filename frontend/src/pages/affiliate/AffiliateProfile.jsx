@@ -36,11 +36,11 @@ const AffiliateProfile = () => {
     </div>;
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-white">
       <div className="fixed w-full z-50">
               <HeaderAffiliate />
             </div>
-            <div className="">
+            <div>
                <div className=" max-w-xl mx-auto bg-white p-6 rounded">
         <h2 className="text-2xl font-bold mb-4">Affiliate Profile</h2>
         <p><strong>Name:</strong> {profile?.name}</p>
