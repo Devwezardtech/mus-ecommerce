@@ -100,9 +100,9 @@ const PublicProductMerged = () => {
         <HeaderUser/>
       </div>
 
- <div className="min-h-screen bg-gray-100 pt-20 px-4 pb-10">
+ <div className="min-h-screen bg-gray-100 pt-20 pb-10">
       {/* Product Info */}
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
+      <div className="max-w-3xl mx-auto bg-white rounded-lg p-6">
         <img
            src={product.photo}
           alt={product.name}

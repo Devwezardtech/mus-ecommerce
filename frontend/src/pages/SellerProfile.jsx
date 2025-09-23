@@ -1,4 +1,3 @@
-// 📁 pages/SellerProfile.jsx
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api/axios";
@@ -13,7 +12,7 @@ const SellerProfile = () => {
   useEffect(() => {
     const fetchSellerData = async () => {
       try {
-        // 1️⃣ Fetch seller profile (public)
+        // Fetch seller profile (public)
         const sellerRes = await api.get(`/api/auth/${id}`);  setSeller(sellerRes.data);
 
         // Fetch seller's products (public)
@@ -33,7 +32,7 @@ const SellerProfile = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 pt-20 px-4 pb-10">
-      {/* 🔹 Seller Info */}
+      {/* Seller Info */}
       <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow-md mb-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-1">{seller.name}</h2>
         <p className="text-gray-600">Seller Profile</p>
