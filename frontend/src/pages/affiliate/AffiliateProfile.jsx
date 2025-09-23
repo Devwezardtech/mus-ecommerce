@@ -41,8 +41,8 @@ const AffiliateProfile = () => {
               <HeaderAffiliate />
             </div>
             <div>
-               <div className=" max-w-xl mx-auto bg-white p-6 rounded">
-        <h2 className="text-2xl font-bold mb-4">Affiliate Profile</h2>
+               <div className=" max-w-xl mx-auto bg-white p-6 pt-20 rounded">
+       
         <p><strong>Name:</strong> {profile?.name}</p>
         <p><strong>Email:</strong> {profile?.email}</p>
         <p><strong>Role:</strong> {profile?.role}</p>
