@@ -98,7 +98,7 @@ const FrontPage = () => {
                           <strong className="text-gray-800 text-sm font-semibold sm:text-base md:text-md lg:text-lg">{product.name}</strong>
                           <p className="text-xs">{product.description}</p>
                           <p>
-                            <strong className="text-sm font-semibold sm:text-base md:text-md lg:text-lg">${product.price}</strong>
+                            <strong className="text-sm font-semibold sm:text-base md:text-md lg:text-lg">₱ {product.price}</strong>
                           </p>
                           <p className="text-sx text-sm text-gray-500 sm:text-sm md:text-sm lg:text-md">
                             Stock: {product.stock}
