@@ -170,7 +170,7 @@ const AffiliateDashboard = () => {
                 <p className="font-semibold text-sm mb-1">Referral Link:</p>
                 <input
                   type="text"
-                  className="w-full px-3 py-1 border rounded-sm"
+                  className="w-full px-3 py-1 border rounded"
                   readOnly
                   value={`${window.location.origin}/product/public/${modalProduct._id}?ref=${refCode}`}
                 />

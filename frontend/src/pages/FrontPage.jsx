@@ -132,7 +132,7 @@ const FrontPage = () => {
 
       {modalProduct && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-          <div className="bg-gray-300 rounded-lg p-4 shadow-lg w-full max-w-sm relative">
+          <div className="bg-gray-200 p-6 rounded shadow-lg max-w-sm sm:max-w-sm lg:max-w-md w-full relative">
             <button
               onClick={() => setModalProduct(null)}
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-200 text-xl bg-gray-200 hover:bg-gray-400 rounded w-10"
@@ -148,7 +148,7 @@ const FrontPage = () => {
               {modalProduct.name}
             </h2>
             <p className="text-gray-600">{modalProduct.description}</p>
-            <p className="text-gray-800 font-bold mt-2">${modalProduct.price}</p>
+            <p className="text-gray-800 font-bold mt-2">₱ {modalProduct.price}</p>
             <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={() => handleAddToCart(modalProduct._id)}
