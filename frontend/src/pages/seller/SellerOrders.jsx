@@ -57,7 +57,7 @@ const SellerOrders = () => {
         {loading ? (
           <p className="text-gray-500">Loading orders...</p>
         ) : orders.length === 0 ? (
-          <p className="text-gray-600">No orders for your products yet.</p>
+          <p className="text-gray-600 px-4">No orders for your products yet.</p>
         ) : (
           <div className=" px-4 overflow-x-auto rounded-md border">
             <table className="min-w-full divide-y divide-gray-200 text-sm">
