@@ -80,14 +80,14 @@ const HeaderSeller = ({ onAddProduct }) => {
         </div>
         <div className="flex flex-col text-lg gap-2">
          <Link className="hover:text-blue-500" to="/seller/profile">Profile</Link>
-          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/seller">Home</Link>
-           <Link className="hover:text-blue-500 hover:text-xl" to="/seller">Product</Link>
-         <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/seller/orders">Orders</Link>
+          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500" to="/seller">Home</Link>
+           <Link className="hover:text-blue-500" to="/seller">Product</Link>
+         <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500" to="/seller/orders">Orders</Link>
          <button 
-            onClick={onAddProduct} className="hover:text-blue-500 hover:text-xl text-left">
+            onClick={onAddProduct} className="hover:text-blue-500 text-left">
             Add Product
           </button>
-          <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 hover:text-xl text-left">Logout</button>
+          <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 text-left">Logout</button>
         </div>
         </div>
 
