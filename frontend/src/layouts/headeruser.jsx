@@ -47,7 +47,7 @@ const HeaderUser = () => {
 
    return (
       <nav 
-    className="bg-gray-200 py-2 px-4 shadow-lg relative z-50 sm:p-3 sm:px-8 md:p-4 md:px-16">
+    className="bg-gray-200 py-2 px-4 shadow relative z-50 sm:p-3 sm:px-8 md:p-4 md:px-16">
       <div className="flex justify-between items-center font-bold">
         <h1 className="text-xl sm:text-2xl font-bold">Ecommerce Website</h1>
 

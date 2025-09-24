@@ -146,17 +146,17 @@ const AffiliateDashboard = () => {
       {/* Modal */}
       {modalProduct && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+          <div className="bg-gray-200 p-6 rounded shadow-lg max-w-sm sm:max-w-sm lg:max-w-md w-full relative">
             <button
               onClick={() => setModalProduct(null)}
-              className="absolute top-2 right-2 text-xl font-bold text-gray-500 hover:text-red-500"
+              className="absolute top-2 right-2 text-xl font-bold text-gray-500  hover:text-red-500"
             >
               ✕
             </button>
             <img
   src={modalProduct.photo}
   alt={modalProduct.name}
-  className="w-full h-64 object-cover rounded mb-4"
+  className="w-full h-64 object-cover rounded mb-4 mt-2 shadow-lg"
 />
 
             <h2 className="text-xl font-bold text-gray-700 mb-2">{modalProduct.name}</h2>
@@ -170,7 +170,7 @@ const AffiliateDashboard = () => {
                 <p className="font-semibold text-sm mb-1">Referral Link:</p>
                 <input
                   type="text"
-                  className="w-full px-3 py-1 border rounded"
+                  className="w-full px-3 py-1 border rounded-sm"
                   readOnly
                   value={`${window.location.origin}/product/public/${modalProduct._id}?ref=${refCode}`}
                 />

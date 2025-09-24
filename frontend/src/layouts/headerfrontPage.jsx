@@ -21,7 +21,7 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
   return (
     <nav 
     className="
-    bg-gray-200 py-2 px-4 shadow-lg relative z-50 
+    bg-gray-200 py-2 px-4 shadow relative z-50 
     sm:p-3 sm:px-8
     md:p-4 md:px-16
     ">
