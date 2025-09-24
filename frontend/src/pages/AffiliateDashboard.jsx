@@ -103,7 +103,7 @@ const AffiliateDashboard = () => {
       <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {products.map((product) => (
           <div key={product._id}>
-            <div className="bg-gray-250 mb-4 pb-2 flex flex-col rounded shadow-md hover:shadow-lg transition-shadow duration-300 gap-2 w-auto h-auto">
+            <div className="bg-gray-250 mb-4 pb-2 flex flex-col rounded shadow-sm hover:shadow-md transition-shadow duration-300 gap-2 w-auto h-auto">
             <button onClick={() => setModalProduct(product)}>
               <div className="flex flex-col items-center justify-center">
              <img
