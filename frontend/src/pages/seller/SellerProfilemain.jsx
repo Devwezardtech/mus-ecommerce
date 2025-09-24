@@ -9,9 +9,9 @@ const SellerProfileMain = () => {
       <div className="fixed w-full z-50">
         <HeaderSeller />
       </div>
-      <div className="pt-20 p-6 min-h-screen bg-gray-100">
-        <div className="max-w-md mx-auto bg-white shadow-md rounded p-6">
-          <h2 className="text-2xl font-bold mb-4">Seller Profile</h2>
+      <div className="pt-20  min-h-screen bg-white">
+        <div className="max-w-full bg-white rounded px-10">
+          <h2 className="text-lg font-semibold mb-4">Seller Profile</h2>
           <p><strong>Name:</strong> {user?.name}</p>
           <p><strong>Email:</strong> {user?.email}</p>
           <p><strong>Role:</strong> {user?.role}</p>

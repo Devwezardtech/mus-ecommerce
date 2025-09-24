@@ -1,4 +1,3 @@
-// ✅ Refactored SellerOrders.jsx
 
 import React, { useEffect, useState } from 'react';
 import api from "../../api/axios";
@@ -53,20 +52,27 @@ const SellerOrders = () => {
         <HeaderSeller />
       </div>
 
-      <div className="pt-20 p-4 max-w-6xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4">Your Product Orders</h2>
+      <div className="pt-20 max-w-6xl mx-auto">
 
         {loading ? (
           <p className="text-gray-500">Loading orders...</p>
         ) : orders.length === 0 ? (
           <p className="text-gray-600">No orders for your products yet.</p>
         ) : (
-          <div className="overflow-x-auto rounded-md border">
+          <div className=" px-4 overflow-x-auto rounded-md border">
             <table className="min-w-full divide-y divide-gray-200 text-sm">
-              <thead className="bg-gray-100">
+              <thead className="bg-gray-100 ">
                 <tr>
-                  <th>Photo</th><th>Product</th><th>Buyer</th><th>Address</th><th>Phone</th>
-                  <th>Payment</th><th>Qty</th><th>Total</th><th>Status</th><th>Action</th>
+                  <th>Photo</th>
+                  <th>Product</th>
+                  <th>Buyer</th>
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Payment</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
@@ -80,30 +86,30 @@ const SellerOrders = () => {
                             <img
                               src={item.productId.photo}
                               alt={item.productId.name}
-                              className="w-16 h-16 object-cover rounded"
+                              className="w-12 h-10 object-cover rounded"
                             />
                           ) : (
                             <div className="w-16 h-16 bg-gray-300 rounded"></div>
                           )}
                         </td>
-                        <td>{item.productId?.name}</td>
-                        <td>{order.userId?.email}</td>
-                        <td>{order.address}</td>
-                        <td>{order.phone}</td>
-                        <td>{order.paymentMethod}</td>
-                        <td>{item.quantity}</td>
-                        <td>₱{(item.price * item.quantity).toFixed(2)}</td>
-                        <td>{order.status}</td>
+                        <td className='px-2'>{item.productId?.name}</td>
+                        <td className='px-2'>{order.userId?.email}</td>
+                        <td className='px-2'>{order.address}</td>
+                        <td className='px-2'>{order.phone}</td>
+                        <td className='px-2'>{order.paymentMethod}</td>
+                        <td className='px-2'>{item.quantity}</td>
+                        <td className='px-2'>₱{(item.price * item.quantity).toFixed(2)}</td>
+                        <td className='px-2'>{order.status}</td>
                         <td className="space-x-2">
                           <button
                             onClick={() => handleAction('print', order._id, item._id)}
-                            className="text-green-600 hover:underline"
+                            className="text-green-600 hover:underline className='px-2'"
                           >
                             Print
                           </button>
                           <button
                             onClick={() => handleAction('pdf', order._id, item._id)}
-                            className="text-blue-600 hover:underline"
+                            className="text-blue-600 hover:underline className='px-2'"
                           >
                             PDF
                           </button>
