@@ -42,11 +42,13 @@ const FrontPage = () => {
   };
 
   const handleAddToCart = () => {
+    setModalProduct(null)
     showMessage("You can login first");
     setTimeout(() => setModelLogin(true), 2000);
   };
 
   const handleBuy = () => {
+    setModalProduct(null)
     showMessage("You can login first");
     setTimeout(() => setModelLogin(true), 2000);
   };
