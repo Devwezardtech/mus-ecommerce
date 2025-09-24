@@ -8,7 +8,7 @@ router.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
     const API_KEY = process.env.GEMINI_API_KEY;
-    const model = "models/gemini-1.5-flash"; // ✅ Use a valid model name
+    const model = "models/gemini-1.5-flash"; // Use a valid model name
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/${model}:generateContent?key=${API_KEY}`;
 

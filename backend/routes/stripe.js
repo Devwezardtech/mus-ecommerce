@@ -15,9 +15,9 @@ router.post('/create-checkout-session', auth, async (req, res) => {
         price_data: {
           currency: 'php',
           product_data: {
-            name: item.name || 'Product', // ✅ fallback if name is missing
+            name: item.name || 'Product', // fallback if name is missing
           },
-          unit_amount: Math.round(item.price * 100), // ✅ per item
+          unit_amount: Math.round(item.price * 100), //per item
         },
         quantity: item.quantity || 1,
       })),
@@ -39,21 +39,21 @@ router.post("/connect", auth, async (req, res) => {
   try {
     const user = req.user;
 
-    // ✅ Create Express account for PH with `transfers` only
+    // Create Express account for PH with `transfers` only
     const account = await stripe.accounts.create({
       type: "express",
       country: "PH",
       email: user.email,
       capabilities: {
-        transfers: { requested: true }, // ✅ only transfers
+        transfers: { requested: true }, // only transfers
       },
       business_type: "individual",
       tos_acceptance: {
-        service_agreement: "recipient", // ✅ required in PH for transfers
+        service_agreement: "recipient", // required in PH for transfers
       },
     });
 
-    // ✅ Create onboarding link
+    // Create onboarding link
     const accountLink = await stripe.accountLinks.create({
       account: account.id,
       refresh_url: "http://localhost:5173/affiliate/withdraw",

@@ -1,4 +1,3 @@
-// models/WithdrawRequest.js
 const mongoose = require("mongoose");
 
 const withdrawRequestSchema = new mongoose.Schema({
