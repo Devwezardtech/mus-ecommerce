@@ -56,18 +56,18 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
       <div>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-bold">Menu</h2>
-          <button onClick={() => setMenuOpen(false)} className="text-xl hover:text-blue-500">✕</button>
+          <button onClick={() => setMenuOpen(false)} className="text-xl hover:text-blue-500 hover:font-semibold">✕</button>
         </div>
 
         <div className="flex flex-col text-lg gap-2">
-          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl">Home</Link>
-          <Link onClick={handleOrder} className="hover:text-blue-500 hover:text-xl">Orders</Link>
+          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500">Home</Link>
+          <Link onClick={handleOrder} className="hover:text-blue-500">Orders</Link>
           <button
             onClick={() => {
               setMenuOpen(false);
               openLoginModal(true);
             }}
-            className="hover:text-blue-500 hover:text-xl text-left"
+            className="hover:text-blue-500 text-left"
           >
             Login
           </button>
@@ -76,7 +76,7 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
               setMenuOpen(false);
               openSignupModal(true);
             }}
-            className="hover:text-blue-500 hover:text-xl text-left"
+            className="hover:text-blue-500 text-left"
           >
             Signup
           </button>
