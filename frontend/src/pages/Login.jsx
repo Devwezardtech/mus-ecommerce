@@ -27,12 +27,12 @@ useEffect(() => {
   const handleRequestOtp = async (e) => {
     e.preventDefault();
     try {
-      setMessage("Sending OTP...", "loading");
+      showMessage("Sending OTP...", "loading");
       await requestLoginOtp(email, password);
-      setMessage("OTP sent to your email", "success");
+      showMessage("OTP sent to your email", "success");
       setStep(2);
     } catch (err) {
-      setMessage(err.message || "Login failed", "failed");
+      showMessage(err.message || "Login failed", "failed");
     }
   };
 
@@ -42,9 +42,9 @@ useEffect(() => {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      setMessage("Verifying OTP...", "loading");
+      showMessage("Verifying OTP...", "loading");
       const user = await verifyLoginOtp(email, otp);
-      setMessage("Login successful!", "success");
+      showMessage("Login successful!", "success");
 
       setTimeout(() => {
   if (user.role === "admin") navigate("/admin");
@@ -54,7 +54,7 @@ useEffect(() => {
   else showMessage("Unknown role", "failed");
 }, 1000);
     } catch (err) {
-      setMessage(err.message, "failed");
+      showMessage(err.message, "failed");
     }
   };
 

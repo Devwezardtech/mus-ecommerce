@@ -37,6 +37,9 @@ async function sendEmail(to, subject, html) {
 }
 
 /*
+
+//this is old code of emailed
+
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
@@ -46,6 +49,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+
 */
 
 
