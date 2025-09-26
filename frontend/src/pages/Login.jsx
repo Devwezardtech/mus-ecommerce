@@ -69,9 +69,12 @@ useEffect(() => {
             X
           </button>
         </div>
-        <h2 className="text-2xl text-black-600 py-4">
+        <div className="flex justify-center">
+           <h2 className="text-2xl text-white py-4">
           {step === 1 ? "Login" : "Enter OTP"}
         </h2>
+        </div>
+       
 
         {step === 1 ? (
           <form onSubmit={handleRequestOtp} className="space-y-4">
@@ -94,14 +97,14 @@ useEffect(() => {
             <div className="flex justify-center">
               <button
               type="submit"
-              className="w-20 py-2 bg-gray-500 text-white rounded hover:bg-blue-400"
+              className="w-20 py-2 bg-blue-500 text-white rounded-lg"
             >
               Login
             </button>
             </div>
             
-            <div className="flex justify-between items-center">
-              <span>Don’t have an account?</span>
+            <div className="flex justify-center gap-12 items-center">
+              <span className="text-white">Don’t have an account?</span>
               <button
                 onClick={onSwitchToSignup}
                 className="text-blue-600 hover:underline"

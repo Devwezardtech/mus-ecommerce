@@ -110,14 +110,14 @@ const FrontPage = () => {
                     <div className="flex items-center justify-center gap-1">
                       <button
                         onClick={() => handleAddToCart(product._id)}
-                        className="p-1 bg-gray-400 text-white text-sm rounded hover:bg-gray-300 hover:text-black sm:text-base md:text-base lg:text-md"
+                        className="p-1 bg-gray-400 text-white text-sm rounded hover:bg-red-500 sm:text-base md:text-base lg:text-md"
                       >
                          <span className="block sm:hidden md:hidden">CART</span>
                          <span className="hidden sm:block">ADD TO CART</span>
                       </button>
                       <button
                         onClick={() => handleBuy(product)}
-                        className="p-1 bg-gray-400 text-white text-sm rounded hover:bg-gray-300 hover:text-black sm:text-base md:text-base lg:text-md"
+                        className="p-1 bg-gray-400 text-white text-sm rounded hover:bg-red-500 sm:text-base md:text-base lg:text-md"
                       >
                         BUY
                       </button>

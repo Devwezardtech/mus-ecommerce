@@ -35,8 +35,9 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
             X
           </button>
         </div>
-
-        <h2 className="text-2xl text-black-600 py-4">Signup</h2>
+        <div className="flex justify-center">
+          <h2 className="text-2xl text-white py-4">Signup</h2>
+        </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <input
@@ -65,20 +66,23 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
           />
 
           {/* Role dropdown */}
-          <label htmlFor="role" className="block mb-1 text-sm font-medium text-white">
-            Select Role
+          <div className="flex justify-start items-center gap-8">
+              <label htmlFor="role" className="block mb-1 text-sm font-medium text-white">
+            Select Role :
           </label>
           <select
             id="role"
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white"
+            className="w-auto px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
-            <option value="user">User</option>
-            {!isAdminExists && <option value="admin">Admin</option>}
-            <option value="seller">Seller</option>
-            <option value="affiliate">Affiliate</option>
+            <option value="user" className="bg-gray-400">User</option>
+            {!isAdminExists && <option value="admin" className="bg-gray-400">Admin</option>}
+            <option value="seller" className="bg-gray-400">Seller</option>
+            <option value="affiliate" className="bg-gray-400">Affiliate</option>
           </select>
+          </div>
+        
 
           <div className="flex justify-center mt-4">
             <button
