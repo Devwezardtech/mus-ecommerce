@@ -6,12 +6,15 @@ const router = express.Router();
 
 // Nodemailer setup
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: process.env.EMAIL_HOST,
+  port: Number(process.env.EMAIL_PORT),
+  secure: Number(process.env.EMAIL_PORT) === 465, 
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
+
 
 // Signup with OTP
 router.post("/signup", async (req, res) => {
