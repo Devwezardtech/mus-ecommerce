@@ -184,4 +184,20 @@ router.get("/user/:id", async (req, res) => {
   }
 });
 
+router.get("/test-mail", async (req, res) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: "Test Email",
+      text: "If you see this, email works.",
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Test mail error:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 module.exports = router;
