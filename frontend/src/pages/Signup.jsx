@@ -24,7 +24,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
       <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl w-full max-w-sm mx-14 border border-white/30 shadow-lg">
         {/* Close button */}
         <div className="flex justify-end">
@@ -66,13 +66,17 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
           />
 
           {/* Role dropdown */}
-          <div className="flex justify-start items-center gap-8">
-              <label htmlFor="role" className="block mb-1 text-sm font-medium text-white">
+          <div className="flex justify-start items-center gap-7">
+            <div>
+              <label htmlFor="role" className="block text-sm font-medium text-white">
             Select Role :
           </label>
-          <select
+
+            </div>
+            <div className="">
+               <select
             id="role"
-            className="w-auto px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white"
+            className="w-56 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
@@ -81,27 +85,33 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess, showMessage }) => {
             <option value="seller" className="bg-gray-400">Seller</option>
             <option value="affiliate" className="bg-gray-400">Affiliate</option>
           </select>
+            </div>
+              
+         
           </div>
         
 
           <div className="flex justify-center mt-4">
             <button
               type="submit"
-              className="w-20 py-2 bg-gray-500 text-white rounded hover:bg-blue-400"
+              className="w-20 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Sign Up
             </button>
           </div>
         </form>
 
-        <div className="flex justify-between items-center mt-4">
-          <span>Already have an account?</span>
+        <div className="w-full mt-4">
+          <div className="flex justify-center gap-10">
+            <span className="text-white">Already have an account?</span>
           <button
             className="text-blue-600 hover:underline"
             onClick={onSwitchToLogin}
           >
             Login
           </button>
+          </div>
+          
         </div>
 
         {/* If parent handles messages, no need for local Message */}
