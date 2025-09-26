@@ -12,12 +12,17 @@ brevoClient.setApiKey(
   brevo.TransactionalEmailsApiApiKeys.apiKey,
   process.env.BREVO_API_KEY
 );
+console.log("BREVO_API_KEY:", process.env.BREVO_API_KEY);
+
 
 // Function to send email
 async function sendEmail(to, subject, html) {
   const emailData = {
-    sender: { name: process.env.BREVO_SENDER_NAME, email: process.env.BREVO_SENDER_EMAIL },
-    to: [{ email }],
+    sender: { 
+      name: process.env.BREVO_SENDER_NAME,
+       email: process.env.BREVO_SENDER_EMAIL
+       },
+    to: [{ email: to }],
     subject,
     htmlContent: html,
   };
