@@ -6,15 +6,14 @@ const router = express.Router();
 
 // Nodemailer setup
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com", 
-  port: 587,
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
   secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
-
 
 
 // Signup with OTP
@@ -184,21 +183,5 @@ router.get("/user/:id", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
-router.get("/test-mail", async (req, res) => {
-  try {
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: "Test Email",
-      text: "If you see this, email works.",
-    });
-    res.json({ success: true });
-  } catch (err) {
-    console.error("Test mail error:", err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
 
 module.exports = router;

@@ -27,7 +27,7 @@ useEffect(() => {
   const handleRequestOtp = async (e) => {
     e.preventDefault();
     try {
-      setMessage("Sending OTP...", "loading");
+      showMessage("Sending OTP...", "loading");
       await requestLoginOtp(email, password);
       showMessage("OTP sent to your email", "success");
       setStep(2);
@@ -35,6 +35,8 @@ useEffect(() => {
       showMessage(err.message || "Login failed", "failed");
     }
   };
+
+ 
 
   // Step 2: Enter OTP → Verify
   const handleVerifyOtp = async (e) => {
