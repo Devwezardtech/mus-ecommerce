@@ -27,12 +27,12 @@ useEffect(() => {
   const handleRequestOtp = async (e) => {
     e.preventDefault();
     try {
-      showMessage("Sending OTP...", "loading");
+      setMessage("Sending OTP...", "loading");
       await requestLoginOtp(email, password);
-      showMessage("OTP sent to your email", "success");
+      setMessage("OTP sent to your email", "success");
       setStep(2);
     } catch (err) {
-      showMessage(err.message || "Login failed", "failed");
+      setMessage(err.message || "Login failed", "failed");
     }
   };
 
@@ -42,9 +42,9 @@ useEffect(() => {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      showMessage("Verifying OTP...", "loading");
+      setMessage("Verifying OTP...", "loading");
       const user = await verifyLoginOtp(email, otp);
-      showMessage("Login successful!", "success");
+      setMessage("Login successful!", "success");
 
       setTimeout(() => {
   if (user.role === "admin") navigate("/admin");
@@ -54,7 +54,7 @@ useEffect(() => {
   else showMessage("Unknown role", "failed");
 }, 1000);
     } catch (err) {
-      showMessage(err.message, "failed");
+      setMessage(err.message, "failed");
     }
   };
 
@@ -136,12 +136,12 @@ useEffect(() => {
   }`}
   onClick={async () => {
     try {
-      showMessage("Resending OTP...", "loading");
+      setMessage("Resending OTP...", "loading");
       await requestLoginOtp(email, password);
-      showMessage("OTP resent to your email", "success");
+      setMessage("OTP resent to your email", "success");
       setCooldown(30); // Restart cooldown
     } catch (err) {
-      showMessage(err.message || "Failed to resend OTP", "failed");
+      setMessage(err.message || "Failed to resend OTP", "failed");
     }
   }}
 >

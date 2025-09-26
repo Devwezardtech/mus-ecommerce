@@ -1,10 +1,37 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const nodemailer = require("nodemailer");
+//const nodemailer = require("nodemailer");
+const brevo = require("@getbrevo/brevo");
 const router = express.Router();
 
-// Nodemailer setup
+const brevoClient = new brevo.TransactionalEmailsApi();
+
+// Configure Brevo API Key
+brevoClient.setApiKey(
+  brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY
+);
+
+// Function to send email
+async function sendEmail(to, subject, html) {
+  const emailData = {
+    sender: { name: process.env.BREVO_SENDER_NAME, email: process.env.BREVO_SENDER_EMAIL },
+    to: [{ email }],
+    subject,
+    htmlContent: html,
+  };
+
+  try {
+    await brevoClient.sendTransacEmail(emailData);
+    console.log(" Email sent to:", to);
+  } catch (err) {
+    console.error(" Email send failed:", err.response?.body || err.message);
+    throw new Error("Failed to send email");
+  }
+}
+
+/*
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
@@ -14,6 +41,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+*/
 
 
 // Signup with OTP
@@ -42,12 +70,15 @@ router.post("/signup", async (req, res) => {
     const user = new User({ name, email, password, role, otp, otpExpires, isVerified: false });
     await user.save();
 
-    await transporter.sendMail({
-      from: `"OTP Verification" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: "Your OTP Code",
-      html: `<h2>Your OTP: ${otp}</h2><p>Expires in 5 minutes.</p>`,
-    });
+    try {
+      await sendEmail(
+        email,
+        "Your OTP Code",
+        `<h2>Your OTP: ${otp}</h2><p>Expires in 5 minutes.</p>`
+      );
+    } catch (err) {
+      return res.status(500).json({ error: "Failed to send OTP email" });
+    }
 
     res.status(201).json({ message: "OTP sent to email", email });
   } catch (error) {
@@ -115,12 +146,15 @@ router.post("/login-request-otp", async (req, res) => {
   user.otpExpires = otpExpires;
   await user.save();
 
-  await transporter.sendMail({
-    from: `"Login OTP" <${process.env.EMAIL_USER}>`,
-    to: email,
-    subject: "Your OTP for Login",
-    html: `<h2>OTP: ${otp}</h2><p>Valid for 5 minutes</p>`,
-  });
+  try {
+    await sendEmail(
+      email,
+      "Your OTP for Login",
+      `<h2>OTP: ${otp}</h2><p>Valid for 5 minutes</p>`
+    );
+  } catch (err) {
+    return res.status(500).json({ error: "Failed to send login OTP email" });
+  }
 
   res.json({ message: "OTP sent" });
 });
