@@ -16,21 +16,21 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (Postman, server-to-server)
-      if (!origin) return callback(null, true);
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // allow Postman, server-to-server
 
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = `CORS policy does not allow access from the origin: ${origin}`;
-        return callback(new Error(msg), false);
+      // check if origin starts with any allowed domain
+      if (allowedOrigins.some(o => origin.startsWith(o))) {
+        return callback(null, true);
       }
 
-      return callback(null, true);
+      return callback(new Error("CORS not allowed for: " + origin), false);
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
+
 
 // ----------------- MIDDLEWARE -----------------
 app.use(express.json());

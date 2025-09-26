@@ -27,7 +27,7 @@ useEffect(() => {
   const handleRequestOtp = async (e) => {
     e.preventDefault();
     try {
-      showMessage("Sending OTP...", "loading");
+      setMessage("Sending OTP...", "loading");
       await requestLoginOtp(email, password);
       showMessage("OTP sent to your email", "success");
       setStep(2);
