@@ -66,7 +66,7 @@ await verifyLoginOtp(email, otp); // this already updates context
         </div>
         <div className="flex justify-center">
            <h2 className="text-2xl text-white py-4">
-          {step === 1 ? "Login@" : "Enter OTP@"}
+          {step === 1 ? "Login" : "Enter OTP"}
         </h2>
         </div>
        

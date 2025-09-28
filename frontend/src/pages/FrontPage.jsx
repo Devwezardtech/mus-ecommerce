@@ -40,7 +40,7 @@ const FrontPage = () => {
       const res = await api.get("/api/products");
       setProducts(res.data);
     } catch (error) {
-      const errMsg = error.response?.data?.message || "Failed to fetch products";
+      const errMsg = error.response?.data?.message || "loading...";
       console.error(errMsg);
       showMessage(errMsg, "failed");
     }
