@@ -15,7 +15,12 @@ const orderSchema = new mongoose.Schema(
     phone: { type: String, required: true },
     paymentMethod: { type: String, required: true },
     totalAmount: { type: Number, required: true },
-    status: { type: String, default: "Processing" },
+    status: {
+      type: String,
+      enum: ["pending", "processing", "picked up", "delivered", "cancelled"],
+      default: "pending",
+    },
+    assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
     referralBy: {
   type: String,
   default: null

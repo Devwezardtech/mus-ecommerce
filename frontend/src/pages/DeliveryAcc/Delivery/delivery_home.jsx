@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../contexts/AuthContect";
 import Message from "../../message";
+import { useNavigate } from "react-router-dom";
 import HeaderAdmin from "../../../layouts/headeradmin";
 
 const DeliveryHome = () => {
   const { user } = useAuth();
   const [message, setMessage] = useState({ message: "", type: "" });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -13,7 +16,11 @@ const DeliveryHome = () => {
     }
   }, [user]);
 
-  return (
+  const orderView = () => {
+   navigate("/delivery/order");
+  }
+
+  return(
     <div className="bg-gray-100 min-h-screen">
       {/* Header */}
       <div className="fixed w-full z-50">
@@ -34,8 +41,11 @@ const DeliveryHome = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="text-lg font-semibold mb-2">Assigned Deliveries</h2>
+            <button onClick={orderView}>
+            <h2 className="text-lg font-semibold mb-2 text-start">Assigned Deliveries</h2>
             <p className="text-gray-600">View and track your assigned orders.</p>
+            </button>
+
           </div>
 
           <div className="bg-white rounded-xl shadow p-6">

@@ -6,6 +6,8 @@ const Product = require("../models/Product");
 const jwt = require("jsonwebtoken");
 const auth = require('../middleware/auth');
 const adminOnly = require('../middleware/adminonly');
+const mongoose = require("mongoose");
+
 
 
 
@@ -210,6 +212,68 @@ router.get('/seller/:orderId/:itemId', auth, async (req, res) => {
   } catch (err) {
     console.error('Error fetching specific seller order:', err);
     res.status(500).json({ message: 'Failed to fetch seller order details' });
+  }
+});
+
+// GET orders for delivery accounts
+router.get('/delivery', auth, async (req, res) => {
+  try {
+    if (req.user.role !== "delivery") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const orders = await Order.find({
+  $or: [
+    { assignedTo: null },
+    { assignedTo: new mongoose.Types.ObjectId(req.user.id) }  // convert string → ObjectId
+  ],
+  status: { $in: ["pending", "processing"] }
+})
+.populate("userId", "email")
+.populate("products.productId", "name price photo category")
+.sort({ createdAt: -1 });
+
+    res.json(orders);
+  } catch (err) {
+    console.error('Error fetching delivery orders:', err);
+    res.status(500).json({ message: 'Error getting delivery orders' });
+  }
+});
+
+
+
+// PUT update order status (delivery accounts only)
+router.put("/:id/status", auth, async (req, res) => {
+  try {
+    if (req.user.role !== "delivery") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const { status } = req.body;
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // Assign to this delivery person when picked up
+    if (status === "picked up") {
+      order.assignedTo = req.user.id;
+    }
+
+    // Make sure only valid enum statuses are allowed
+    const validStatuses = ["pending", "processing", "picked up", "delivered", "cancelled"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+
+    order.status = status;
+    await order.save();
+
+    res.json({ message: "Order status updated", order });
+  } catch (err) {
+    console.error("Error updating order status:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 

@@ -38,6 +38,7 @@ import AllUsers from "./pages/admin/AllUsers"
 import DeliveryLogin from "./pages/DeliveryAcc/deliverlogin";
 import DeliverysignUp from "./pages/DeliveryAcc/DeliverySignup";
 import Delivery from "./pages/DeliveryAcc/Delivery/delivery_home";
+import DeliveryOrders from "./pages/DeliveryAcc/Delivery/view_delivery_order";
 //import ModalsOrderHistory from "./pages/seller/Modaluserhistory";
 
 
@@ -144,8 +145,10 @@ const App = () => {
 <Route path="/admin/Allusers" element={<AllUsers />} />
 {/*<Route path="/user/orders/modalsorder" element={<ModalsOrderHistory />} /> */}
 
-<Route path="/deliverylogin" element={<DeliveryLogin/>} />
-<Route path="/deliverysignup" element={<DeliverysignUp/>} />
+<Route path="/deliverylogin" element={<DeliveryLogin />} />
+<Route path="/deliverysignup" element={<DeliverysignUp />} />
+
+<Route path="/delivery/order" element={<DeliveryOrders />} />
 
 
     
