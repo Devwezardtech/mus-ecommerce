@@ -59,7 +59,7 @@ router.post("/signup", async (req, res) => {
     console.log("Signup payload:", req.body); // for debugging
     const { name, email, password, role } = req.body;
 
-    if (!role || !["admin", "user", "seller", "affiliate"].includes(role)) {
+    if (!role || !["admin", "user", "seller", "affiliate", "delivery"].includes(role)) {
       return res.status(400).json({ error: "Invalid role selected" });
     }
 

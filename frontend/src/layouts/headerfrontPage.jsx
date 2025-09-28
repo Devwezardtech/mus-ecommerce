@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Message from '../pages/message';
 
-const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
+const HeaderFrontPage = ({ openLoginModal, openSignupModal, deliveryLogin }) => {
   const [message, setMessage] = useState({ message: "", type: "" });
   const [menuOpen, setMenuOpen] = useState(false);
   
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
 
   const showMessage = (msg, type) => {
@@ -20,11 +20,6 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
     showMessage("You can login first");
     setTimeout(() => openLoginModal(true), 2000);
   };
-
-  const delivery = () => {
-    navigate("/deliveryacc");
-    setMenuOpen(false)
-  }
 
   return (
     <nav 
@@ -98,7 +93,10 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal }) => {
           <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Help & Support</Link>
           <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Terms of Service</Link>
           <Link className="hover:underline text-gray-600" onClick={() => setMenuOpen(false)}>Privacy Policy</Link>
-          <button className="hover:underline text-gray-600 text-start" onClick={delivery}>Delivery</button>
+          <button className="hover:underline text-gray-600 text-start" onClick={() => {
+    setMenuOpen(false);   // close the mobile menu
+    deliveryLogin();      // trigger delivery action
+  }}>Delivery</button>
         </div>
         <p className="mt-4 text-center">© 2025 Ecommerce</p>
       </div>

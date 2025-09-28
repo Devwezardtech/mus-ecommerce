@@ -35,7 +35,9 @@ import PrintShipment from "./pages/seller/PrintShipment";
 import PDFShipment from "./pages/seller/PDFShipment";
 import AdminStrats from "./pages/admin/AdminStrats"
 import AllUsers from "./pages/admin/AllUsers"
-import DeliveryAcc from "./pages/DeliveryAcc/deliverAccount";
+import DeliveryLogin from "./pages/DeliveryAcc/deliverlogin";
+import DeliverysignUp from "./pages/DeliveryAcc/DeliverySignup";
+import Delivery from "./pages/DeliveryAcc/Delivery/delivery_home";
 //import ModalsOrderHistory from "./pages/seller/Modaluserhistory";
 
 
@@ -104,6 +106,15 @@ const App = () => {
   }
 />
 
+<Route
+  path="/delivery"
+  element={
+    <ProtectedRoute role="delivery">
+      <Delivery />
+    </ProtectedRoute>
+  }
+/>
+
       <Route path="/cart" element={<CartPage />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/checkout" element={<CheckoutPage />} />
@@ -133,7 +144,8 @@ const App = () => {
 <Route path="/admin/Allusers" element={<AllUsers />} />
 {/*<Route path="/user/orders/modalsorder" element={<ModalsOrderHistory />} /> */}
 
-<Route path="/deliveryacc" element={<DeliveryAcc/>} />
+<Route path="/deliverylogin" element={<DeliveryLogin/>} />
+<Route path="/deliverysignup" element={<DeliverysignUp/>} />
 
 
     

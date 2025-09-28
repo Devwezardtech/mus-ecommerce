@@ -3,7 +3,7 @@ import { useAuth } from "../../contexts/AuthContect";
 import { useNavigate } from "react-router-dom";
 import Message from "../message";
 
-const DeliveryAcc = ({ showMessage }) => {
+const DeliveryLogin = ({ onClose, ondeliverySignUp, showMessage }) => {
   const [step, setStep] = useState(1); // Step 1: credentials, Step 2: OTP
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,32 +39,18 @@ useEffect(() => {
  
 
   // Step 2: Enter OTP → Verify
-  const handleVerifyOtp = async (e) => {
-    e.preventDefault();
-    try {
-      showMessage("Verifying OTP...", "loading");
-      const user = await verifyLoginOtp(email, otp);
-      showMessage("Login successful!", "success");
 
-      setTimeout(() => {
-  if (user.role === "admin") navigate("/admin");
-  else if (user.role === "user") navigate("/user");
-  else if (user.role === "seller") navigate("/seller");
-  else if (user.role === "affiliate") navigate("/affiliate");
-  else showMessage("Unknown role", "failed");
-}, 1000);
-    } catch (err) {
-      showMessage(err.message, "failed");
-    }
-  };
-
-  const closeTo = () => {
-   navigate("/");
+const handleVerifyOtp = async (e) => {
+  e.preventDefault();
+  try {
+    showMessage("Verifying OTP...", "loading");
+await verifyLoginOtp(email, otp); // this already updates context
+    showMessage("Login successful!", "success");
+    navigate("/delivery");
+  } catch (err) {
+    showMessage(err.message, "failed");
   }
-
-  const onSwitchToSignup = () => {
-   navigate("/");
-  }
+};
 
   return (
    <div className="fixed inset-0 w-full h-screen bg-cover bg-center bg-[url('/ecommerce.png')] flex justify-center items-center">
@@ -72,7 +58,7 @@ useEffect(() => {
       <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl w-full max-w-sm mx-14 border border-white/30 shadow-lg">
         <div className="flex justify-end">
           <button
-            onClick={closeTo}
+            onClick={onClose}
             className="px-2 rounded hover:bg-white/20 text-white hover:text-black text-xl"
           >
             X
@@ -80,7 +66,7 @@ useEffect(() => {
         </div>
         <div className="flex justify-center">
            <h2 className="text-2xl text-white py-4">
-          {step === 1 ? "Login" : "Enter OTP"}
+          {step === 1 ? "Login@" : "Enter OTP@"}
         </h2>
         </div>
        
@@ -115,7 +101,7 @@ useEffect(() => {
             <div className="flex justify-center gap-12 items-center">
               <span className="text-white">Don’t have an account?</span>
               <button
-                onClick={onSwitchToSignup}
+                onClick={ondeliverySignUp}
                 className="text-blue-600 hover:underline"
               >
                 Sign Up
@@ -183,4 +169,4 @@ useEffect(() => {
   );
 };
 
-export default DeliveryAcc;
+export default DeliveryLogin;

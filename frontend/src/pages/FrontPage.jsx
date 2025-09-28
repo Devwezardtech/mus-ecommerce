@@ -5,6 +5,8 @@ import Message from "./message";
 import VerifyOtpModal from "./verifyOtpModal";
 import Login from "./Login";
 import Signup from "./Signup";  
+import DeliverysignUp from "./DeliveryAcc/DeliverySignup";
+import DeliveryLogin from "./DeliveryAcc/deliverlogin";
 
 
 
@@ -17,6 +19,9 @@ const FrontPage = () => {
 
   const [showLoginpModal, setModelLogin] = useState(false);
   const [showSignupModal, setModalSignup] = useState(false);
+  const [showSignupModalDeliver, setModalSignupDeliver] = useState(false);
+  const [showLoginModalDeliver, setModalLoginDeliver] = useState(false);
+  
 
   const [email, setEmail] = useState("");
 
@@ -59,6 +64,8 @@ const FrontPage = () => {
         <HeaderFrontPage
           openLoginModal={() => setModelLogin(true)}
           openSignupModal={() => setModalSignup(true)}
+          deliverySignUp={() => setModalSignupDeliver(true)}
+          deliveryLogin={() => setModalLoginDeliver(true)}
         />
       </div>
 
@@ -198,6 +205,8 @@ const FrontPage = () => {
 )}
 
 
+
+
 {showOtpModal && (
   <VerifyOtpModal
     email={email}
@@ -207,6 +216,34 @@ const FrontPage = () => {
       setTimeout(() => {
         setModelLogin(true);
       }, 1000);
+    }}
+    showMessage={showMessage}
+  />
+)}
+
+{/* this is for delivey sign up and login */}
+{showSignupModalDeliver && (
+  <DeliverysignUp
+    onClose={() => setModalSignupDeliver(false)}
+    ondeliveryLogin={() => {
+      setModalSignupDeliver(false);
+      setModelLogin(true);
+    }}
+    onOtpSuccess={(email) => {
+      setModalSignupDeliver(false);
+      setOtpModal(true);
+      setEmail(email); // store email for VerifyOtpModal
+    }}
+    showMessage={showMessage}
+  />
+)}
+
+ {showLoginModalDeliver && (
+  <DeliveryLogin
+    onClose={() => setModalLoginDeliver(false)}
+    ondeliverySignUp={() => {
+      setModalLoginDeliver(false);
+      setModalSignupDeliver(true);
     }}
     showMessage={showMessage}
   />

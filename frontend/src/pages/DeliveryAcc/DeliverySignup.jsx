@@ -1,17 +1,20 @@
 import { useState } from "react";
-import { useAuth } from "../contexts/AuthContect";
-import Message from "./message";
+import { useAuth } from "../../contexts/AuthContect";
+import Message from "../message";
+import { useNavigate } from "react-router-dom";
 
-const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
-  const { signup, isAdminExists } = useAuth();
+const DeliverysignUp = ({ onClose, ondeliveryLogin, onOtpSuccess }) => {
+  const { signup } = useAuth();
 
   const [name, setName] = useState("");
-  const [message, setMessage] = useState({ message: "", type: "" });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("delivery");
+  const [message, setMessage] = useState({ message: "", type: "" });
 
-  const showMessage = (msg, type) => {
+  const navigate = useNavigate();
+
+   const showMessage = (msg, type) => {
     setMessage({ message: msg, type });
     setTimeout(() => setMessage({ message: '', type: '' }), 2000);
   };
@@ -23,6 +26,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
       await signup(name, email, password, role);
       showMessage("OTP sent to your email!", "success");
       onOtpSuccess(email); // pass email to parent
+      navigate("/")
     } catch (err) {
       // since AuthContext throws Error(msg), just use err.message
       showMessage(err.message || "Signup failed", "failed");
@@ -75,7 +79,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
           <div className="flex justify-start items-center gap-7">
             <div>
               <label htmlFor="role" className="block text-sm font-medium text-white">
-            Select Role :
+            Role :
           </label>
 
             </div>
@@ -86,10 +90,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
-            <option value="user" className="bg-gray-400">User</option>
-            {!isAdminExists && <option value="admin" className="bg-gray-400">Admin</option>}
-            <option value="seller" className="bg-gray-400">Seller</option>
-            <option value="affiliate" className="bg-gray-400">Affiliate</option>
+            <option value="delivery" className="bg-gray-400">Delivery</option>
           </select>
             </div>
               
@@ -112,7 +113,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
             <span className="text-white">Already have an account?</span>
           <button
             className="text-blue-600 hover:underline"
-            onClick={onSwitchToLogin}
+            onClick={ondeliveryLogin}
           >
             Login
           </button>
@@ -131,4 +132,4 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
   );
 };
 
-export default Signup;
+export default DeliverysignUp;
