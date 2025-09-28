@@ -227,7 +227,7 @@ const FrontPage = () => {
     onClose={() => setModalSignupDeliver(false)}
     ondeliveryLogin={() => {
       setModalSignupDeliver(false);
-      setModelLogin(true);
+      setModalLoginDeliver(true);
     }}
     onOtpSuccess={(email) => {
       setModalSignupDeliver(false);
