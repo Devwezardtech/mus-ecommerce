@@ -277,5 +277,30 @@ router.put("/:id/status", auth, async (req, res) => {
   }
 });
 
+{/*router.get('/delivery/order', auth, async ( req, res ) => {
+ try {
+    if (req.user.role !== "delivery") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const orders = await Order.find({
+  $or: [
+    { assignedTo: null },
+    { assignedTo: new mongoose.Types.ObjectId(req.user.id) }  // convert string → ObjectId
+  ],
+  status: { $in: ["picked up", "picked up"] }
+})
+.populate("userId", "email")
+.populate("products.productId", "name price photo category")
+.sort({ createdAt: -1 });
+
+    res.json(orders);
+  } catch (err) {
+    console.error('Error fetching delivery orders:', err);
+    res.status(500).json({ message: 'Error getting delivery orders' });
+  }
+})
+  */}
+
 
 module.exports = router;

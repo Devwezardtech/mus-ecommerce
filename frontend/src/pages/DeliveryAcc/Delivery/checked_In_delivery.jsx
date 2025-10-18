@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import api from "../../../api/axios";
 import { useAuth } from "../../../contexts/AuthContect";
-import { useNavigate } from "react-router-dom";
 import Message from "../../message";
 
-const DeliveryOrders = () => {
+const CkeckedInDelevery = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [message, setMessage] = useState({ message: "", type: "" });
-
-
-  const navigate = useNavigate();
-
-
   const token = localStorage.getItem("token");
 
   const showMessage = (msg, type) => {
@@ -40,11 +34,8 @@ const DeliveryOrders = () => {
         { status: "picked up" },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setTimeout(()=>{
-        showMessage("Order marked as Picked Up", "success");
-        fetchOrders();
-      } , 2000)
-      navigate("/delivery/checkedIn");
+      showMessage("Order marked as Picked Up", "success");
+      fetchOrders();
     } catch (err) {
       console.error("Update status error:", err);
       showMessage("Failed to update status", "failed");
@@ -94,7 +85,7 @@ const DeliveryOrders = () => {
                   <td>{order.phone}</td>
                   <td>{order.status}</td>
                   <td>
-                    {order.status === "pending" && (
+                    {order.status === "picked up" && (
                       <button
                         onClick={() => handleCheckedIn(order._id)}
                         className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
@@ -119,4 +110,4 @@ const DeliveryOrders = () => {
   );
 };
 
-export default DeliveryOrders;
+export default CkeckedInDelevery;
