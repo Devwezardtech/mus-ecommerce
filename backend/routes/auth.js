@@ -56,7 +56,7 @@ const transporter = nodemailer.createTransport({
 // Signup with OTP
 router.post("/signup", async (req, res) => {
   try {
-    console.log("Signup payload:", req.body); // for debugging
+    console.log("Signup payload:", req.body);
     const { name, email, password, role } = req.body;
 
     if (!role || !["admin", "user", "seller", "affiliate", "delivery"].includes(role)) {
@@ -79,17 +79,49 @@ router.post("/signup", async (req, res) => {
     const user = new User({ name, email, password, role, otp, otpExpires, isVerified: false });
     await user.save();
 
+    const htmlContent = `
+      <div style="font-family: Arial, sans-serif; background-color:#f9fafb; padding:40px 0;">
+        <div style="max-width:600px; margin:auto; background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+          <div style="background-color:#2563eb; color:white; padding:20px; text-align:center;">
+            <h1 style="margin:0;">Welcome to <span style="color:#bbdefb;">YourApp</span>!</h1>
+          </div>
+          <div style="padding:30px;">
+            <h2 style="color:#111827;">Hi ${name || "User"},</h2>
+            <p style="color:#374151; font-size:16px; line-height:1.6;">
+              Thank you for signing up! To complete your registration, please verify your email using the one-time password (OTP) below.
+            </p>
+
+            <div style="text-align:center; margin:30px 0;">
+              <div style="display:inline-block; background-color:#f3f4f6; border-radius:10px; padding:15px 25px; font-size:28px; letter-spacing:5px; color:#111827; font-weight:bold;">
+                ${otp}
+              </div>
+              <p style="color:#6b7280; margin-top:10px;">This code will expire in <strong>5 minutes</strong>.</p>
+            </div>
+
+            <p style="color:#374151; font-size:15px; line-height:1.6;">
+              If you didn’t request this, please ignore this email.
+            </p>
+
+            <hr style="border:none; border-top:1px solid #e5e7eb; margin:30px 0;">
+
+            <p style="color:#9ca3af; font-size:13px; text-align:center;">
+              © ${new Date().getFullYear()} YourApp. All rights reserved.<br>
+              This is an automated message — please do not reply.
+            </p>
+          </div>
+        </div>
+      </div>
+    `;
+
     try {
-      await sendEmail(
-        email,
-        "Your OTP Code",
-        `<h2>Your OTP: ${otp}</h2><p>Expires in 5 minutes.</p>`
-      );
+      await sendEmail(email, "Your OTP Code", htmlContent);
     } catch (err) {
+      console.error("Email send failed:", err);
       return res.status(500).json({ error: "Failed to send OTP email" });
     }
 
     res.status(201).json({ message: "OTP sent to email", email });
+
   } catch (error) {
     console.error("Signup route failed:", error);
     res.status(500).json({ error: "Signup failed." });
