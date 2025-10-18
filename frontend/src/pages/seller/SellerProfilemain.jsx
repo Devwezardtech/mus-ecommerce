@@ -15,7 +15,7 @@ const SellerProfileMain = () => {
           <p><strong>Name:</strong> {user?.name}</p>
           <p><strong>Email:</strong> {user?.email}</p>
           <p><strong>Role:</strong> {user?.role}</p>
-          <p><strong>ID:</strong> {user?._id}</p>
+          <p><strong>ID:</strong> {user?.id}</p>
         </div>
       </div>
     </div>

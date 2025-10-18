@@ -131,7 +131,7 @@ router.post("/login", async (req, res) => {
       expiresIn: "1d",
     });
 
-    res.json({ token, user: { id: user._id, name: user.name, role: user.role } });
+    res.json({ token, user: { id: user._id, name: user.name, role: user.role, email: user.email } });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -140,7 +140,8 @@ router.post("/login", async (req, res) => {
 // Login OTP Request
 router.post("/login-request-otp", async (req, res) => {
   const { email, password } = req.body;
-  console.log("Login OTP request:", email, password); // <- check frontend payload
+  console.log("Login OTP request:", email);
+
   const user = await User.findOne({ email });
   if (!user) return res.status(401).json({ error: "Invalid email or password" });
 
@@ -148,6 +149,7 @@ router.post("/login-request-otp", async (req, res) => {
   if (!isMatch) return res.status(401).json({ error: "Invalid email or password" });
   if (!user.isVerified) return res.status(403).json({ error: "Please verify your email first" });
 
+  // Generate OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const otpExpires = Date.now() + 5 * 60 * 1000;
 
@@ -155,18 +157,46 @@ router.post("/login-request-otp", async (req, res) => {
   user.otpExpires = otpExpires;
   await user.save();
 
-  try {
-    await sendEmail(
-      email,
-      "Your OTP for Login",
-      `<h2>OTP: ${otp}</h2><p>Valid for 5 minutes</p>`
-    );
-  } catch (err) {
-    return res.status(500).json({ error: "Failed to send login OTP email" });
-  }
+  const htmlContent = `
+  <div style="font-family: 'Segoe UI', sans-serif; background-color: #f7f9fc; padding: 40px;">
+    <div style="max-width: 500px; margin: auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+      
+      <div style="background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; text-align: center; padding: 20px 0;">
+        <h2 style="margin: 0;"Secure Login Verification</h2>
+      </div>
+      
+      <div style="padding: 30px; color: #333;">
+        <p style="font-size: 16px;">Hi <strong>${user.name || "User"}</strong>,</p>
+        <p style="font-size: 15px;">We received a request to log in to your account. Please use the one-time password (OTP) below to continue:</p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <div style="display: inline-block; background: #f1f5f9; border: 2px dashed #4f46e5; border-radius: 8px; padding: 16px 32px;">
+            <span style="font-size: 30px; font-weight: bold; letter-spacing: 4px; color: #4f46e5;">${otp}</span>
+          </div>
+          <p style="font-size: 14px; color: #6b7280; margin-top: 8px;">Valid for the next 5 minutes</p>
+        </div>
 
-  res.json({ message: "OTP sent" });
+        <p style="font-size: 14px; color: #555;">If you didn’t request this login, please ignore this email or contact our support team immediately.</p>
+        
+        <p style="margin-top: 25px;">Best regards,<br><strong>The MUS E-Commerce Team</strong></p>
+      </div>
+      
+      <div style="background: #f3f4f6; text-align: center; padding: 15px; font-size: 12px; color: #9ca3af;">
+        © ${new Date().getFullYear()} MUS E-Commerce. All rights reserved.
+      </div>
+    </div>
+  </div>
+  `;
+
+  try {
+    await sendEmail(email, "Your MUS E-Commerce Login OTP", htmlContent);
+    res.json({ message: "OTP sent successfully" });
+  } catch (err) {
+    console.error("Email send error:", err);
+    res.status(500).json({ error: "Failed to send login OTP email" });
+  }
 });
+
 
 // Login with OTP
 router.post("/login-otp-verify", async (req, res) => {
