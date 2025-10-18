@@ -56,7 +56,7 @@ const transporter = nodemailer.createTransport({
 // Signup with OTP
 router.post("/signup", async (req, res) => {
   try {
-    console.log("Signup payload:", req.body);
+    console.log("Signup payload:", req.body); // for debugging
     const { name, email, password, role } = req.body;
 
     if (!role || !["admin", "user", "seller", "affiliate", "delivery"].includes(role)) {
@@ -79,49 +79,17 @@ router.post("/signup", async (req, res) => {
     const user = new User({ name, email, password, role, otp, otpExpires, isVerified: false });
     await user.save();
 
-    const htmlContent = `
-      <div style="font-family: Arial, sans-serif; background-color:#f9fafb; padding:40px 0;">
-        <div style="max-width:600px; margin:auto; background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-          <div style="background-color:#2563eb; color:white; padding:20px; text-align:center;">
-            <h1 style="margin:0;">Welcome to <span style="color:#bbdefb;">YourApp</span>!</h1>
-          </div>
-          <div style="padding:30px;">
-            <h2 style="color:#111827;">Hi ${name || "User"},</h2>
-            <p style="color:#374151; font-size:16px; line-height:1.6;">
-              Thank you for signing up! To complete your registration, please verify your email using the one-time password (OTP) below.
-            </p>
-
-            <div style="text-align:center; margin:30px 0;">
-              <div style="display:inline-block; background-color:#f3f4f6; border-radius:10px; padding:15px 25px; font-size:28px; letter-spacing:5px; color:#111827; font-weight:bold;">
-                ${otp}
-              </div>
-              <p style="color:#6b7280; margin-top:10px;">This code will expire in <strong>5 minutes</strong>.</p>
-            </div>
-
-            <p style="color:#374151; font-size:15px; line-height:1.6;">
-              If you didn’t request this, please ignore this email.
-            </p>
-
-            <hr style="border:none; border-top:1px solid #e5e7eb; margin:30px 0;">
-
-            <p style="color:#9ca3af; font-size:13px; text-align:center;">
-              © ${new Date().getFullYear()} YourApp. All rights reserved.<br>
-              This is an automated message — please do not reply.
-            </p>
-          </div>
-        </div>
-      </div>
-    `;
-
     try {
-      await sendEmail(email, "Your OTP Code", htmlContent);
+      await sendEmail(
+        email,
+        "Your OTP Code",
+        `<h2>Your OTP: ${otp}</h2><p>Expires in 5 minutes.</p>`
+      );
     } catch (err) {
-      console.error("Email send failed:", err);
       return res.status(500).json({ error: "Failed to send OTP email" });
     }
 
     res.status(201).json({ message: "OTP sent to email", email });
-
   } catch (error) {
     console.error("Signup route failed:", error);
     res.status(500).json({ error: "Signup failed." });
@@ -159,7 +127,7 @@ router.post("/login", async (req, res) => {
     const isMatch = await user.comparePassword(password);
     if (!isMatch) return res.status(401).json({ error: "Invalid email or password" });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user._id, role: user.role, }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
@@ -172,8 +140,7 @@ router.post("/login", async (req, res) => {
 // Login OTP Request
 router.post("/login-request-otp", async (req, res) => {
   const { email, password } = req.body;
-  console.log("Login OTP request:", email);
-
+  console.log("Login OTP request:", email, password); // <- check frontend payload
   const user = await User.findOne({ email });
   if (!user) return res.status(401).json({ error: "Invalid email or password" });
 
@@ -181,7 +148,6 @@ router.post("/login-request-otp", async (req, res) => {
   if (!isMatch) return res.status(401).json({ error: "Invalid email or password" });
   if (!user.isVerified) return res.status(403).json({ error: "Please verify your email first" });
 
-  // Generate OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const otpExpires = Date.now() + 5 * 60 * 1000;
 
@@ -189,46 +155,18 @@ router.post("/login-request-otp", async (req, res) => {
   user.otpExpires = otpExpires;
   await user.save();
 
-  const htmlContent = `
-  <div style="font-family: 'Segoe UI', sans-serif; background-color: #f7f9fc; padding: 40px;">
-    <div style="max-width: 500px; margin: auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-      
-      <div style="background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; text-align: center; padding: 20px 0;">
-        <h2 style="margin: 0;"Secure Login Verification</h2>
-      </div>
-      
-      <div style="padding: 30px; color: #333;">
-        <p style="font-size: 16px;">Hi <strong>${user.name || "User"}</strong>,</p>
-        <p style="font-size: 15px;">We received a request to log in to your account. Please use the one-time password (OTP) below to continue:</p>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <div style="display: inline-block; background: #f1f5f9; border: 2px dashed #4f46e5; border-radius: 8px; padding: 16px 32px;">
-            <span style="font-size: 30px; font-weight: bold; letter-spacing: 4px; color: #4f46e5;">${otp}</span>
-          </div>
-          <p style="font-size: 14px; color: #6b7280; margin-top: 8px;">Valid for the next 5 minutes</p>
-        </div>
-
-        <p style="font-size: 14px; color: #555;">If you didn’t request this login, please ignore this email or contact our support team immediately.</p>
-        
-        <p style="margin-top: 25px;">Best regards,<br><strong>The MUS E-Commerce Team</strong></p>
-      </div>
-      
-      <div style="background: #f3f4f6; text-align: center; padding: 15px; font-size: 12px; color: #9ca3af;">
-        © ${new Date().getFullYear()} MUS E-Commerce. All rights reserved.
-      </div>
-    </div>
-  </div>
-  `;
-
   try {
-    await sendEmail(email, "Your MUS E-Commerce Login OTP", htmlContent);
-    res.json({ message: "OTP sent successfully" });
+    await sendEmail(
+      email,
+      "Your OTP for Login",
+      `<h2>OTP: ${otp}</h2><p>Valid for 5 minutes</p>`
+    );
   } catch (err) {
-    console.error("Email send error:", err);
-    res.status(500).json({ error: "Failed to send login OTP email" });
+    return res.status(500).json({ error: "Failed to send login OTP email" });
   }
-});
 
+  res.json({ message: "OTP sent" });
+});
 
 // Login with OTP
 router.post("/login-otp-verify", async (req, res) => {
