@@ -94,16 +94,16 @@ const HeaderUser = () => {
           <button onClick={() => setMenuOpen(false)} className="text-xl hover:text-blue-500">✕</button>
         </div>
         <div className="flex flex-col text-lg gap-2">
-          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/user" >Home</Link>
-           <Link className="hover:text-blue-500 hover:text-xl" to="/user/orders">Orders</Link>
+          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500" to="/user" >Home</Link>
+           <Link className="hover:text-blue-500" to="/user/orders">Orders</Link>
          {/* 
 
          // this show for orders in admin manage
          
          
          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500 hover:text-xl" to="/admin/orders">Orders</Link> */}
-          <Link to="/cart" className="hover:text-blue-500 hover:text-xl">Cart</Link>
-          <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 hover:text-xl text-left">Logout</button>
+          <Link to="/cart" className="hover:text-blue-500 ">Cart</Link>
+          <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 text-left">Logout</button>
         </div>
         </div>
 
