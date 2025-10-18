@@ -168,17 +168,17 @@ const removeFromCart = async (productId) => {
                     </button>
                      * 
                      */}
-  <div className="flex flex-col md:flex-row justify-center items-center gap-2">
+  <div className="flex flex-col md:flex-row justify-center items-center gap-1">
     <button
       onClick={() => handleBuy(item)}
-      className="px-6 py-1 bg-green-400 rounded text-white hover:bg-green-500"
+      className="px-6 py-1 bg-green-500 rounded text-white hover:bg-green-500"
     >
       Buy
     </button>
 
     <button
       onClick={() => removeFromCart(item.productId._id)}
-      className="px-3 py-1 bg-red-400 rounded text-white hover:bg-red-500"
+      className="px-3 py-1 bg-red-500 rounded text-white hover:bg-red-500"
     >
       Remove
     </button>
