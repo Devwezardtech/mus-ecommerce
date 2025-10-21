@@ -6,7 +6,6 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
   
   const [isAdminExists, setIsAdminExists] = useState(false); //for storing of admin account
 
