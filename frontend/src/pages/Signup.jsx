@@ -72,10 +72,9 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
           />
 
           {/* Role dropdown */}
-          <div className="flex justify-start items-center gap-7">
+          <div className="flex justify-start flex-col gap-2">
             <div>
-              <label htmlFor="role" className="block text-sm font-medium text-white">
-            Select Role :
+              <label htmlFor="role" className="block text-sm font-medium text-white pl-2"> Role:
           </label>
 
             </div>
