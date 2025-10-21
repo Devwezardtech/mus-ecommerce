@@ -103,7 +103,7 @@ useEffect(() => {
             </button>
             </div>
             
-            <div className="flex justify-center gap-12 items-center">
+            <div className="flex justify-center gap-3 items-center text-sm">
               <span className="text-white">Don’t have an account?</span>
               <button
                 onClick={onSwitchToSignup}

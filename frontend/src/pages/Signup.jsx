@@ -92,7 +92,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
             {/*
             
             <option value="affiliate" className="bg-gray-400">Affiliate</option>
-            
+
             */}
           </select>
             </div>
@@ -112,7 +112,7 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
         </form>
 
         <div className="w-full mt-4">
-          <div className="flex justify-center gap-10">
+          <div className="flex justify-center gap-5 text-sm">
             <span className="text-white">Already have an account?</span>
           <button
             className="text-blue-600 hover:underline"
