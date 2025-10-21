@@ -72,16 +72,16 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
           />
 
           {/* Role dropdown */}
-          <div className="flex justify-start flex-col gap-2">
+          <div className="flex justify-start items-center gap-3 w-full">
             <div>
-              <label htmlFor="role" className="block text-sm font-medium text-white pl-2"> Role:
+              <label htmlFor="role" className="block text-sm font-medium text-white"> Role:
           </label>
 
             </div>
-            <div className="">
+            <div className="w-full">
                <select
             id="role"
-            className="w-56 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-white/20 bg-white/5 text-white"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
