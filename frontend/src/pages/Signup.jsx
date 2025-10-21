@@ -89,7 +89,11 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
             <option value="user" className="bg-gray-400">User</option>
             {!isAdminExists && <option value="admin" className="bg-gray-400">Admin</option>}
             <option value="seller" className="bg-gray-400">Seller</option>
+            {/*
+            
             <option value="affiliate" className="bg-gray-400">Affiliate</option>
+            
+            */}
           </select>
             </div>
               
