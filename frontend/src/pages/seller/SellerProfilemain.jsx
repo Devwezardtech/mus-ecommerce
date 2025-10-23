@@ -13,9 +13,7 @@ const SellerProfileMain = () => {
         <div className="max-w-full bg-white rounded px-10">
           <h2 className="text-lg font-semibold mb-4">Seller Profile</h2>
           <p><strong>Name:</strong> {user?.name}</p>
-          <p><strong>Email:</strong> {user?.email}</p>
           <p><strong>Role:</strong> {user?.role}</p>
-          <p><strong>ID:</strong> {user?.id}</p>
         </div>
       </div>
     </div>
