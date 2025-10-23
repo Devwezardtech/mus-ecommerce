@@ -53,7 +53,7 @@ const HeaderAffiliate = () => {
   };
 
   return (
-    <nav className="bg-gray-200 p-2 shadow px-4 lg:px-16">
+    <nav className="bg-blue-600 text-white p-2 shadow px-4 lg:px-16">
       {/* Top Bar */}
              <div className="flex justify-between items-center font-bold">
         <h1 className="text-xl sm:text-2xl font-bold">Affiliate Dashboard</h1>
@@ -85,7 +85,7 @@ const HeaderAffiliate = () => {
       {/* Slide-in Mobile Menu */}
 
       {menuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end">
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end text-black">
        <div className="bg-white w-1/2 h-full p-4 shadow-lg flex flex-col justify-between">
        <div>
         <div className="flex justify-between items-center mb-6">

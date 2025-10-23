@@ -32,7 +32,7 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal, deliveryLogin }) => 
         <h1 className="text-xl sm:text-2xl font-bold">Ecommerce Website</h1>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex justify-end gap-8">
+        <div className="hidden md:flex justify-end gap-8 ">
           <Link className="hover:text-blue-500">Home</Link>
           <Link className="hover:text-blue-500" onClick={handleOrder}>
             Orders
@@ -53,7 +53,7 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal, deliveryLogin }) => 
 
       {/* Slide-in Mobile Menu */}
      {menuOpen && (
-  <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end">
+  <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end text-black">
     <div className="bg-white w-1/2 h-full p-4 shadow-lg flex flex-col justify-between">
       {/* Top Section */}
       <div>

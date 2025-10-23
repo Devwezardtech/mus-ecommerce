@@ -86,7 +86,7 @@ const HeaderUser = () => {
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end">
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end text-black">
        <div className="bg-white w-1/2 h-full p-4 shadow-lg flex flex-col justify-between">
        <div>
         <div className="flex justify-between items-center mb-6">

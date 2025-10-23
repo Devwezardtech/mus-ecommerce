@@ -32,7 +32,7 @@ const HeaderSeller = ({ onAddProduct }) => {
 
   return (
   <nav 
-    className="bg-gray-200 py-2 px-4 shadow-lg relative z-50 sm:p-3 sm:px-8 md:p-4 md:px-16">
+    className="bg-blue-600 text-white py-2 px-4 shadow-lg relative z-50 sm:p-3 sm:px-8 md:p-4 md:px-16">
       <div className="flex justify-between items-center font-bold">
         <h1 className="text-xl sm:text-2xl font-bold">Seller Dashboard</h1>
 
@@ -71,7 +71,7 @@ const HeaderSeller = ({ onAddProduct }) => {
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end">
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end text-black">
        <div className="bg-white w-1/2 h-full p-4 shadow-lg flex flex-col justify-between">
        <div>
         <div className="flex justify-between items-center mb-6">
