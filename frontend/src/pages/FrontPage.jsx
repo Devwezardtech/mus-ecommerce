@@ -161,13 +161,13 @@ const FrontPage = () => {
             <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={() => handleAddToCart(modalProduct._id)}
-                className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-400 hover:text-black"
+                className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
               >
                 Add to Cart
               </button>
               <button
                 onClick={() => handleBuy(modalProduct)}
-                className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-400 hover:text-black"
+                className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
               >
                 Buy
               </button>
