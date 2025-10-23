@@ -419,13 +419,13 @@ const handleSubmit = async (e) => {
            <td className="left-0 px-2 py-1 pb-5 text-center space-y-2 space-x-1 ">
   <button
     onClick={() => handleEdit(product)}
-    className="px-2 py-1 bg-blue-500 text-white rounded w-16 hover:bg-blue-400 ml-1"
+    className="px-2 py-1 bg-blue-500 text-white rounded w-16 hover:bg-blue-600 ml-1"
   >
     Edit
   </button>
   <button
     onClick={() => handleDelete(product._id)}
-    className="ml-2 px-2 py-1 bg-red-400 text-white rounded w-16 hover:bg-red-500"
+    className="ml-2 px-2 py-1 bg-red-500 text-white rounded w-16 hover:bg-red-600"
   >
     Delete
   </button>
