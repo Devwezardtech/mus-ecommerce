@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContect'
 import Message from '../message';
@@ -38,7 +38,6 @@ const HeaderSeller = ({ onAddProduct }) => {
 
         {/* Destop Menu */}
         <div className="hidden md:flex justify-end gap-8">
-        <Link className="hover:text-blue-500" to="/seller/profile">Profile</Link>
         <Link className="hover:text-blue-500" to="/seller">Home</Link>
         <Link className="hover:text-blue-500" to="/seller">Product</Link>
         <Link className="hover:text-blue-500" to="/seller/orders">Orders</Link>
@@ -52,6 +51,7 @@ const HeaderSeller = ({ onAddProduct }) => {
             onClick={onAddProduct} className="hover:text-blue-500">
             Add Product
           </button>
+          <Link className="hover:text-blue-500" to="/seller/profile">Profile</Link>
          <button 
           onClick={handleLogout} 
           className="hover:text-blue-500"
