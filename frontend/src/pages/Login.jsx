@@ -123,21 +123,21 @@ useEffect(() => {
               onChange={(e) => setOtp(e.target.value)}
               required
             />
-           <div className="w-full flex justify-center">
-            <div>
-               <button
+            <div className="w-full flex justify-center items-center ">
+              <button
               type="submit"
               className="w-24 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
               Verify
             </button>
-
-            <div className="flex flex-col gap-1 items-start text-sm">
+            </div>
+            <div className="w-full flex justify-center items-center">
+            <div className="flex gap-6 items-start text-sm">
               <button
   type="button"
   disabled={cooldown > 0}
   className={`${
-    cooldown > 0 ? "text-gray-400" : "text-blue-500 hover:underline"
+    cooldown > 0 ? "text-gray-400" : "text-blue-700 hover:underline"
   }`}
   onClick={async () => {
     try {
@@ -162,8 +162,6 @@ useEffect(() => {
               </button>
             </div>
             </div>
-
-           </div>
           </form>
         )}
 
