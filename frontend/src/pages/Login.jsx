@@ -123,9 +123,11 @@ useEffect(() => {
               onChange={(e) => setOtp(e.target.value)}
               required
             />
-            <button
+           <div className="w-full flex justify-center">
+            <div>
+               <button
               type="submit"
-              className="w-full py-2 bg-green-500 text-white rounded hover:bg-green-600"
+              className="w-24 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
               Verify
             </button>
@@ -154,11 +156,14 @@ useEffect(() => {
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="text-gray-500 hover:underline"
+                className="text-white hover:underline"
               >
                 Back to Login
               </button>
             </div>
+            </div>
+
+           </div>
           </form>
         )}
 
