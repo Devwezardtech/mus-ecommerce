@@ -114,17 +114,17 @@ const FrontPage = () => {
                       </div>
                     </button>
 
-                    <div className="flex items-center justify-center gap-3">
+                    <div className="flex items-center justify-center gap-1">
                       <button
                         onClick={() => handleAddToCart(product._id)}
                         className=" bg-blue-500 text-white text-sm rounded hover:bg-blue-600 sm:text-base md:text-base lg:text-md"
                       >
-                         <span className="block sm:hidden md:hidden px-3">CART</span>
-                         <span className="hidden sm:block px-3">ADD TO CART</span>
+                         <span className="block sm:hidden md:hidden px-1">CART</span>
+                         <span className="hidden sm:block px-1">ADD TO CART</span>
                       </button>
                       <button
                         onClick={() => handleBuy(product)}
-                        className="px-3 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 sm:text-base md:text-base lg:text-md"
+                        className="px-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 sm:text-base md:text-base lg:text-md"
                       >
                         BUY
                       </button>
