@@ -37,24 +37,23 @@ const HeaderSeller = ({ onAddProduct }) => {
         <h1 className="text-xl sm:text-2xl font-bold">Seller Dashboard</h1>
 
         {/* Destop Menu */}
-        <div className="hidden md:flex justify-end gap-8">
-        <Link className="hover:text-blue-500" to="/seller/sellerstrat">Home</Link>
-        <Link className="hover:text-blue-500" to="/seller">Product</Link>
-        <Link className="hover:text-blue-500" to="/seller/orders">Orders</Link>
+        <div className="hidden md:flex justify-end gap-8 text-white">
+        <Link className="hover:text-green-500" to="/seller/sellerstrat">Home</Link>
+        <Link className="hover:text-green-500" to="/seller">Product</Link>
+        <Link className="hover:text-green-500" to="/seller/orders">Orders</Link>
         
        {
         /*
-       <Link className="hover:text-blue-500" to="/chat">Chat</Link>
+       <Link className="hover:text-green-500" to="/chat">Chat</Link>
         */
         }
         <button 
-            onClick={onAddProduct} className="hover:text-blue-500">
+            onClick={onAddProduct} className="hover:text-green-500">
             Add Product
           </button>
-          <Link className="hover:text-blue-500" to="/seller/profile">Profile</Link>
-         <button 
+          <Link className="hover:text-green-500" to="/seller/profile">Profile</Link>
+         <button className="hover:text-green-500" 
           onClick={handleLogout} 
-          className="hover:text-blue-500"
         >
           Logout
         </button>
