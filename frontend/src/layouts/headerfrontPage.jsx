@@ -33,14 +33,14 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal, deliveryLogin }) => 
 
         {/* Desktop Menu */}
         <div className="hidden md:flex justify-end gap-8 ">
-          <Link className="hover:text-blue-500">Home</Link>
-          <Link className="hover:text-blue-500" onClick={handleOrder}>
+          <Link className="hover:text-green-500">Home</Link>
+          <Link className="hover:text-green-500" onClick={handleOrder}>
             Orders
           </Link>
-          <button onClick={openLoginModal} className="hover:text-blue-500">
+          <button onClick={openLoginModal} className="hover:text-green-500">
             Login
           </button>
-          <button onClick={openSignupModal} className="hover:text-blue-500">
+          <button onClick={openSignupModal} className="hover:text-green-500">
             Signup
           </button>
         </div>
