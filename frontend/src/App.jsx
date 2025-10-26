@@ -40,6 +40,7 @@ import DeliverysignUp from "./pages/DeliveryAcc/DeliverySignup";
 import Delivery from "./pages/DeliveryAcc/Delivery/delivery_home";
 import DeliveryOrders from "./pages/DeliveryAcc/Delivery/view_delivery_order";
 import CheckedInDelivery from "./pages/DeliveryAcc/Delivery/checked_In_delivery";
+import SellerStrats from "./pages/seller/SellerStrats";
 //import ModalsOrderHistory from "./pages/seller/Modaluserhistory";
 
 
@@ -151,6 +152,7 @@ const App = () => {
 
 <Route path="/delivery/order" element={<DeliveryOrders />} />
 <Route path="/delivery/checkedIn" element={<CheckedInDelivery />} />
+<Route path="seller/sellerstrat" element={<SellerStrats /> } />
 
 
     

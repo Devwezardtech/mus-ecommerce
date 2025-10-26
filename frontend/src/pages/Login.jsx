@@ -116,7 +116,7 @@ useEffect(() => {
         ) : (
           <form onSubmit={handleVerifyOtp} className="space-y-4">
             <input
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 py-2 border rounded bg-white/5 text-white backdrop-blur focus:outline-none focus:ring-2"
               type="text"
               placeholder="Enter OTP"
               value={otp}
