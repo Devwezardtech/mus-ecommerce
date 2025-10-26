@@ -60,7 +60,7 @@ useEffect(() => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 ">
-      <div className="bg-white/20 backdrop-blur-md p-12 rounded-2xl w-full max-w-sm sm:mx-8 mx-8 md:mx-14 border border-white/30 shadow-lg">
+      <div className="bg-white/20 backdrop-blur-md p-8 rounded-2xl w-full max-w-sm sm:mx-8 mx-8 md:mx-14 border border-white/30 shadow-lg">
         <div className="flex justify-end">
           <button
             onClick={onClose}
