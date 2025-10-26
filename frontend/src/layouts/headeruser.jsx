@@ -53,23 +53,23 @@ const HeaderUser = () => {
 
         {/* Destop Menu */}
         <div className="hidden md:flex justify-end gap-8">
-        <Link className="hover:text-blue-500" to="/user">Home</Link>
-        <Link className="hover:text-blue-500" to="/user/orders">Order</Link>
+        <Link className="hover:text-green-500" to="/user">Home</Link>
+        <Link className="hover:text-green-500" to="/user/orders">Order</Link>
         
         {/*
         
         //for orders
         
-        <Link className="hover:text-blue-500" to="/admin/orders">Orders</Link>*/}
-        <Link className="hover:text-blue-500" to="/cart" >Cart</Link>
+        <Link className="hover:text-green-500" to="/admin/orders">Orders</Link>*/}
+        <Link className="hover:text-green-500" to="/cart" >Cart</Link>
        {
         /*
-       <Link className="hover:text-blue-500" to="/chat">Chat</Link>
+       <Link className="hover:text-green-500" to="/chat">Chat</Link>
         */
         }
          <button 
           onClick={handleLogout} 
-          className="hover:text-blue-500"
+          className="hover:text-green-500"
         >
           Logout
         </button>
