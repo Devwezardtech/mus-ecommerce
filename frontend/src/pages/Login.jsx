@@ -107,7 +107,7 @@ useEffect(() => {
               <span className="text-white">Don’t have an account?</span>
               <button
                 onClick={onSwitchToSignup}
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 Sign Up
               </button>

@@ -111,10 +111,10 @@ const Signup = ({ onClose, onSwitchToLogin, onOtpSuccess }) => {
         </form>
 
         <div className="w-full mt-4">
-          <div className="flex justify-center gap-5 text-sm">
+          <div className="flex justify-center gap-2 text-sm">
             <span className="text-white">Already have an account?</span>
           <button
-            className="text-blue-600 hover:underline"
+            className="text-blue-700 hover:underline"
             onClick={onSwitchToLogin}
           >
             Login
