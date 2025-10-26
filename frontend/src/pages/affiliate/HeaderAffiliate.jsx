@@ -60,18 +60,18 @@ const HeaderAffiliate = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex justify-end gap-8">
-          <button className="hover:text-blue-500" onClick={goHome}>
+          <button className="hover:text-green-500" onClick={goHome}>
             Home</button>
-          <button className="hover:text-blue-500" onClick={goProfile}>
+          <button className="hover:text-green-500" onClick={goProfile}>
             Profile
           </button>
-          <button  className="hover:text-blue-500" onClick={goShowcase}>
+          <button  className="hover:text-green-500" onClick={goShowcase}>
             Showcase
           </button>
-          <button  className="hover:text-blue-500" onClick={goAffiliateOrder}>
+          <button  className="hover:text-green-500" onClick={goAffiliateOrder}>
             Order
           </button>
-          <button  className="hover:text-blue-500" onClick={handleLogout}>
+          <button  className="hover:text-green-500" onClick={handleLogout}>
             Logout
           </button>
         </div>
