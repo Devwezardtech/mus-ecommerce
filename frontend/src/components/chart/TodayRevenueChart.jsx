@@ -24,7 +24,7 @@ const TodayRevenueChart = () => {
         const total = res.data?.todayRevenue || 0;
         const breakdown = res.data?.breakdown || [];
 
-        // ✅ Check if API returned empty data
+        // Check if API returned empty data
         if (total === 0 || breakdown.length === 0) {
           console.warn("No today's revenue data found — showing temporary demo data...");
 
