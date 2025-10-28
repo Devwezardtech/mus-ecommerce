@@ -57,7 +57,12 @@ const PrintShipment = () => {
     window.location.reload();
   };
 
-  if (loading) return <p className="p-4">Loading...</p>;
+  if (loading) return <div>
+             <div className="fixed w-full z-50">
+              <HeaderSeller />
+            </div>
+            <p className="p-4 top-24">Loading...</p>
+            </div>;
 
   if (!order || !item) {
     return (
