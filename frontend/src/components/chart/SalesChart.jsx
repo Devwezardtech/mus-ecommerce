@@ -27,7 +27,7 @@ const SalesChart = () => {
 
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-        // ✅ If no real data, use fallback
+        // If no real data, use fallback
         let displayData = sortedData;
 
         if (sortedData.length === 0) {
@@ -59,7 +59,7 @@ const SalesChart = () => {
       } catch (error) {
         console.error('Error fetching sales stats:', error);
 
-        // ✅ Optional: also show fallback if API request fails
+        //show fallback if API request fails
         setChartData({
           categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
           series: [{ name: "Revenue", data: [10000, 15000, 20000, 25000, 18000, 30000] }]
