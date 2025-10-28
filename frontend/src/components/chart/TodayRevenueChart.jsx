@@ -29,7 +29,7 @@ const TodayRevenueChart = () => {
           console.warn("No today's revenue data found — showing temporary demo data...");
 
           // Temporary sample hourly revenue
-          const tempBreakdown = [1200, 2100, 1800, 2500, 3000, 3200, 2800, 4000, 3500];
+          const tempBreakdown = [1200, 2100, 3800, 2500, 3000, 4200, 2800, 4000, 5500];
           const tempTotal = tempBreakdown.reduce((sum, val) => sum + val, 0);
 
           setTodayRevenue(tempTotal);
