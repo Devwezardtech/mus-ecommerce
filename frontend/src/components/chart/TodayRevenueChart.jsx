@@ -81,7 +81,7 @@ const TodayRevenueChart = () => {
           chart: { id: 'todayRevenue', toolbar: { show: false } },
           xaxis: { categories: chartData.categories },
           stroke: { curve: 'smooth' },
-          colors: ['#10b981'],
+          colors: ['#0dae33ff'],
           dataLabels: { enabled: false },
           tooltip: {
             y: { formatter: (val) => `₱${val.toLocaleString()}` },
