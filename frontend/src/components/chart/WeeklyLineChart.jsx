@@ -26,12 +26,16 @@ const WeeklyLineChart = () => {
 
           // Temporary sample data for 6 weeks
           const tempData = [
-            { _id: 1, totalRevenue: 15000 },
-            { _id: 2, totalRevenue: 18000 },
-            { _id: 3, totalRevenue: 22000 },
-            { _id: 4, totalRevenue: 26000 },
-            { _id: 5, totalRevenue: 31000 },
-            { _id: 6, totalRevenue: 28000 },
+            { _id: 1, totalRevenue: 6000 },
+            { _id: 2, totalRevenue: 16000 },
+            { _id: 3, totalRevenue: 17000 },
+            { _id: 4, totalRevenue: 33000 },
+            { _id: 5, totalRevenue: 37000 },
+            { _id: 6, totalRevenue: 45000 },
+            { _id: 7, totalRevenue: 46000 },
+            { _id: 8, totalRevenue: 64000 },
+           
+            
           ];
 
           const weeks = tempData.map(item => `Week ${item._id}`);
