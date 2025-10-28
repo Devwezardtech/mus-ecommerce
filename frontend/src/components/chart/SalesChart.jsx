@@ -82,7 +82,7 @@ const SalesChart = () => {
           chart: { id: 'monthly-revenue-bar' },
           xaxis: { categories: chartData.categories },
           stroke: { width: 2 },
-          colors: ['#10b981'],
+          colors: ['#2acb4dff'],
           dataLabels: { enabled: false },
           tooltip: {
             y: { formatter: (val) => `₱${val.toLocaleString()}` },
