@@ -40,7 +40,7 @@ const TodayRevenueChart = () => {
             ],
           });
         } else {
-          // ✅ Use real backend data
+          // Use real backend data
           setTodayRevenue(total);
           setChartData({
             series: [{ name: 'Revenue', data: breakdown }],
@@ -50,7 +50,7 @@ const TodayRevenueChart = () => {
       } catch (err) {
         console.error('Failed to fetch today revenue breakdown:', err);
 
-        // ✅ Optional fallback if API fails
+        // Optional fallback if API fails
         const fallbackData = [2000, 3500, 2800, 4500, 3000, 4700, 5000];
         const fallbackTotal = fallbackData.reduce((sum, val) => sum + val, 0);
 
