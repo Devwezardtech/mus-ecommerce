@@ -16,17 +16,50 @@ const WeeklyLineChart = () => {
 
         console.log("Weekly revenue API response:", res.data);
 
-        const revenueData = Array.isArray(res.data) ? res.data : res.data?.data || [];
+        const revenueData = Array.isArray(res.data)
+          ? res.data
+          : res.data?.data || [];
 
-        const weeks = revenueData.map(item => `Week ${item._id}`);
-        const revenues = revenueData.map(item => item.totalRevenue);
+        // Check if backend returned empty or missing data
+        if (!revenueData || revenueData.length === 0) {
+          console.warn("No weekly revenue data found — showing temporary demo data...");
 
-        setData({
-          categories: weeks,
-          series: [{ name: 'Weekly Revenue', data: revenues }],
-        });
+          // Temporary sample data for 6 weeks
+          const tempData = [
+            { _id: 1, totalRevenue: 15000 },
+            { _id: 2, totalRevenue: 18000 },
+            { _id: 3, totalRevenue: 22000 },
+            { _id: 4, totalRevenue: 26000 },
+            { _id: 5, totalRevenue: 31000 },
+            { _id: 6, totalRevenue: 28000 },
+          ];
+
+          const weeks = tempData.map(item => `Week ${item._id}`);
+          const revenues = tempData.map(item => item.totalRevenue);
+
+          setData({
+            categories: weeks,
+            series: [{ name: 'Weekly Revenue', data: revenues }],
+          });
+        } else {
+          // Use real backend data
+          const weeks = revenueData.map(item => `Week ${item._id}`);
+          const revenues = revenueData.map(item => item.totalRevenue);
+
+          setData({
+            categories: weeks,
+            series: [{ name: 'Weekly Revenue', data: revenues }],
+          });
+        }
       } catch (err) {
         console.error('Error fetching weekly revenue:', err);
+
+        // Optional fallback if API fails entirely
+        const fallbackData = [12000, 17000, 19000, 25000, 23000, 27000];
+        setData({
+          categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+          series: [{ name: 'Weekly Revenue', data: fallbackData }],
+        });
       }
     };
 
@@ -43,12 +76,10 @@ const WeeklyLineChart = () => {
         options={{
           xaxis: { categories: data.categories },
           stroke: { curve: 'smooth', width: 3 },
-          colors: ['#3b82f6'],
+          colors: ['#0fb32dff'],
           dataLabels: { enabled: false },
           tooltip: {
-            y: {
-              formatter: (val) => `₱${val.toLocaleString()}`,
-            },
+            y: { formatter: (val) => `₱${val.toLocaleString()}` },
           },
           grid: {
             borderColor: '#e5e7eb',
