@@ -18,7 +18,7 @@ const NavigateStrat = () => {
           offset={-120} 
           className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-colors"
         >
-          Today
+          Today 
         </Link>
 
         <Link
@@ -28,7 +28,7 @@ const NavigateStrat = () => {
           offset={-120}
           className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-colors"
         >
-          Monthly
+          Monthly 
         </Link>
 
         <Link
@@ -38,7 +38,7 @@ const NavigateStrat = () => {
           offset={-120}
           className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-colors"
         >
-          Weekly
+          Weekly 
         </Link>
       </nav>
     </div>
