@@ -1,45 +1,43 @@
 import { Link } from 'react-scroll';
-import { useState } from 'react';
+import HeaderAdmin from '../../layouts/headeradmin';
 
 const NavigateStrat = () => {
-  const [open, setOpen] = useState(false);
-
   return (
-    <div>
-      {/* Mobile Menu Button */}
-      <div className="lg:hidden fixed top-20 left-4 z-50">
-        <button
-          onClick={() => setOpen(!open)}
-          className="bg-blue-600 text-white px-3 py-2 rounded-md shadow-md"
-        >
-          {open ? "Close" : "Menu"}
-        </button>
+    <div className="relative">
+      {/* Fixed header */}
+      <div className="fixed w-full z-50 top-0 left-0">
+        <HeaderAdmin />
       </div>
 
-      {/* Mobile Sidebar */}
-      {open && (
-        <div className="lg:hidden fixed top-32 left-0 bg-white shadow-lg p-4 w-48 z-40 border-r border-gray-200">
-          <Link to="today-chart" smooth duration={500} offset={-100} className="block py-2 text-gray-700 hover:text-blue-600" onClick={() => setOpen(false)}>
-            Today
-          </Link>
-          <Link to="sales-chart" smooth duration={500} offset={-100} className="block py-2 text-gray-700 hover:text-blue-600" onClick={() => setOpen(false)}>
-            Monthly
-          </Link>
-          <Link to="weekly-chart" smooth duration={500} offset={-100} className="block py-2 text-gray-700 hover:text-blue-600" onClick={() => setOpen(false)}>
-            Weekly
-          </Link>
-        </div>
-      )}
-
-      {/* Desktop Navbar */}
+      {/* Desktop-only navigation (hidden below lg screens) */}
       <nav className="hidden lg:flex justify-center gap-8 bg-white shadow-md py-4 fixed top-16 left-0 right-0 z-40 border-b border-gray-200">
-        <Link to="today-chart" smooth duration={500} offset={-120} className="cursor-pointer text-gray-700 font-medium hover:text-blue-600">
+        <Link
+          to="today-chart"
+          smooth={true}
+          duration={500}
+          offset={-120} // Adjusts scroll for fixed header height
+          className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-colors"
+        >
           Today
         </Link>
-        <Link to="sales-chart" smooth duration={500} offset={-120} className="cursor-pointer text-gray-700 font-medium hover:text-blue-600">
+
+        <Link
+          to="sales-chart"
+          smooth={true}
+          duration={500}
+          offset={-120}
+          className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-colors"
+        >
           Monthly
         </Link>
-        <Link to="weekly-chart" smooth duration={500} offset={-120} className="cursor-pointer text-gray-700 font-medium hover:text-blue-600">
+
+        <Link
+          to="weekly-chart"
+          smooth={true}
+          duration={500}
+          offset={-120}
+          className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-colors"
+        >
           Weekly
         </Link>
       </nav>
