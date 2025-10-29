@@ -21,7 +21,7 @@ const AdminStrats = () => {
           <WeeklyLineChart />
         </div>
       </div>
-    </div>
+    </div>  
   );
 };
 
