@@ -9,8 +9,6 @@ const AdminStrats = () => {
       <div className="fixed w-full z-50">
         <HeaderAdmin />
       </div>
-      
-
       <div className="pt-28 px-4 sm:px-8 md:px-16 lg:px-20">
         <div id="today-chart" className="mb-8">
           <TodayRevenueChart />
