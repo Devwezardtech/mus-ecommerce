@@ -10,13 +10,13 @@ const AdminStrats = () => {
         <HeaderAdmin />
       </div>
       <div className="pt-28 px-4 sm:px-8 md:px-16 lg:px-20">
-        <div id="today-chart"  className="mb-8">
+        <div  className="mb-8">
           <TodayRevenueChart />
         </div>
-        <div id="sales-chart"  className="mb-8">
+        <div  className="mb-8">
           <SalesChart />
         </div>
-        <div id="weekly-chart"  className="mb-8">
+        <div  className="mb-8">
           <WeeklyLineChart />
         </div>
       </div>
