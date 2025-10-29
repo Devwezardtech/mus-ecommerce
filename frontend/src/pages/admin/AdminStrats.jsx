@@ -1,27 +1,38 @@
-import SalesChart from '../../components/chart/SalesChart';
+import SalesChart from '../../components/chart/SalesChart'
 import WeeklyLineChart from '../../components/chart/WeeklyLineChart';
-import HeaderAdmin from '../../layouts/headeradmin';
+//import CategoryPieChart from '../../components/chart/CategoryPieChart';
+import HeaderAdmin from '../../layouts/headeradmin'
 import TodayRevenueChart from "../../components/chart/TodayRevenueChart";
 
 const AdminStrats = () => {
-  return (
-    <div>
+return (
+   <div>
       <div className="fixed w-full z-50">
         <HeaderAdmin />
       </div>
-      <div className="pt-28 px-4 sm:px-8 md:px-16 lg:px-20">
-        <div  className="mb-8">
-          <TodayRevenueChart />
-        </div>
-        <div  className="mb-8">
-          <SalesChart />
-        </div>
-        <div  className="mb-8">
-          <WeeklyLineChart />
-        </div>
+      <div className="pt-16 px-4 sm:px-8 md:px-16 lg:px-18 sm:pt-20 md:pt-24 lg:pt-28">
+         <div className="mb-8">
+            <TodayRevenueChart />
+         </div>
+         <div className="mb-8">
+            <SalesChart />
+         </div>
+         <div className="mb-8">
+            <WeeklyLineChart />
+         </div>
+         {/*<div className="mb-8">
+            <CategoryPieChart />
+         </div>
+         */}
+         
+         
+         
+         
       </div>
-    </div>  
-  );
-};
+   </div>
+)
+}
 
 export default AdminStrats;
+
+
