@@ -110,7 +110,7 @@ const CategoryStats = async (req, res) => {
     res.status(500).json({ message: 'Failed to get category stats' });
   }
 };
-
+ 
 module.exports = {
   SalesStats,
   WeeklyStats,
