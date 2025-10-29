@@ -15,7 +15,7 @@ const NavigateStrat = () => {
           to="today-chart"
           smooth={true}
           duration={500}
-          offset={-120} // Adjusts scroll for fixed header height
+          offset={-120} 
           className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-colors"
         >
           Today
