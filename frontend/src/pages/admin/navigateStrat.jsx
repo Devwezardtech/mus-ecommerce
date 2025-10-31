@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderAdmin from '../../layouts/headeradmin';
-import { LInk } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const NavigateStrat = () => {
   return (

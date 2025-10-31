@@ -45,6 +45,7 @@ import SellerStrats from "./pages/seller/SellerStrats";
 import PageToday from "./pages/pages/pagestrat/pagetoday";
 import PageMonthly from "./pages/pages/pagestrat/pagemonthly";
 import PageWeekly from "./pages/pages/pagestrat/pageweelkly";
+import NavigateStrat from "./pages/admin/navigateStrat";
 
 
 
@@ -161,7 +162,7 @@ const App = () => {
 <Route path="todaystrat" element={<PageToday />} />
 <Route path="weeklystrat" element={ <PageWeekly /> } />
 
-
+<Route path="navigateStrat" element={<NavigateStrat />} />
 
     
 
