@@ -1,9 +1,9 @@
 import SalesChart from "../../../components/chart/SalesChart";
 
-const PageWeekly = () => {
+const PageMonthly = () => {
 <div>
    <SalesChart />
 </div>
 }
 
-export default PageWeekly;
+export default PageMonthly;

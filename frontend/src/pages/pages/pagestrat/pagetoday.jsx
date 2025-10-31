@@ -1,9 +1,9 @@
 import TodayRevenueChart from "../../../components/chart/TodayRevenueChart";
 
-const PageWeekly = () => {
+const PageToday = () => {
 <div>
    <TodayRevenueChart />
 </div>
 }
 
-export default PageWeekly;
+export default PageToday;

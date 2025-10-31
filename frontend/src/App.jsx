@@ -42,6 +42,9 @@ import DeliveryOrders from "./pages/DeliveryAcc/Delivery/view_delivery_order";
 import CheckedInDelivery from "./pages/DeliveryAcc/Delivery/checked_In_delivery";
 import SellerStrats from "./pages/seller/SellerStrats";
 //import ModalsOrderHistory from "./pages/seller/Modaluserhistory";
+import PageToday from "./pages/pages/pagestrat/pagetoday";
+import PageMonthly from "./pages/pages/pagestrat/pagemonthly";
+import PageWeekly from "./pages/pages/pagestrat/pageweelkly";
 
 
 
@@ -153,6 +156,11 @@ const App = () => {
 <Route path="/delivery/order" element={<DeliveryOrders />} />
 <Route path="/delivery/checkedIn" element={<CheckedInDelivery />} />
 <Route path="seller/sellerstrat" element={<SellerStrats /> } />
+
+
+<Route path="todaystrat" element={<PageToday />} />
+<Route path="weeklystrat" element={ <PageWeekly /> } />
+
 
 
     
