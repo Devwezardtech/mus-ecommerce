@@ -1,6 +1,8 @@
+import SalesChart from "../../../components/chart/SalesChart";
+
 const PageWeekly = () => {
 <div>
-   <WeeklyLineChart />
+   <SalesChart />
 </div>
 }
 

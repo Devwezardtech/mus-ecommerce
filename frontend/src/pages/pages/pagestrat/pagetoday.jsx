@@ -1,6 +1,8 @@
+import TodayRevenueChart from "../../../components/chart/TodayRevenueChart";
+
 const PageWeekly = () => {
 <div>
-   <WeeklyLineChart />
+   <TodayRevenueChart />
 </div>
 }
 
