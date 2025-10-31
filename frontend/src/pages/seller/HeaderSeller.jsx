@@ -30,6 +30,10 @@ const HeaderSeller = ({ onAddProduct }) => {
     setTimeout(() => setMessage({ message: "", type: "" }), 2000);
   };
 
+  const NavigateStrat =()=> {
+    navigate("/navigateStrat");
+  }
+
   return (
   <nav 
     className="bg-blue-600 text-white py-2 px-4 shadow-lg relative z-50 sm:p-3 sm:px-8 md:p-4 md:px-16">
@@ -57,6 +61,7 @@ const HeaderSeller = ({ onAddProduct }) => {
         >
           Logout
         </button>
+
       </div>
       {/* Mobile Menu Toggle */}
         <button onClick={() => setMenuOpen(true)} className="md:hidden rounded">
@@ -87,6 +92,7 @@ const HeaderSeller = ({ onAddProduct }) => {
             Add Product
           </button>
           <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 text-left">Logout</button>
+         {/* <Button onClick={NavigateStrat}>navigate</Button> */}
         </div>
         </div>
 

@@ -156,13 +156,13 @@ const App = () => {
 
 <Route path="/delivery/order" element={<DeliveryOrders />} />
 <Route path="/delivery/checkedIn" element={<CheckedInDelivery />} />
-<Route path="seller/sellerstrat" element={<SellerStrats /> } />
+<Route path="/seller/sellerstrat" element={<SellerStrats /> } />
 
 
-<Route path="todaystrat" element={<PageToday />} />
-<Route path="weeklystrat" element={ <PageWeekly /> } />
+<Route path="/todaystrat" element={<PageToday />} />
+<Route path="/weeklystrat" element={ <PageWeekly /> } />
 
-<Route path="navigateStrat" element={<NavigateStrat />} />
+<Route path="/navigateStrat" element={<NavigateStrat />} />
 
     
 

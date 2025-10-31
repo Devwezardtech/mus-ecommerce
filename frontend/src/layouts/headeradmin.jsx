@@ -59,7 +59,7 @@ const HeaderAdmin = () => {
         >
           Logout
         </button>
-        <link to="navigateStrat" > Navigate</link>
+        <Link to="/navigateStrat" > Navigate</Link>
       </div>
       {/* Mobile Menu Toggle */}
         <button onClick={() => setMenuOpen(true)} className="md:hidden rounded">

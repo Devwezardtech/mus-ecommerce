@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 
 const NavigateStrat = () => {
   return (
-    <div className="relative">
+    <div className="">
       {/* Fixed header */}
       <div className="fixed w-full z-50 top-0 left-0">
         <HeaderAdmin />
       </div>
-      <nav className="hidden lg:flex justify-center gap-8 bg-white shadow-md py-4 fixed top-16 left-0 right-0 z-40 border-b border-gray-200">
-        <link to="pagetoday">Today</link>
-        <link>Weekly</link>
-        <link>Monthly</link>
+      <nav className="top-24 flex flex-cols justify-start">
+        <Link>Today</Link>
+        <Link>Weekly</Link>
+        <Link>Monthly</Link>
       </nav>
     </div>
   );
