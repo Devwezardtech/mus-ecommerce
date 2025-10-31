@@ -10,7 +10,7 @@ const NavigateStrat = () => {
         <HeaderAdmin />
       </div>
       <nav className="hidden lg:flex justify-center gap-8 bg-white shadow-md py-4 fixed top-16 left-0 right-0 z-40 border-b border-gray-200">
-        <link>Today</link>
+        <link to="pagetoday">Today</link>
         <link>Weekly</link>
         <link>Monthly</link>
       </nav>
