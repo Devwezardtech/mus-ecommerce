@@ -34,7 +34,7 @@ const HeaderSeller = ({ onAddProduct }) => {
   <nav 
     className="bg-blue-600 text-white py-2 px-4 shadow-lg relative z-50 sm:p-3 sm:px-8 md:p-4 md:px-16">
       <div className="flex justify-between items-center font-bold">
-        <h1 className="text-xl sm:text-2xl font-bold">Seller Dashboard</h1>
+        <h1 className="text-xl sm:text-2xl font-bold">Seller Dashboard </h1>
 
         {/* Destop Menu */}
         <div className="hidden md:flex justify-end gap-8 text-white">
