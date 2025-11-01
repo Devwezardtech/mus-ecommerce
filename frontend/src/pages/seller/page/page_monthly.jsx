@@ -1,4 +1,5 @@
 import SalesChart from "../../../components/chart/SalesChart";
+import PageNav from "../page_nav/page_nave";
 
 const PagesMonthly = () => {
 return(
