@@ -47,6 +47,7 @@ import PageMonthly from "./pages/pages/pagestrat/pagemonthly";
 import PageWeekly from "./pages/pages/pagestrat/pageweelkly";
 import NavigateStrat from "./pages/admin/navigateStrat";
 import PagesToday from "./pages/seller/page/page_today";
+import PagesWeekly from "./pages/seller/page/page_weekly";
 
 
 
@@ -166,6 +167,7 @@ const App = () => {
 <Route path="/navigateStrat" element={<NavigateStrat />} />
 
 <Route path="/saletoday" element={<PagesToday /> } />
+<Route path="/saleweekly" element={<PagesWeekly /> } />
 
     
 
