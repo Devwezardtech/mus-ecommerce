@@ -1,9 +1,9 @@
 import WeeklyLineCha from "../../../components/chart/WeeklyLineChart";
 
-const PageWeekly = () => {
+const PagesWeekly = () => {
 <div>
    <WeeklyLineChart />
 </div>
 }
 
-export default PageWeekly;
+export default PagesWeekly;

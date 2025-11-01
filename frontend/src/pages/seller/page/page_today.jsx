@@ -1,9 +1,9 @@
 import TodayRevenueChart from "../../../components/chart/TodayRevenueChart";
 
-const PageToday = () => {
+const PagesToday = () => {
 <div>
    <TodayRevenueChart />
 </div>
 }
 
-export default PageToday;
+export default PagesToday;
