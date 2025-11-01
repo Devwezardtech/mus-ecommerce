@@ -1,4 +1,11 @@
-const pageNav = () => {
+import { useNavigate } from "react-router-dom";
+
+const PageNav = () => {
+   const navigate = useNavigate;
+
+   const today =()=>{
+      navigate("/saletoday")
+   }
   return (
     <div className="">
       {/* Fixed header */}
@@ -6,12 +13,12 @@ const pageNav = () => {
         
       </div>
       <nav className="top-24 flex flex-cols justify-start">
-        <Link>Today</Link>
-        <Link>Weekly</Link>
-        <Link>Monthly</Link>
+        <button onlick={today}>Today</button>
+        <button>Weekly</button>
+        <button>Monthly</button>
       </nav>
     </div>
   );
 };
 
-export default pageNav;
+export default PageNav;
