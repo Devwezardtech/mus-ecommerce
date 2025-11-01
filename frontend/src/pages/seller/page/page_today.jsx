@@ -1,5 +1,5 @@
 import TodayRevenueChart from "../../../components/chart/TodayRevenueChart";
-
+import PageNav from "../page_nav/page_nave";
 
 
 const PagesToday = () => {
