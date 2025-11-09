@@ -8,17 +8,17 @@ import TodayRevenueChart from "../../components/chart/TodayRevenueChart";
 const SellerStrats = () => {
 return (
    <div>
-      <div className=" pt-16 px-4 sm:px-8 md:px-16 lg:px-18 sm:pt-20 md:pt-24 lg:pt-28">
-         <div className="mb-8">
+      <div className=" pt-16">
+         <div className="mb-6">
             <TodayRevenueChart />
          </div>
-         <div className="mb-8">
+         <div className="mb-6">
             <SalesChart />
          </div>
-         <div className="mb-8">
+         <div className="mb-6">
             <WeeklyLineChart />
          </div>
-         {/*<div className="mb-8">
+         {/*<div className="mb-6">
             <CategoryPieChart />
          </div>
          */}
