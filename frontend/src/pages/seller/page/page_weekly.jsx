@@ -6,7 +6,10 @@ import SellerStrats from "../SellerStrats";
 const PagesWeekly = () => {
    return(
 <div>
-   <HeaderSeller />
+   <div className="fixed w-full z-50">
+       <HeaderSeller />
+   </div>
+  
    <div className="flex md:hidden">
       <SellerStrats />
    </div>
