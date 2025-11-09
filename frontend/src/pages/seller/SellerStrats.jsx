@@ -7,8 +7,8 @@ import TodayRevenueChart from "../../components/chart/TodayRevenueChart";
 
 const SellerStrats = () => {
 return (
-   <div>
-      <div className=" pt-16">
+   <div className='w-full'>
+      <div className=" pt-16 px-2 sm:px-6 md:px-8 lg:px-12 sm:pt-20 md:pt-24 lg:pt-28">
          <div className="mb-6">
             <TodayRevenueChart />
          </div>
@@ -22,12 +22,6 @@ return (
             <CategoryPieChart />
          </div>
          */}
-
-         <div className='hidden md:flex'>
-            
-
-         </div>
-         
          
          
          
