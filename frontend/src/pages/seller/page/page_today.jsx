@@ -7,7 +7,7 @@ const PagesToday = () => {
    return(
 <div>
    <HeaderSeller />
-   <div className="flex justify-center gap-14 px-4" >
+   <div className="pt-4 flex justify-center gap-14 px-4" >
       <div>
          <PageNav />
       </div>

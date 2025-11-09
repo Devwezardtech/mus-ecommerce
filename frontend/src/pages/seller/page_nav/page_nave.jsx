@@ -7,7 +7,7 @@ const PageNav = () => {
     <div className="">
       {/* Fixed header */}
       <nav className="flex justify-start">
-         <div className="flex flex-col">
+         <div className="flex flex-col bg-gray-300 rounded-sm w-20">
           <Link to="/saletoday">Today</Link>
         <Link to="/saleweekly">Weekly</Link>
         <Link to="/salemonthly">Monthly</Link>
