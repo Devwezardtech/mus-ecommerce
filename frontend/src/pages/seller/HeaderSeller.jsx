@@ -88,7 +88,6 @@ const HeaderSeller = ({ onAddProduct }) => {
             Add Product
           </button>
           <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="hover:text-blue-500 text-left">Logout</button>
-         <Link className="hover:text-green-500" to="/seller/samplenav">nav</Link>
         </div>
         </div>
 
