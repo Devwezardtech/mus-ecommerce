@@ -13,7 +13,7 @@ const PagesWeekly = () => {
    <div className="flex md:hidden">
       <SellerStrats />
    </div>
-   <div className="hidden md:flex pt-4 flex justify-center gap-14 px-4" >
+   <div className="hidden md:flex pt-20 flex justify-center gap-14 px-4" >
       <div>
          <PageNav />
       </div>
