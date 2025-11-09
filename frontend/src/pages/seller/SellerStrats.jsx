@@ -4,6 +4,7 @@ import WeeklyLineChart from '../../components/chart/WeeklyLineChart';
 import HeaderSeller from "./HeaderSeller"
 import TodayRevenueChart from "../../components/chart/TodayRevenueChart";
 
+
 const SellerStrats = () => {
 return (
    <div>
@@ -24,6 +25,11 @@ return (
             <CategoryPieChart />
          </div>
          */}
+
+         <div className='hidden md:flex'>
+            
+
+         </div>
          
          
          
