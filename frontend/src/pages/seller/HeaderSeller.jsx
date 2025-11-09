@@ -38,7 +38,7 @@ const HeaderSeller = ({ onAddProduct }) => {
 
         {/* Destop Menu */}
         <div className="hidden md:flex justify-end gap-8 text-white">
-        <Link className="hover:text-green-500" to="/seller/sellerstrat">Home</Link>
+        <Link className="hover:text-green-500" to="/salemonthly">Home</Link>
         <Link className="hover:text-green-500" to="/seller">Product</Link>
         <Link className="hover:text-green-500" to="/seller/orders">Orders</Link>
         
@@ -80,7 +80,7 @@ const HeaderSeller = ({ onAddProduct }) => {
         </div>
         <div className="flex flex-col text-lg gap-2">
          <Link className="hover:text-blue-500" to="/seller/profile">Profile</Link>
-          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500" to="/seller/sellerstrat">Home</Link>
+          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500" to="/salemonthly">Home</Link>
            <Link className="hover:text-blue-500" to="/seller">Product</Link>
          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500" to="/seller/orders">Orders</Link>
          <button 
