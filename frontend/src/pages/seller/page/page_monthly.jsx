@@ -14,9 +14,12 @@ return(
       <SellerStrats />
    </div>
    <div className="hidden md:flex pt-20 flex justify-center gap-6 px-4 w-full " >
-      <div className="w-20">
+      <div className="w-40">
+         <div className=" flex h-100%">
          <PageNav />
       </div>
+      </div>
+      
       <div className="w-full">
    <SalesChart />
    </div>

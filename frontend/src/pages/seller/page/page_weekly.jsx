@@ -9,7 +9,8 @@ const PagesWeekly = () => {
    <div className="fixed w-full z-50">
        <HeaderSeller />
    </div>
-  
+   <div className="w-full">
+ 
    <div className="flex md:hidden">
       <SellerStrats />
    </div>
@@ -17,10 +18,13 @@ const PagesWeekly = () => {
       <div>
          <PageNav />
       </div>
-      <div>
+      <div className="w-full">
    <WeeklyLineChart />
       </div>
      </div>
+          
+   </div>
+  
 </div>
    );
 }
