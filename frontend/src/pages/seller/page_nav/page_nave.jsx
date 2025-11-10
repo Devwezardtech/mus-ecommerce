@@ -6,11 +6,11 @@ const PageNav = () => {
   return (
     <div className="">
       {/* Fixed header */}
-      <nav className="flex justify-start w-full">
-         <div className="flex flex-col bg-gray-300 rounded-md w-30 px-2 gap-3 h-100%">
-          <Link to="/saletoday">Today</Link>
-        <Link to="/saleweekly">Weekly</Link>
-        <Link to="/salemonthly">Monthly</Link>
+      <nav className="flex justify-start w-full  h-100%">
+         <div className="flex flex-col w-30 px-2 gap-2 w-full font-semibold">
+          <Link className="hover:bg-white" to="/saletoday">Today</Link>
+        <Link className="hover:bg-white" to="/saleweekly">Weekly</Link>
+        <Link className="hover:bg-white" to="/salemonthly">Monthly</Link>
         </div>
       </nav>
     </div>

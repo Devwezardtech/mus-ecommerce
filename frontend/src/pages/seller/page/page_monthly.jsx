@@ -13,9 +13,9 @@ return(
       <div className="flex md:hidden justify-center items-center">
       <SellerStrats />
    </div>
-   <div className="hidden md:flex pt-20 flex justify-center gap-6 px-4 w-full " >
-      <div className="w-40">
-         <div className=" flex h-100%">
+   <div className="hidden md:flex pt-20 flex justify-center gap-4 px-4 w-full " >
+      <div className="w-40 h-100% bg-gray-100 rounded-lg pt-6">
+         <div className="">
          <PageNav />
       </div>
       </div>
