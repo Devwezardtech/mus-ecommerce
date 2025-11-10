@@ -10,7 +10,8 @@ const PagesToday = () => {
    <div className="fixed w-full z-50">
        <HeaderSeller />
    </div>
-  
+   <div className="w-full">
+    
    <div className="flex md:hidden">
       <SellerStrats />
    </div>
@@ -18,9 +19,12 @@ const PagesToday = () => {
       <div>
          <PageNav />
       </div>
-      <div>
+      <div className="w-full">
    <TodayRevenueChart />
    </div>
+     
+   </div>
+  
    </div>
 </div>
    );

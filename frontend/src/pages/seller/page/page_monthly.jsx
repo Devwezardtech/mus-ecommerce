@@ -13,11 +13,11 @@ return(
       <div className="flex md:hidden justify-center items-center">
       <SellerStrats />
    </div>
-   <div className="hidden md:flex pt-20 flex justify-center gap-14 px-4 w-full " >
-      <div>
+   <div className="hidden md:flex pt-20 flex justify-center gap-6 px-4 w-full " >
+      <div className="w-20">
          <PageNav />
       </div>
-      <div className="w-full h-100%">
+      <div className="w-full">
    <SalesChart />
    </div>
    </div>
