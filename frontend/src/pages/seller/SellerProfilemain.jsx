@@ -13,6 +13,10 @@ const SellerProfileMain = () => {
     rating: 4.8,
   });
 
+  const Edit = () => {
+    
+  }
+
   return (
     <div>
       <div className="fixed w-full z-50">
@@ -67,7 +71,7 @@ const SellerProfileMain = () => {
 
           {/* Edit Profile Button */}
           <div className="text-right">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition" onClick={Edit}>
               
               Edit Profile
             </button>
