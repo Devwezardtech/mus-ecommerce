@@ -4,9 +4,9 @@ import { useState } from "react";
 
 const SellerProfileMain = () => {
   const { user } = useAuth();
-  const [bio] = useState("Welcome to my shop! We sell quality products with care.");
-  const [contact, ] = useState("seller@email.com");
-  const [address, ] = useState("Cebu City, Philippines");
+  const [bio ] = useState("Welcome to my shop! We sell quality products with care.");
+  const [contact ] = useState("seller@email.com");
+  const [address] = useState("Cebu City, Philippines");
   const [stats] = useState({
     products: 18,
     sales: 126,
