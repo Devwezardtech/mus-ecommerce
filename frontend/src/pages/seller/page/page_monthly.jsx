@@ -19,7 +19,7 @@ return(
          <PageNav />
       </div>
       
-      <div className="w-full">
+      <div className="w-full h-100%">
    <SalesChart />
    </div>
    </div>
