@@ -19,7 +19,7 @@ const SellerProfileMain = () => {
         <HeaderSeller />
       </div>
 
-      <div className="pt-20 min-h-screen bg-gray-50 flex justify-center">
+      <div className="pt-16 min-h-screen bg-gray-50 flex justify-center">
         <div className="w-full max-w-3xl bg-white rounded-2xl shadow p-8">
           <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-3">Seller Profile</h2>
 
