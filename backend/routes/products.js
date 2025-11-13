@@ -26,12 +26,8 @@ router.post("/", authenticateToken, async (req, res) => {
   try {
     const { name, description, price, commission, stock, category, photo, photoId } = req.body;
 
-    if (!name || !description || !price || !category ) {
+    if (!name || !description || !price || !category || !photo || !photoId) {
       return res.status(400).json({ error: "All fields and image are required." });
-    }
-
-    if (!photo || !photoId) {
-      return res.status(400).json({ error: "Product image is required." });
     }
 
     const product = new Product({
@@ -41,9 +37,9 @@ router.post("/", authenticateToken, async (req, res) => {
       stock,
       commission: commission || 0.2,
       createdBy: req.user.id,
-      photo,     // secure_url from Cloudinary
-      photoId, // public_id from Cloudinary
-      createdBy: req.user.id,
+      photo,
+      photoId,
+      category,
     });
 
     await product.save();
@@ -53,13 +49,14 @@ router.post("/", authenticateToken, async (req, res) => {
   }
 });
 
-
-
-// GET all or by seller
+// GET products (all or by seller/category)
 router.get("/", async (req, res) => {
   try {
-    const { seller } = req.query;
-    const query = seller ? { createdBy: seller } : {};
+    const { seller, category } = req.query;
+    const query = {};
+    if (seller) query.createdBy = seller;
+    if (category) query.category = category;
+
     const products = await Product.find(query);
     res.json(products);
   } catch (err) {
@@ -67,19 +64,18 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET single product (public)
+// GET single product
 router.get("/public/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ error: "Product not found" });
-
     res.json(product);
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
 });
 
-// Seller-only products
+// GET seller products
 router.get("/my-products", authenticateToken, async (req, res) => {
   try {
     const products = await Product.find({ createdBy: req.user.id });
@@ -89,32 +85,20 @@ router.get("/my-products", authenticateToken, async (req, res) => {
   }
 });
 
-// UPDATE product (and image)
-router.put("/:id", authenticateToken, upload.single("photo"), async (req, res) => {
+// UPDATE product
+router.put("/:id", authenticateToken, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ error: "Product not found" });
-
     if (product.createdBy.toString() !== req.user.id) {
       return res.status(403).json({ error: "Not authorized" });
     }
 
     const { name, description, price, commission, stock, photo, photoId } = req.body;
+    const updates = { name, description, price, commission, stock };
 
-    const updates = {
-      name,
-      description,
-      price,
-      commission,
-      stock,
-    };
-
-    // Replace photo on Cloudinary if new one is uploaded
-    if (photo && photoId && (photo !== product.photo)) {
-      // Delete old photo from Cloudinary
-      if (product.photoId) {
-        await cloudinary.uploader.destroy(product.photoId);
-      }
+    if (photo && photoId && photo !== product.photo) {
+      if (product.photoId) await cloudinary.uploader.destroy(product.photoId);
       updates.photo = photo;
       updates.photoId = photoId;
     }
@@ -126,21 +110,16 @@ router.put("/:id", authenticateToken, upload.single("photo"), async (req, res) =
   }
 });
 
-// DELETE product + Cloudinary image
+// DELETE product
 router.delete("/:id", authenticateToken, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ error: "Product not found" });
-
     if (req.user.role !== "admin" && product.createdBy.toString() !== req.user.id) {
       return res.status(403).json({ error: "Not authorized" });
     }
 
-    // Delete Cloudinary image
-    if (product.photoId) {
-      await cloudinary.uploader.destroy(product.photoId);
-    }
-
+    if (product.photoId) await cloudinary.uploader.destroy(product.photoId);
     await Product.findByIdAndDelete(req.params.id);
     res.json({ message: "Product deleted" });
   } catch (error) {
@@ -148,37 +127,15 @@ router.delete("/:id", authenticateToken, async (req, res) => {
   }
 });
 
-// Unshare product (affiliate)
-router.put("/:id/unshare", authenticateToken, async (req, res) => {
-  try {
-    const { affiliateId } = req.body;
-    const product = await Product.findById(req.params.id);
-
-    if (!product) return res.status(404).json({ error: "Product not found" });
-
-    if (product.sharedBy?.toString() === affiliateId) {
-      product.sharedBy = null;
-      await product.save();
-      return res.json({ message: "Product unshared" });
-    }
-
-    res.status(403).json({ error: "Unauthorized" });
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
-// GET /api/products/categories
+// GET distinct categories
 router.get("/categories", async (req, res) => {
   try {
     const categories = await Product.distinct("category");
-    res.json(categories); // returns array of strings
+    res.json(categories);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch categories" });
   }
 });
-
-
 
 module.exports = router;
