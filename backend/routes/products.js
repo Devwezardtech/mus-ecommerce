@@ -24,9 +24,9 @@ const authenticateToken = (req, res, next) => {
 // CREATE product (Cloudinary image sent from frontend)
 router.post("/", authenticateToken, async (req, res) => {
   try {
-    const { name, description, price, commission, stock, photo, photoId } = req.body;
+    const { name, description, price, commission, stock, category, photo, photoId } = req.body;
 
-    if (!name || !description || !price ) {
+    if (!name || !description || !price || !category ) {
       return res.status(400).json({ error: "All fields and image are required." });
     }
 
@@ -167,5 +167,15 @@ router.put("/:id/unshare", authenticateToken, async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+router.get("/categories", async (req, res) => {
+  try {
+    const categories = await Product.distinct("category");
+    res.json(categories);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch categories" });
+  }
+});
+
 
 module.exports = router;
