@@ -15,8 +15,9 @@ const HeaderSeller = ({ onAddProduct }) => {
 
   const confirmLogout = () => {
     showMessage("Logging out...", "loading");
+    logout()
     setShowLogout(false);
-    setTimeout(() => logout(), 1000);
+    
     navigate("/")
   };
 
