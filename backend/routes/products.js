@@ -168,14 +168,17 @@ router.put("/:id/unshare", authenticateToken, async (req, res) => {
   }
 });
 
+// GET /api/products/categories
 router.get("/categories", async (req, res) => {
   try {
     const categories = await Product.distinct("category");
-    res.json(categories);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch categories" });
+    res.json(categories); // returns array of strings
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch categories" });
   }
 });
+
 
 
 module.exports = router;

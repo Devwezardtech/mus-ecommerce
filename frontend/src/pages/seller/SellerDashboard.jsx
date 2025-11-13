@@ -3,6 +3,14 @@ import api from "../../api/axios";
 import Message from "../message";
 import HeaderSeller from "./HeaderSeller";
 
+const categoryOptions = [
+  "Electronics",
+  "Fashion",
+  "Beauty & Care",
+  "Home & Kitchen",
+  "Sports & Outdoors"
+];
+
 const SellerDashboard = () => {
   const [newProducts, setNewProducts] = useState({ name: "", description: "", price: "", stock: "", commission: "", photo: null, photoId:"" });
   const [photo, setPhoto] = useState(null);
@@ -14,6 +22,7 @@ const SellerDashboard = () => {
   const [showDelete, setShowDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [message, setMessage] = useState({ message: "", type: "" });
+  const [selectedCategory, setSelectedCategory] = useState(categoryOptions[0]);
 
   const showMessage = (message, type) => {
     setMessage({ message, type });
@@ -93,6 +102,7 @@ const handleSubmit = async (e) => {
   commission: parseFloat(newProducts.commission) || 0.2,
   photo: imageUrl || newProducts.photo,
   photoId: publicId || newProducts.photoId,
+  category: selectedCategory, 
 };
 
 
@@ -155,6 +165,7 @@ const handleSubmit = async (e) => {
       photo: product.photo,
       photoId: product.photoId,
     });
+    setSelectedCategory(product.category || categoryOptions[0]);
     setEditingProductId(product._id);
     setPreview(product.photo);
     setCreate(true);
@@ -263,6 +274,19 @@ const handleSubmit = async (e) => {
   value={newProducts.commission || ""}
   onChange={(e) => setNewProducts({ ...newProducts, commission: e.target.value })}
 />
+
+{/* Category dropdown */}
+<select
+  className="w-full px-2 py-1 border border-gray-300 rounded bg-white"
+  value={selectedCategory}
+  onChange={(e) => setSelectedCategory(e.target.value)}
+>
+  {categoryOptions.map((cat, idx) => (
+    <option key={idx} value={cat}>
+      {cat}
+    </option>
+  ))}
+</select>
 
       <input 
       type="file" accept="image/*" onChange={handleImageChange} />

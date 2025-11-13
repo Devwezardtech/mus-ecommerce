@@ -9,23 +9,23 @@ const ShopDisplay = () => {
 
   // Fetch categories
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await api.get("/api/products/categories");
-        console.log("Fetched categories:", res.data);
+  const fetchCategories = async () => {
+    try {
+      const res = await api.get("/api/products/categories");
+      console.log("Fetched categories:", res.data);
 
-        // Ensure categories is an array
-        const cats = Array.isArray(res.data) ? res.data : res.data.categories || [];
-        setCategories(cats);
+      const cats = Array.isArray(res.data) ? res.data : res.data.categories || [];
+      setCategories(cats);
 
-        if (cats.length > 0) setSelectedCategory(cats[0]);
-      } catch (error) {
-        console.error("Failed to load categories:", error);
-        setCategories([]);
-      }
-    };
-    fetchCategories();
-  }, []);
+      if (cats.length > 0) setSelectedCategory(cats[0]);
+    } catch (error) {
+      console.error("Failed to load categories:", error);
+      setCategories([]);
+    }
+  };
+  fetchCategories();
+}, []);
+
 
   // Fetch products by category
   useEffect(() => {
