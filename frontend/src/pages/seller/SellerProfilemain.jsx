@@ -33,10 +33,11 @@ const SellerProfileMain = () => {
 
       <div className="pt-16 min-h-screen bg-gray-50 flex justify-center">
         <div className="w-full max-w-4xl bg-white rounded-2xl shadow p-8">
-          {/* Header */}
+          {/* Header 
           <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-3">
             Seller Profile
           </h2>
+          */}
 
           {/* Profile Header */}
           <div className="flex items-center gap-6 mb-6">
