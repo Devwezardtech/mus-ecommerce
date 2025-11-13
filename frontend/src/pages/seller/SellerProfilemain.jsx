@@ -98,8 +98,6 @@ const SellerProfileMain = () => {
             </div>
           </div>
 
-          
-
           {/* Feedback Section */}
           <div className="mb-8">
             <h4 className="font-semibold text-gray-700 mb-3">Customer Feedback</h4>
