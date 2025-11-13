@@ -3,6 +3,7 @@ import api from "../api/axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import HeaderUser from "../layouts/headeruser";
 import Message from "./message";
+import ProductCategories from "./Product_category/main_product";
 //import AffiliateProducts from "./affiliate/AffiliateProducts";
 
 
@@ -105,6 +106,11 @@ const showMessage = (msg, type) => {
             ))}
           </div>
         ) : (
+          <div> 
+            <div className="w-full pt-16">
+              <ProductCategories />
+
+            </div>
           <div className="pt-10 sm:pt-14 md:pt-16 lg:pt-18">
 
             <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -149,6 +155,7 @@ const showMessage = (msg, type) => {
                 </div>
               ))}
             </div>
+          </div>
           </div>
         )}
       </div>

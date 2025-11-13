@@ -50,6 +50,7 @@ import PagesToday from "./pages/seller/page/page_today";
 import PagesWeekly from "./pages/seller/page/page_weekly";
 import PagesMonthly from "./pages/seller/page/page_monthly";
 import PageNav from "./pages/seller/page_nav/page_nave";
+import ProductCategories from "./pages/Product_category/main_product";
 
 
 
@@ -173,6 +174,7 @@ const App = () => {
 <Route path="/salemonthly" element={<PagesMonthly />} />
 
 <Route path="/seller/samplenav" element={<PageNav />} />
+<Route path="/categoryy" element={<ProductCategories /> } />
 
     
 
