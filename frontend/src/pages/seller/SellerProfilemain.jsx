@@ -55,17 +55,6 @@ const SellerProfileMain = () => {
             </div>
           </div>
 
-          {/* Profile Progress */}
-          <div className="mb-6">
-            <h4 className="font-semibold text-gray-700 mb-2">
-              Profile Completeness
-            </h4>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div className="bg-green-500 h-3 rounded-full" style={{ width: "80%" }}></div>
-            </div>
-            <p className="text-sm text-gray-500 mt-1">80% Complete</p>
-          </div>
-
           {/* Bio Section */}
           <div className="mb-6">
             <h4 className="font-semibold text-gray-700 mb-2">About Seller</h4>
