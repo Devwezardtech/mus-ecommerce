@@ -31,11 +31,8 @@ const HeaderUser = () => {
    
       setShowLogout(false); // close modal
        showMessage("Loading...", "loading")
-        
-       setTimeout(()=>{
-         logout(); // call logout from context
+         logout(); 
          navigate("/")
-       }, 1000)
       
      };
    

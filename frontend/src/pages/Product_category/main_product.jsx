@@ -9,23 +9,22 @@ const ShopDisplay = () => {
 
   // Fetch categories
   useEffect(() => {
-  const fetchCategories = async () => {
-    try {
-      const res = await api.get("/api/products/categories");
-      console.log("Fetched categories:", res.data);
+    const fetchCategories = async () => {
+      try {
+        const res = await api.get("/api/products/categories");
+        console.log("Fetched categories:", res.data);
 
-      const cats = Array.isArray(res.data) ? res.data : res.data.categories || [];
-      setCategories(cats);
+        const cats = Array.isArray(res.data) ? res.data : res.data.categories || [];
+        setCategories(cats);
 
-      if (cats.length > 0) setSelectedCategory(cats[0]);
-    } catch (error) {
-      console.error("Failed to load categories:", error);
-      setCategories([]);
-    }
-  };
-  fetchCategories();
-}, []);
-
+        if (cats.length > 0) setSelectedCategory(cats[0]._id); // select first category by ID
+      } catch (error) {
+        console.error("Failed to load categories:", error);
+        setCategories([]);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   // Fetch products by category
   useEffect(() => {
@@ -34,8 +33,11 @@ const ShopDisplay = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
+        console.log("Fetching products for category:", selectedCategory);
+
         const res = await api.get(`/api/products?category=${selectedCategory}`);
-        // If backend returns { products: [...] } wrap it properly
+        console.log("Fetched products:", res.data);
+
         const prods = Array.isArray(res.data) ? res.data : res.data.products || [];
         setProducts(prods);
       } catch (error) {
@@ -56,18 +58,18 @@ const ShopDisplay = () => {
           🛒 Categories
         </h2>
         <ul className="space-y-2">
-          {Array.isArray(categories) && categories.length > 0 ? (
-            categories.map((cat, index) => (
+          {categories.length > 0 ? (
+            categories.map((cat) => (
               <li
-                key={index}
+                key={cat._id} // use unique _id
                 className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition ${
-                  selectedCategory === cat
+                  selectedCategory === cat._id
                     ? "bg-blue-100 text-blue-600 font-semibold"
                     : "hover:bg-gray-100 text-gray-700"
                 }`}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => setSelectedCategory(cat._id)}
               >
-                <span className="text-xl">📦</span> {cat}
+                <span className="text-xl">📦</span> {cat.name}
               </li>
             ))
           ) : (
@@ -79,7 +81,7 @@ const ShopDisplay = () => {
       {/* Right Side - Products */}
       <div className="flex-1">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          {selectedCategory || "Products"}
+          {categories.find((c) => c._id === selectedCategory)?.name || "Products"}
         </h2>
 
         {loading ? (
