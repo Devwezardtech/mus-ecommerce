@@ -130,12 +130,19 @@ router.delete("/:id", authenticateToken, async (req, res) => {
 // GET distinct categories
 router.get("/categories", async (req, res) => {
   try {
-    const categories = await Product.distinct("category");
+    const categories = [
+      { _id: "electronics", name: "Electronics" },
+      { _id: "fashion", name: "Fashion" },
+      { _id: "beauty-care", name: "Beauty & Care" },
+      { _id: "home-kitchen", name: "Home & Kitchen" },
+      { _id: "sports-outdoors", name: "Sports & Outdoors" }
+    ];
     res.json(categories);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch categories" });
   }
 });
+
 
 module.exports = router;
