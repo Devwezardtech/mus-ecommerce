@@ -86,7 +86,7 @@ const showMessage = (msg, type) => {
       </div>
 
 
-   <div className="p-4 bg-gray-100">
+   <div className="p-4">
         {products.length === 0 ? (
           <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mt-5 gap-4 py-8 lg:mt-16">
             {Array.from({ length: 32 }).map((_, index) => (
@@ -107,11 +107,12 @@ const showMessage = (msg, type) => {
           </div>
         ) : (
           <div> 
-            <div className="w-full pt-16">
+            <div className="w-full pt-8">
               <ProductCategories />
 
             </div>
           <div className="pt-10 sm:pt-14 md:pt-16 lg:pt-18">
+            <h2 className="font-semibold">All Products:</h2>
 
             <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {products.map((product) => (
@@ -120,9 +121,15 @@ const showMessage = (msg, type) => {
                     <button onClick={() => setModalProduct(product)}>
                       <div className="flex flex-col items-center justify-center">
                         <img
-               src={product.photo}
-               alt={product.name}
-                          className="h-28 w-28 object-cover rounded shadow sm:h-32 sm:w-32 md:h-40 md:w-40 lg:h-60 lg:w-60 "/>
+  src={
+    Array.isArray(product.photo)
+      ? product.photo[0]
+      : product.photo
+  }
+  alt={product.name}
+  className="h-28 w-28 object-cover rounded shadow sm:h-32 sm:w-32 md:h-40 md:w-40 lg:h-60 lg:w-60"
+/>
+
                         <div>
                           <strong className="text-gray-800 text-sm font-semibold sm:text-base md:text-md lg:text-lg">{product.name}</strong>
                           <p className="text-xs">{product.description}</p>

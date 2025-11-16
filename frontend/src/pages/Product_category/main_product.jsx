@@ -116,37 +116,42 @@ const ShopDisplay = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen py-8 px-6 flex flex-col lg:flex-row gap-8">
-      {/* Left Sidebar */}
-      <div className="hidden md:flex">
-        <div className="bg-white rounded-xl shadow-md w-full lg:w-1/5 p-4">
-        <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
-          🛒 Categories
-        </h2>
-        <ul className="space-y-2">
-          {categories.length > 0 ? (
-            categories.map((cat) => (
-              <li
-                key={cat._id}
-                className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition ${
-                  selectedCategory === cat._id
-                    ? "bg-blue-100 text-blue-600 font-semibold"
-                    : "hover:bg-gray-100 text-gray-700"
-                }`}
-                onClick={() => setSelectedCategory(cat._id)}
-              >
-                <span className="text-xl">📦</span> {cat.name}
-              </li>
-            ))
-          ) : (
-            <p className="text-gray-400 text-sm">No categories found</p>
-          )}
-        </ul>
-      </div>
-      </div>
+    <div className="bg-gray-50 min-h-screen py-8 flex flex-col lg:flex-row gap-8">
+     {/* DESKTOP CATEGORY SIDEBAR */}
+<div className="hidden md:block">
+  <div className="bg-white rounded-xl shadow-md w-64 p-5">
+    <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
+      🛒 Categories
+    </h2>
+
+    <ul className="space-y-2">
+      {categories.length > 0 ? (
+        categories.map((cat) => (
+          <li
+            key={cat._id}
+            onClick={() => setSelectedCategory(cat._id)}
+            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all
+              ${
+                selectedCategory === cat._id
+                  ? "bg-blue-100 text-blue-700 font-semibold shadow-sm"
+                  : "hover:bg-gray-100 text-gray-700"
+              }
+            `}
+          >
+            <span className="text-lg"></span>
+            <span className="truncate">{cat.name}</span>
+          </li>
+        ))
+      ) : (
+        <p className="text-gray-400 text-sm">No categories found</p>
+      )}
+    </ul>
+  </div>
+</div>
+
 
       {/* MOBILE CATEGORY SCROLL (No scrollbar, mobile only) */}
-<div className="lg:hidden w-full overflow-x-auto whitespace-nowrap px-2 py-3 bg-white shadow-sm sticky top-0 z-20 scrollbar-hide">
+<div className="lg:hidden w-full overflow-x-auto whitespace-nowrap px-2 py-3 shadow-sm sticky top-0 z-20 scrollbar-hide">
   <div className="flex gap-2">
     {categories.length > 0 ? (
       categories.map((cat) => (
