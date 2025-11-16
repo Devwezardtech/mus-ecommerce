@@ -131,9 +131,10 @@ router.delete("/:id", authenticateToken, async (req, res) => {
 router.get("/categories", async (req, res) => {
   try {
     const categories = [
-      { _id: "electronics", name: "Electronics" },
       { _id: "fashion", name: "Fashion" },
       { _id: "beauty-care", name: "Beauty & Care" },
+      { _id: "Jewelry", name: "Jewelry" },
+      { _id: "electronics", name: "Electronics" },
       { _id: "home-kitchen", name: "Home & Kitchen" },
       { _id: "sports-outdoors", name: "Sports & Outdoors" }
     ];
