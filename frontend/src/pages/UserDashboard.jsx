@@ -161,41 +161,49 @@ const showMessage = (msg, type) => {
       </div>
 
       {modalProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-          <div className="bg-gray-300 rounded-lg p-4 shadow-lg w-full max-w-sm relative">
-            <button
-              onClick={() => setModalProduct(null)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-200 text-xl bg-gray-200 hover:bg-gray-400 rounded w-10"
-            >
-              ✕
-            </button>
-            <img
-        src={modalProduct.photo}
-        alt={modalProduct.name}
-              className="w-full h-74 object-cover rounded-lg mb-4 py-8"
-            />
-            <h2 className="text-xl font-bold text-gray-700 mb-2">
-              {modalProduct.name}
-            </h2>
-            <p className="text-gray-600">{modalProduct.description}</p>
-            <p className="text-gray-800 font-bold mt-2">${modalProduct.price}</p>
-            <div className="flex justify-end gap-2 mt-4">
-              <button
-                onClick={() => handleAddToCart(modalProduct._id)}
-                className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={() => handleBuy(modalProduct)}
-                className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
-              >
-                Buy
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+    <div className="bg-gray-300 rounded-lg p-4 shadow-lg w-full max-w-lg relative">
+      <button
+        onClick={() => setModalProduct(null)}
+        className="absolute top-2 right-2 text-gray-500 hover:text-gray-200 text-xl bg-gray-200 hover:bg-gray-400 rounded w-10"
+      >
+        ✕
+      </button>
+
+      {/* Horizontal scroll of all photos */}
+      <div className="overflow-x-auto flex gap-2 mb-4 py-2">
+        {Array.isArray(modalProduct.photo) && modalProduct.photo.map((imgUrl, index) => (
+          <img
+            key={index}
+            src={imgUrl}
+            alt={`${modalProduct.name}-${index}`}
+            className="h-48 w-48 object-cover rounded-lg flex-shrink-0"
+          />
+        ))}
+      </div>
+
+      <h2 className="text-xl font-bold text-gray-700 mb-2">{modalProduct.name}</h2>
+      <p className="text-gray-600">{modalProduct.description}</p>
+      <p className="text-gray-800 font-bold mt-2">${modalProduct.price}</p>
+
+      <div className="flex justify-end gap-2 mt-4">
+        <button
+          onClick={() => handleAddToCart(modalProduct._id)}
+          className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
+        >
+          Add to Cart
+        </button>
+        <button
+          onClick={() => handleBuy(modalProduct)}
+          className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
+        >
+          Buy
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
 
 <div className="flex justify-center item-center"> 

@@ -6,18 +6,16 @@ const ShopDisplay = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalProduct, setModalProduct] = useState(null); // for modal
 
   // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const res = await api.get("/api/products/categories");
-        console.log("Fetched categories:", res.data);
-
         const cats = Array.isArray(res.data) ? res.data : res.data.categories || [];
         setCategories(cats);
-
-        if (cats.length > 0) setSelectedCategory(cats[0]._id); // select first category by ID
+        if (cats.length > 0) setSelectedCategory(cats[0]._id);
       } catch (error) {
         console.error("Failed to load categories:", error);
         setCategories([]);
@@ -33,11 +31,7 @@ const ShopDisplay = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        console.log("Fetching products for category:", selectedCategory);
-
         const res = await api.get(`/api/products?category=${selectedCategory}`);
-        console.log("Fetched products:", res.data);
-
         const prods = Array.isArray(res.data) ? res.data : res.data.products || [];
         setProducts(prods);
       } catch (error) {
@@ -61,7 +55,7 @@ const ShopDisplay = () => {
           {categories.length > 0 ? (
             categories.map((cat) => (
               <li
-                key={cat._id} // use unique _id
+                key={cat._id}
                 className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition ${
                   selectedCategory === cat._id
                     ? "bg-blue-100 text-blue-600 font-semibold"
@@ -94,9 +88,10 @@ const ShopDisplay = () => {
               <div
                 key={product._id}
                 className="bg-white rounded-xl shadow hover:shadow-lg transition p-3 cursor-pointer"
+                onClick={() => setModalProduct(product)} // open modal on click
               >
                 <img
-                  src={product.photo}
+                  src={Array.isArray(product.photo) ? product.photo[0] : product.photo}
                   alt={product.name}
                   className="w-full h-40 object-cover rounded-md mb-3"
                 />
@@ -114,6 +109,36 @@ const ShopDisplay = () => {
           </div>
         )}
       </div>
+
+      {/* Modal for multiple images */}
+      {modalProduct && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg p-4 shadow-lg w-full max-w-lg relative">
+            <button
+              onClick={() => setModalProduct(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl bg-gray-200 hover:bg-gray-300 rounded w-10"
+            >
+              ✕
+            </button>
+
+            <div className="overflow-x-auto flex gap-2 mb-4 py-2">
+              {Array.isArray(modalProduct.photo) &&
+                modalProduct.photo.map((imgUrl, index) => (
+                  <img
+                    key={index}
+                    src={imgUrl}
+                    alt={`${modalProduct.name}-${index}`}
+                    className="h-48 w-48 object-cover rounded-lg flex-shrink-0"
+                  />
+                ))}
+            </div>
+
+            <h2 className="text-xl font-bold text-gray-800 mb-2">{modalProduct.name}</h2>
+            <p className="text-gray-600">{modalProduct.description}</p>
+            <p className="text-gray-800 font-bold mt-2">₱{modalProduct.price.toLocaleString()}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -30,6 +30,15 @@ router.post("/", authenticateToken, async (req, res) => {
       return res.status(400).json({ error: "All fields and image are required." });
     }
 
+     // Validate numeric fields
+    const priceNum = parseFloat(price);
+    const stockNum = parseInt(stock);
+    const commissionNum = parseFloat(commission) || 0.2;
+
+    if (isNaN(priceNum) || isNaN(stockNum) || isNaN(commissionNum)) {
+      return res.status(400).json({ error: "Price, stock, and commission must be numbers" });
+    }
+
     const product = new Product({
       name,
       description,
@@ -95,10 +104,15 @@ router.put("/:id", authenticateToken, async (req, res) => {
     }
 
     const { name, description, price, commission, stock, photo, photoId } = req.body;
-    const updates = { name, description, price, commission, stock };
+    const updates = { name, description, price, commission, stock, photo, photoId };
 
-    if (photo && photoId && photo !== product.photo) {
-      if (product.photoId) await cloudinary.uploader.destroy(product.photoId);
+     if (photo && photoId) {
+      // delete old Cloudinary images if new ones provided
+      if (product.photoId?.length > 0) {
+        for (let id of product.photoId) {
+          await cloudinary.uploader.destroy(id);
+        }
+      }
       updates.photo = photo;
       updates.photoId = photoId;
     }
@@ -119,7 +133,13 @@ router.delete("/:id", authenticateToken, async (req, res) => {
       return res.status(403).json({ error: "Not authorized" });
     }
 
-    if (product.photoId) await cloudinary.uploader.destroy(product.photoId);
+    // delete all images from Cloudinary
+    if (product.photoId?.length > 0) {
+      for (let id of product.photoId) {
+        await cloudinary.uploader.destroy(id);
+      }
+    }
+
     await Product.findByIdAndDelete(req.params.id);
     res.json({ message: "Product deleted" });
   } catch (error) {

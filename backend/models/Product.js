@@ -7,8 +7,8 @@ const ProductSchema = new mongoose.Schema({
   category: { type: String, required: true },
 
      // Cloudinary support:
-    photo: { type: String },     // Public URL from Cloudinary
-    photoId: { type: String },   // Cloudinary public_id (for deletion)
+    photo: [{ type: String }],     // Public URL from Cloudinary
+    photoId: [{ type: String }],   // Cloudinary public_id (for deletion)
 
   stock: { type: Number, required: true, default: 0 },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
