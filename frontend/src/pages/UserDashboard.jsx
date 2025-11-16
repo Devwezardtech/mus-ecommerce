@@ -10,7 +10,7 @@ import ProductCategories from "./Product_category/main_product";
 const UserDashboard = () => {
   const [products, setProducts] = useState([]);
  const [modalProduct, setModalProduct] = useState(null);
-
+ const [currentImageIndex, setCurrentImageIndex] = useState(0);
  const [message, setMessage] = useState({message: "", type: ""});
 
 const showMessage = (msg, type) => {
@@ -159,10 +159,16 @@ const showMessage = (msg, type) => {
           </div>
         )}
       </div>
-
-      {modalProduct && (
-  <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-    <div className="bg-gray-300 rounded-lg p-4 shadow-lg w-full max-w-lg relative">
+{modalProduct && (
+  <div
+    className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50"
+    onClick={() => setModalProduct(null)} // clicking outside modal closes it
+  >
+    <div
+      className="bg-gray-300 rounded-lg p-4 shadow-lg w-full max-w-lg relative"
+      onClick={(e) => e.stopPropagation()} // prevent inside clicks from closing modal
+    >
+      {/* Close Button */}
       <button
         onClick={() => setModalProduct(null)}
         className="absolute top-2 right-2 text-gray-500 hover:text-gray-200 text-xl bg-gray-200 hover:bg-gray-400 rounded w-10"
@@ -170,16 +176,43 @@ const showMessage = (msg, type) => {
         ✕
       </button>
 
-      {/* Horizontal scroll of all photos */}
-      <div className="overflow-x-auto flex gap-2 mb-4 py-2">
-        {Array.isArray(modalProduct.photo) && modalProduct.photo.map((imgUrl, index) => (
-          <img
-            key={index}
-            src={imgUrl}
-            alt={`${modalProduct.name}-${index}`}
-            className="h-48 w-48 object-cover rounded-lg flex-shrink-0"
-          />
-        ))}
+      {/* Single Image with arrows */}
+      <div className="relative w-full flex items-center justify-center mb-4">
+        <button
+          onClick={() =>
+            setCurrentImageIndex((prev) =>
+              prev === 0
+                ? modalProduct.photo.length - 1
+                : prev - 1
+            )
+          }
+          className="absolute left-0 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center"
+        >
+          ◀
+        </button>
+
+        <img
+          src={
+            Array.isArray(modalProduct.photo)
+              ? modalProduct.photo[currentImageIndex]
+              : modalProduct.photo
+          }
+          alt={modalProduct.name}
+          className="w-96 h-96 object-cover rounded-lg"
+        />
+
+        <button
+          onClick={() =>
+            setCurrentImageIndex((prev) =>
+              prev === modalProduct.photo.length - 1
+                ? 0
+                : prev + 1
+            )
+          }
+          className="absolute right-0 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center"
+        >
+          ▶
+        </button>
       </div>
 
       <h2 className="text-xl font-bold text-gray-700 mb-2">{modalProduct.name}</h2>
@@ -203,6 +236,7 @@ const showMessage = (msg, type) => {
     </div>
   </div>
 )}
+
 
 
 
