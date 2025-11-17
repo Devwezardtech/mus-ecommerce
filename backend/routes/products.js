@@ -58,20 +58,33 @@ router.post("/", authenticateToken, async (req, res) => {
   }
 });
 
-// GET products (all or by seller/category)
+// GET all products with optional random order
 router.get("/", async (req, res) => {
   try {
-    const { seller, category } = req.query;
+    const { seller, category, random, limit } = req.query;
     const query = {};
     if (seller) query.createdBy = seller;
     if (category) query.category = category;
 
-    const products = await Product.find(query);
+    let products;
+
+    if (random === "true") {
+      // Randomize with limit
+      const size = Number(limit) || 20;
+      products = await Product.aggregate([
+        { $match: query },
+        { $sample: { size } }
+      ]);
+    } else {
+      products = await Product.find(query);
+    }
+
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: "Error fetching products" });
   }
 });
+
 
 // GET single product
 router.get("/public/:id", async (req, res) => {
@@ -162,6 +175,23 @@ router.get("/categories", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch categories" });
+  }
+});
+
+
+
+router.get("/related/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    const related = await Product.aggregate([
+      { $match: { category: product.category, _id: { $ne: product._id } } },
+      { $sample: { size: 8 } }
+    ]);
+
+    res.json(related);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch related products" });
   }
 });
 

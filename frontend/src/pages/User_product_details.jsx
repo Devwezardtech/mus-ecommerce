@@ -13,6 +13,8 @@ const ProductDetails = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [message, setMessage] = useState({ message: "", type: "" });
 
+   const [related, setRelated] = useState([]);
+
   const showMessage = (msg, type) => {
     setMessage({ message: msg, type });
     setTimeout(() => setMessage({ message: "", type: "" }), 2000);
@@ -36,10 +38,25 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id]);
 
+
+useEffect(() => {
+  const fetchRelated = async () => {
+    const res = await api.get(`/api/products/related/${id}`);
+    setRelated(res.data);
+  };
+  fetchRelated();
+}, [id]);
+
+
   if (!product) {
     return (
+      <div>
+      <div className="fixed w-full z-50" >
+        <HeaderUser/>
+      </div>
       <div className="flex justify-center items-center h-screen text-gray-600">
         Loading product details...
+      </div>
       </div>
     );
   }
@@ -114,7 +131,6 @@ const ProductDetails = () => {
           <div className="mt-4">
             <p className="text-2xl font-bold text-blue-600">₱{product.price}</p>
             <p className="text-gray-500">Stock: {product.stock}</p>
-            <p className="text-gray-500">Commission: {product.commission || 0.2}</p>
           </div>
 
           <div className="mt-6 flex gap-4">
@@ -136,28 +152,27 @@ const ProductDetails = () => {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <div className="mt-16">
-          <h2 className="text-xl font-semibold mb-4">Related Products</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {relatedProducts.map((p) => (
-              <div
-                key={p._id}
-                onClick={() => navigate(`/product/${p._id}`)}
-                className="bg-white rounded-lg shadow hover:shadow-lg cursor-pointer p-2"
-              >
-                <img
-                  src={Array.isArray(p.photo) ? p.photo[0] : p.photo}
-                  alt={p.name}
-                  className="w-full h-40 object-cover rounded"
-                />
-                <div className="mt-2">
-                  <p className="text-gray-800 font-semibold">{p.name}</p>
-                  <p className="text-gray-500 text-sm">₱{p.price}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <div className="mt-10">
+  <h2 className="text-xl font-semibold mb-4">Related Products</h2>
+
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    {related.map((item) => (
+      <div
+        key={item._id}
+        onClick={() => navigate(`/product/${item._id}`)}
+        className="cursor-pointer bg-white p-2 rounded shadow hover:shadow-lg"
+      >
+        <img
+          src={Array.isArray(item.photo) ? item.photo[0] : item.photo}
+          className="h-32 w-full object-cover rounded"
+        />
+        <p className="font-semibold text-sm mt-1">{item.name}</p>
+        <p className="text-blue-600 font-bold text-sm">₱{item.price}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
       )}
 
       {/* Message */}

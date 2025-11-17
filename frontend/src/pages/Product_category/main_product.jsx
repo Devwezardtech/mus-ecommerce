@@ -9,8 +9,6 @@ const ShopDisplay = () => {
   const [products, setProducts] = useState([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const [modalProduct, setModalProduct] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0); // New
 
   const showMessage = (msg, type) => {
       setMessage({ message: msg, type });
@@ -57,26 +55,6 @@ const ShopDisplay = () => {
     fetchProducts();
   }, [selectedCategory]);
 
-  // Handlers for arrow navigation
-  const handlePrevImage = () => {
-    if (!modalProduct || !Array.isArray(modalProduct.photo)) return;
-    setCurrentImageIndex((prev) =>
-      prev === 0 ? modalProduct.photo.length - 1 : prev - 1
-    );
-  };
-
-  const handleNextImage = () => {
-    if (!modalProduct || !Array.isArray(modalProduct.photo)) return;
-    setCurrentImageIndex((prev) =>
-      prev === modalProduct.photo.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  // Reset index when modal opens/closes
-  useEffect(() => {
-    setCurrentImageIndex(0);
-  }, [modalProduct]);
-
   // Handle Add to Cart
     const handleAddToCart = async (productId) => {
       const token = localStorage.getItem("token"); //  fetch token
@@ -94,9 +72,6 @@ const ShopDisplay = () => {
           }
         );
         showMessage("Added to Cart", "success");
-        setTimeout(()=>{
-          setModalProduct(null);
-        }, 1000)
       } catch (error) {
         console.error("Add to cart error:", error.message);
         showMessage("Failed to add to cart");
@@ -209,7 +184,7 @@ const ShopDisplay = () => {
         {products.map((product) => (
           <div key={product._id}>
             <div className="bg-gray-250 mb-4 pb-2 flex flex-col rounded shadow-md hover:shadow-lg transition-shadow duration-300 gap-2 w-auto h-auto">
-              <button onClick={() => setModalProduct(product)}>
+              <button onClick={() => navigate(`/product/${product._id}`)}>
                 <div className="flex flex-col items-center justify-center">
                   <img
                     src={
@@ -261,57 +236,6 @@ const ShopDisplay = () => {
   )}
 </div>
 
-
-      {/* Modal */}
-{modalProduct && (
-  <div
-    className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50"
-    onClick={() => setModalProduct(null)} // click outside modal closes it
-  >
-    <div
-      className="bg-white rounded-lg p-4 shadow-lg w-full max-w-lg relative"
-      onClick={(e) => e.stopPropagation()} // prevent modal content clicks from closing
-    >
-      <button
-        onClick={() => setModalProduct(null)} // click X closes modal
-        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl bg-gray-200 hover:bg-gray-300 rounded w-10"
-      >
-        ✕
-      </button>
-
-      {/* Image with arrows */}
-      <div className="relative w-full flex items-center justify-center mb-4">
-        <button
-          onClick={handlePrevImage}
-          className="absolute left-0 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center"
-        >
-          ◀
-        </button>
-        <img
-          src={
-            Array.isArray(modalProduct.photo)
-              ? modalProduct.photo[currentImageIndex]
-              : modalProduct.photo
-          }
-          alt={modalProduct.name}
-          className="w-96 h-96 object-cover rounded-lg"
-        />
-        <button
-          onClick={handleNextImage}
-          className="absolute right-0 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center"
-        >
-          ▶
-        </button>
-      </div>
-
-      <h2 className="text-xl font-bold text-gray-800 mb-2">{modalProduct.name}</h2>
-      <p className="text-gray-600">{modalProduct.description}</p>
-      <p className="text-gray-800 font-bold mt-2">
-        ₱{modalProduct.price.toLocaleString()}
-      </p>
-    </div>
-  </div>
-)}
 
 <div className="flex justify-center item-center"> 
     {message.message && <Message message={message.message} type={message.type} />}
