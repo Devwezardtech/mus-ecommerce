@@ -50,8 +50,8 @@ const UserDashboard = () => {
  /* useEffect(() => {
     const handleScroll = () => {
       if (
-        window.innerHeight - window.scrollY >=
-        document.documentElement.scrollHeight + 100
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 100
       ) {
         fetchProducts();
       }
