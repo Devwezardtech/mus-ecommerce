@@ -47,11 +47,11 @@ const UserDashboard = () => {
   }, []);
 
   // Infinite scroll: fetch new random products when user scrolls to bottom
- /* useEffect(() => {
+ useEffect(() => {
     const handleScroll = () => {
       if (
         window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 100
+        document.documentElement.scrollHeight + 100
       ) {
         fetchProducts();
       }
@@ -60,7 +60,7 @@ const UserDashboard = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  */
+  
 
   // Add to Cart
   const handleAddToCart = async (productId) => {
