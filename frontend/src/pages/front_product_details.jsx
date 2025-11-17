@@ -62,26 +62,13 @@ const FrontProductDetails = () => {
     );
   }
 
-  const handleAddToCart = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      await api.post(
-        "/api/cart",
-        { productId: product._id, quantity: 1 },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      showMessage("Added to Cart", "success");
-    } catch (error) {
-      console.error("Add to cart error:", error.message);
-      showMessage("Failed to add to cart", "error");
-    }
+  const handleAddToCart = () => {
+      showMessage("Please Login first", "error");
+    
   };
 
   const handleBuy = () => {
-    navigate("/checkout", {
-      state: [{ productId: product._id, quantity: 1, price: product.price }],
-      total: product.price,
-    });
+    showMessage("Please Login first", "error");
   };
 
   const photos = Array.isArray(product.photo) ? product.photo : [product.photo];
