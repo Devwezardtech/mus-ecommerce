@@ -110,7 +110,7 @@ const FrontPage = () => {
                      {products.map((product) => (
                        <div key={product._id}>
                          <div className="bg-gray-250 mb-4 pb-2 flex flex-col rounded shadow-md hover:shadow-lg transition-shadow duration-300 gap-2 w-auto h-auto">
-                    <button onClick={() => navigate(`/product/${product._id}`)}>
+                    <button onClick={() => navigate(`/products/${product._id}`)}>
                         <div className="flex flex-col items-center justify-center">
                           <img
                             src={Array.isArray(product.photo) ? product.photo[0] : product.photo}
