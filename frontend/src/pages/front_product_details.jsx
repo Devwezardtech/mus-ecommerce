@@ -182,7 +182,7 @@ const FrontProductDetails = () => {
               onClick={(e) => { e.stopPropagation(); handleAddToCart(item); }}
               className="bg-blue-500 text-white px-2 py-1 text-xs sm:text-sm rounded hover:bg-blue-600 w-1/2"
             >
-              Add to Cart
+              Cart
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); handleBuy(item); }}
