@@ -152,28 +152,51 @@ const FrontProductDetails = () => {
           </div>
         </div>
 
-        {/* Related Products */}
-        {relatedProducts.length > 0 && (
-          <div className="mt-10">
-            <h2 className="text-xl font-semibold mb-4">Related Products</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {relatedProducts.map((item) => (
-                <div
-                  key={item._id}
-                  onClick={() => navigate(`/products/${item._id}`)}
-                  className="cursor-pointer bg-white p-2 rounded shadow hover:shadow-lg"
-                >
-                  <img
-                    src={Array.isArray(item.photo) ? item.photo[0] : item.photo}
-                    className="h-32 w-full object-cover rounded"
-                  />
-                  <p className="font-semibold text-sm mt-1">{item.name}</p>
-                  <p className="text-blue-600 font-bold text-sm">₱{item.price}</p>
-                </div>
-              ))}
+ {/* Related Products */}
+{relatedProducts.length > 0 && (
+  <div className="mt-12">
+    <h2 className="text-2xl font-semibold mb-6 text-gray-800">Related Products</h2>
+    <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      {relatedProducts.map((item) => (
+        <div key={item._id} className="bg-white rounded shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center p-2">
+          <button
+            onClick={() => navigate(`/products/${item._id}`)}
+            className="flex flex-col items-center w-full"
+          >
+            <img
+              src={Array.isArray(item.photo) ? item.photo[0] : item.photo}
+              alt={item.name}
+              className="h-28 w-28 object-cover rounded shadow sm:h-32 sm:w-32 md:h-40 md:w-40 lg:h-48 lg:w-48 mb-2"
+            />
+            <div className="text-center">
+              <strong className="text-gray-800 text-sm sm:text-base md:text-md lg:text-lg font-semibold truncate">
+                {item.name}
+              </strong>
+              <p className="text-xs sm:text-sm mt-1">{item.description}</p>
+              <p className="text-blue-600 font-bold text-sm sm:text-base mt-1">₱{item.price}</p>
+              <p className="text-gray-500 text-xs sm:text-sm mt-1">Stock: {item.stock}</p>
             </div>
+          </button>
+          <div className="mt-3 flex gap-2 w-full justify-center">
+            <button
+              onClick={(e) => { e.stopPropagation(); handleAddToCart(item); }}
+              className="bg-blue-500 text-white px-2 py-1 text-xs sm:text-sm rounded hover:bg-blue-600 w-1/2"
+            >
+              Add to Cart
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); handleBuy(item); }}
+              className="bg-green-500 text-white px-2 py-1 text-xs sm:text-sm rounded hover:bg-green-600 w-1/2"
+            >
+              Buy
+            </button>
           </div>
-        )}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
 
         {/* Message */}
         <div className="flex justify-center mt-6">
