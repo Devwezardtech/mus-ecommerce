@@ -112,7 +112,7 @@ const showMessage = (msg, type) => {
 
             </div>
           <div className="pt-10 sm:pt-14 md:pt-16 lg:pt-18">
-            <h2 className="font-semibold">All Products:</h2>
+            <h2 className="font-semibold">All Products</h2>
 
             <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {products.map((product) => (
