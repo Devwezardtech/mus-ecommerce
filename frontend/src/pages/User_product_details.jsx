@@ -61,7 +61,7 @@ const ProductDetails = () => {
         { productId: productToAdd._id, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      showMessage(`Added ${productToAdd.name} to Cart`, "success");
+      showMessage(`Added to Cart`, "success");
     } catch (error) {
       console.error("Add to cart error:", error.message);
       showMessage("Failed to add to cart", "error");
