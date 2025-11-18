@@ -80,7 +80,7 @@ const ShopDisplay = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen py-8 flex flex-col lg:flex-row gap-8">
+    <div className=" min-h-screen py-8 flex flex-col lg:flex-row gap-8">
 
       {/* DESKTOP CATEGORY SIDEBAR */}
       <div className="hidden md:block">
