@@ -6,31 +6,21 @@ const path = require("path");
 
 const app = express();
 
-// ----------------- CORS CONFIG -----------------
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:5173",
-  "https://mus-ecommerce-shop.onrender.com",
-  process.env.CLIENT_ORIGIN, // optional
-].filter(Boolean);
-
+// ----------------- CORS CONFIG (FIXED) -----------------
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow Postman, server-to-server
-
-      // check if origin starts with any allowed domain
-      if (allowedOrigins.some(o => origin.startsWith(o))) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("CORS not allowed for: " + origin), false);
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "https://mus-ecommerce-shop.onrender.com"
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
 
+// Allow preflight requests explicitly
+app.options("*", cors());
 
 // ----------------- MIDDLEWARE -----------------
 app.use(express.json());
@@ -70,10 +60,7 @@ app.get("*", (req, res) => {
 
 // ----------------- MONGODB CONNECTION -----------------
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB error:", err));
 
