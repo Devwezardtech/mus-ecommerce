@@ -124,9 +124,9 @@ const FrontDisplay = () => {
 
       {/* RIGHT SIDE - PRODUCTS */}
       <div className="flex-1">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+        <h4 className="text-lg font-bold mb-6 text-gray-600">
           {categories.find((c) => c._id === selectedCategory)?.name || "Products"}
-        </h2>
+        </h4>
 
         {/* Skeleton loader */}
         {loading ? (
@@ -150,7 +150,7 @@ const FrontDisplay = () => {
         ) : products.length === 0 ? (
           <p className="text-gray-500">No products found for this category.</p>
         ) : (
-          <div className="pt-4 sm:pt-8 md:pt-10 lg:pt-12">
+          <div className="pt-4 sm:pt-8 md:pt-4 lg:pt-4">
             <div className="grid gap-4 px-1 py-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {products.map((product) => (
                 <div key={product._id}>
