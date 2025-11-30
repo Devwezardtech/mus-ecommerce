@@ -136,10 +136,10 @@ const CheckoutPage = () => {
             onChange={handleChange}
           >
             <option value="cod">Cash on Delivery</option>
-            <option value="card">Credit/Debit Card (Stripe)</option>
-            <option value="gcash">GCash</option>
-            <option value="grab_pay">Grab Pay</option>
-            <option value="paymaya">PayMaya</option>
+            <option value="card" disabled >Credit/Debit Card (Stripe)</option>
+            <option value="gcash" disabled >GCash</option>
+            <option value="grab_pay" disabled >Grab Pay</option>
+            <option value="paymaya" disabled>PayMaya</option>
           </select>
           </div>
         </div>
