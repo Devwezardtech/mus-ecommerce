@@ -135,7 +135,7 @@ const ShopDisplay = () => {
 
       {/* RIGHT SIDE - PRODUCTS */}
       <div className="flex-1">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+        <h2 className="text-lg font-bold mb-6 text-gray-600 ">
           {categories.find((c) => c._id === selectedCategory)?.name || "Products"}
         </h2>
 
