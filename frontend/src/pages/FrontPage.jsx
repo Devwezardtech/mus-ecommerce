@@ -84,6 +84,7 @@ const FrontPage = () => {
 
        <div className="p-4">
              {products.length === 0 ? (
+              
                <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mt-5 gap-4 py-8 lg:mt-16">
                  {Array.from({ length: 32 }).map((_, index) => (
                    <div key={index} className="bg-gray-200 rounded shadow animate-pulse p-1 space-y-1 lg:space-y-4 lg:p-4">
@@ -99,7 +100,7 @@ const FrontPage = () => {
                  ))}
                </div>
              ) : (
-               <div>
+               <div>   
                  <div className="w-full pt-8">
                    <FrontDisplay />
                  </div>

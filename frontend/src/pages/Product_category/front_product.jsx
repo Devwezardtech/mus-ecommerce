@@ -58,25 +58,14 @@ const FrontDisplay = () => {
   }, [selectedCategory]);
 
   // Add to Cart
-  const handleAddToCart = async (productId) => {
-    const token = localStorage.getItem("token");
-    try {
-      await api.post(
-        "/api/cart",
-        { productId, quantity: 1 },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      showMessage("Added to Cart", "success");
-    } catch (error) {
-      console.error("Add to cart error:", error.message);
-      showMessage("Failed to add to cart");
-    }
+  const handleAddToCart = () => {
+      showMessage("You can login first");
+    
   };
 
   // Buy product
-  const handleBuy = (product) => {
-    const productItem = { productId: product._id, quantity: 1, price: product.price };
-    navigate("/checkout", { state: { products: [productItem], total: product.price } });
+  const handleBuy = () => {
+     showMessage("You can login first");
   };
 
   return (
