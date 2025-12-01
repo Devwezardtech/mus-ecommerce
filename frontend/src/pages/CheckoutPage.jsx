@@ -119,14 +119,14 @@ const CheckoutPage = () => {
           />
           <input
             name="address"
-            placeholder="Address"
+            placeholder="Blk, Lot, Subdivition/Village, Brgy, City, Province"
             className="w-full px-4 py-2 border rounded"
             onChange={handleChange}
           />
           <div className='flex gap-2'>
              <input
             name="phone"
-            placeholder="09**********"
+            placeholder="+(956) XXXX-XXXX"
             className="w-full px-4 py-2 border rounded"
             onChange={handleChange}
           />
