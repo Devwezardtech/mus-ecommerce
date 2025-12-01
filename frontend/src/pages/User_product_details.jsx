@@ -38,17 +38,75 @@ const ProductDetails = () => {
   }, [id]);
 
   if (!product) {
-    return (
-      <div>
-        <div className="fixed w-full z-50">
-          <HeaderUser />
-        </div>
-        <div className="flex justify-center items-center h-screen text-gray-600">
-          Loading product details...
-        </div>
+  return (
+    <div>
+      <div className="fixed w-full z-50">
+        <HeaderUser />
       </div>
-    );
-  }
+
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-8 pt-20 animate-pulse">
+
+        {/* BACK BUTTON */}
+        <div className="w-24 h-8 bg-gray-200 rounded mb-6"></div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+          {/* LEFT: IMAGE SKELETON */}
+          <div>
+            <div className="w-full h-96 bg-gray-200 rounded-xl"></div>
+
+            <div className="flex gap-2 mt-3 justify-center">
+              <div className="w-16 h-16 bg-gray-200 rounded"></div>
+              <div className="w-16 h-16 bg-gray-200 rounded"></div>
+              <div className="w-16 h-16 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+
+          {/* RIGHT: TEXT SKELETON */}
+          <div>
+            <div className="h-8 w-3/4 bg-gray-200 rounded"></div>
+            <div className="h-4 w-full bg-gray-200 rounded mt-3"></div>
+            <div className="h-4 w-5/6 bg-gray-200 rounded mt-2"></div>
+
+            <div className="mt-5">
+              <div className="h-6 w-32 bg-gray-200 rounded"></div>
+              <div className="h-4 w-24 bg-gray-200 rounded mt-2"></div>
+            </div>
+
+            <div className="mt-6 flex gap-4">
+              <div className="h-12 w-28 bg-gray-200 rounded-xl"></div>
+              <div className="h-12 w-28 bg-gray-200 rounded-xl"></div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* RELATED PRODUCTS SKELETON */}
+        <div className="mt-12">
+          <div className="h-6 w-48 bg-gray-200 rounded mb-6"></div>
+
+          <div className="grid gap-4 grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="bg-white rounded shadow p-2">
+                <div className="w-full h-32 bg-gray-200 rounded"></div>
+                <div className="h-4 w-3/4 bg-gray-200 rounded mt-2"></div>
+                <div className="h-3 w-1/2 bg-gray-200 rounded mt-2"></div>
+                <div className="h-4 w-1/3 bg-gray-200 rounded mt-2"></div>
+
+                <div className="flex gap-2 mt-3">
+                  <div className="h-8 w-1/2 bg-gray-200 rounded"></div>
+                  <div className="h-8 w-1/2 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
 
   // Add to cart (optional product parameter for related)
   const handleAddToCart = async (item = null) => {
