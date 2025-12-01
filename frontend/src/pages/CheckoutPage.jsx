@@ -60,7 +60,7 @@ const CheckoutPage = () => {
         showMessage("Order placed!", "success");
         setTimeout(() => navigate('/orders'), 1000);
       } catch(err){
-        showMessage("Failed to Place Order", "failed", err);
+        showMessage("Please complete details", "failed", err);
       }
     }
 

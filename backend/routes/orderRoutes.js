@@ -300,7 +300,34 @@ router.put("/:id/status", auth, async (req, res) => {
     res.status(500).json({ message: 'Error getting delivery orders' });
   }
 })
-  */}
+ 
+
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate('products.productId', 'name price photo')
+      .lean();
+
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+    if (order.userId.toString() !== req.user.id)
+      return res.status(403).json({ message: 'Access denied' });
+
+    // Fallback if productId is null
+    order.products = order.products.map(p => ({
+      ...p,
+      productId: p.productId || { name: p.name || "Unknown Product", price: p.price || 0 }
+    }));
+
+    res.json(order);
+  } catch (err) {
+    console.error('Error fetching order:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+ */}
+
+
+
 
 
 module.exports = router;
