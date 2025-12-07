@@ -29,7 +29,7 @@ const Chat = () => {
         setOrder(null);
       }
     } catch (err) {
-      console.error("Failed to fetch orders:", err);
+      console.error("Failed to fetch orders:", err); 
       setOrder(null);
     } finally {
       setLoading(false);
