@@ -29,7 +29,7 @@ const OrderHistoryPage = () => {
   };
 
   const goto = () => {
-    navigate("/user/orders")
+    navigate("/chat")
   }
 
   return (

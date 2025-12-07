@@ -16,7 +16,7 @@ import HeaderAdmin from "./layouts/headeradmin";
 import HeaderUser from "./layouts/headeruser";
 import FrontPage from "./pages/FrontPage";
 import HeaderFrontPage from "./layouts/headerfrontPage";
-//import Chat from "./pages/chat";
+import Chat from "./pages/chat";
 import SellerDashboard from "./pages/seller/SellerDashboard";
 import AffiliateDashboard from "./pages/AffiliateDashboard";
 import PublicProductMerged from "./pages/PublicProductMerged";
@@ -140,7 +140,7 @@ const App = () => {
       <Route path="/seller/header" element={<HeaderSeller />} />
       <Route path="/affiliate/header" element={<HeaderAffiliate />} />
       <Route path="headerfrontpage" element={<HeaderFrontPage />} />
-    {/*} <Route path="/chat" element={<Chat />} /> */}
+    <Route path="/chat" element={<Chat />} />
      
      
     <Route path="/product/public/:id" element={<PublicProductMerged />} />
