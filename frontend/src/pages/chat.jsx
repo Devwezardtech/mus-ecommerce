@@ -10,26 +10,18 @@ const Chat = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchOrders();
+    fetchLatestOrder();
   }, []);
 
-  const fetchOrders = async () => {
+  const fetchLatestOrder = async () => {
     setLoading(true);
     try {
-      const res = await api.get("/api/orders/my", {
+      const res = await api.get("/api/orders/latest", {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (res.data && res.data.length > 0) {
-        const latest = res.data.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        )[0];
-        setOrder(latest);
-      } else {
-        setOrder(null);
-      }
+      setOrder(res.data || null);
     } catch (err) {
-      console.error("Failed to fetch orders:", err); 
+      console.error("Failed to fetch latest order:", err);
       setOrder(null);
     } finally {
       setLoading(false);
@@ -47,7 +39,7 @@ const Chat = () => {
 
       {/* Main content */}
       <div className="flex-1 flex flex-col w-full max-w-full mx-auto mt-20 p-2">
-        {/* Order Details */}
+        {/* Latest Order */}
         <div
           className="bg-white shadow-sm rounded-sm p-3 mb-2 cursor-pointer hover:shadow-lg transition"
           onClick={goOrderHistory}
@@ -58,14 +50,15 @@ const Chat = () => {
             <p className="text-gray-500">Loading order...</p>
           ) : order ? (
             <div className="bg-gray-50 rounded-lg p-2 space-y-2 border border-gray-200">
+              {/* Products */}
               <div>
                 <strong>Products:</strong>
                 {order.products?.length > 0 ? (
                   <ul className="list-disc list-inside mt-1">
-                    {order.products.map((item, i) => (
-                      <li key={i}>
+                    {order.products.map((item) => (
+                      <li key={item._id || item.productId?._id}>
                         {item.productId?.name || "Unknown Product"} - ₱
-                        {item.price} x {item.quantity}
+                        {(item.price || 0).toLocaleString()} x {item.quantity}
                       </li>
                     ))}
                   </ul>
@@ -74,9 +67,10 @@ const Chat = () => {
                 )}
               </div>
 
+              {/* Total and Status */}
               <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-2">
                 <div>
-                  <strong>Total:</strong> ₱{order.totalAmount}
+                  <strong>Total:</strong> ₱{(order.totalAmount || 0).toLocaleString()}
                 </div>
                 <div>
                   <strong>Status:</strong>{" "}
@@ -98,6 +92,7 @@ const Chat = () => {
                 </div>
               </div>
 
+              {/* Address, Phone, Payment */}
               <div>
                 <strong>Shipping Address:</strong> {order.address}
               </div>

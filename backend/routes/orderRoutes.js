@@ -7,9 +7,13 @@ const jwt = require("jsonwebtoken");
 const auth = require('../middleware/auth');
 const adminOnly = require('../middleware/adminonly');
 const mongoose = require("mongoose");
+const { default: Message } = require("../../frontend/src/pages/message");
 
 
 
+
+{/*
+  // this is an old "/"
 
 router.post('/', auth, async (req, res) => {
   try {
@@ -75,6 +79,78 @@ router.post('/', auth, async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+
+*/}
+
+router.post('/', auth, async (req, res) => {
+  try {
+    const { products, customerInfo, paymentMethod, referralBy } = req.body;
+
+    // Basic validations
+    if (!products || products.length === 0) {
+      return res.status(400).json({ message: "Products are required" });
+    }
+
+    if (!customerInfo || !customerInfo.name || !customerInfo.phone || !customerInfo.address) {
+      return res.status(400).json({ message: "Complete customer info is required" });
+    }
+
+    if (!paymentMethod) {
+      return res.status(400).json({ message: "Payment method is required" });
+    }
+
+    // Deduct stock and validate products
+    const validatedProducts = [];
+    for (const item of products) {
+      if (!item.productId || !mongoose.Types.ObjectId.isValid(item.productId)) {
+        return res.status(400).json({ message: "Invalid product ID" });
+      }
+      if (!item.price || !item.quantity) {
+        return res.status(400).json({ message: "Product quantity and price are required" });
+      }
+
+      const product = await Product.findById(item.productId);
+      if (!product) {
+        return res.status(404).json({ message: `Product not found: ${item.productId}` });
+      }
+      if (product.stock < item.quantity) {
+        return res.status(400).json({ message: `Insufficient stock for ${product.name}` });
+      }
+
+      product.stock -= item.quantity;
+      await product.save();
+
+      validatedProducts.push({
+        productId: mongoose.Types.ObjectId(item.productId), // ✅ Ensure ObjectId
+        quantity: item.quantity,
+        price: item.price,
+      });
+    }
+
+    // Create order
+    const order = new Order({
+      userId: req.user.id,
+      products: validatedProducts,
+      totalAmount: validatedProducts.reduce((sum, item) => sum + item.price * item.quantity, 0),
+      address: customerInfo.address,
+      phone: customerInfo.phone,
+      paymentMethod,
+      referralBy: referralBy || null,
+    });
+
+    const savedOrder = await order.save();
+
+    // Clear cart
+    await Cart.deleteMany({ userId: req.user.id });
+
+    res.status(201).json(savedOrder);
+  } catch (error) {
+    console.error("Order creation failed:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+
 
 
 
@@ -277,6 +353,37 @@ router.put("/:id/status", auth, async (req, res) => {
   }
 });
 
+// GET latest order for the logged-in user
+router.get('/latest', auth, async (req, res) => {
+  try {
+    // Get latest order and populate products
+    const latestOrder = await Order.find({ userId: req.user.id })
+      .sort({ createdAt: -1 })
+      .limit(1)
+      .populate("products.productId", "name price") // populate directly
+      .lean();
+
+    if (!latestOrder || latestOrder.length === 0) {
+      return res.json(null);
+    }
+
+    const order = latestOrder[0];
+
+    // Fallback for products without productId
+    order.products = order.products.map(p => ({
+      ...p,
+      productId: p.productId || { name: p.name || "Unknown Product", price: p.price || 0 }
+    }));
+
+    res.json(order);
+  } catch (err) {
+    console.error("Failed to get latest order:", err);
+    res.status(500).json({ message: "Error getting latest order" });
+  }
+});
+
+
+
 {/*router.get('/delivery/order', auth, async ( req, res ) => {
  try {
     if (req.user.role !== "delivery") {
@@ -325,9 +432,5 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
  */}
-
-
-
-
 
 module.exports = router;
