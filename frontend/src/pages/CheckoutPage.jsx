@@ -58,7 +58,7 @@ const CheckoutPage = () => {
         );
 
         showMessage("Order placed!", "success");
-        setTimeout(() => navigate('/chat'), 1000);
+        setTimeout(() => navigate('/chat/:orderId/:itemId'), 1000);
       } catch(err){
         showMessage("Please complete details", "failed", err);
       }

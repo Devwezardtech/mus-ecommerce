@@ -140,7 +140,8 @@ const App = () => {
       <Route path="/seller/header" element={<HeaderSeller />} />
       <Route path="/affiliate/header" element={<HeaderAffiliate />} />
       <Route path="headerfrontpage" element={<HeaderFrontPage />} />
-    <Route path="/chat" element={<Chat />} />
+    <Route path="/chat/:orderId/:itemId" element={<Chat />} />
+
      
      
     <Route path="/product/public/:id" element={<PublicProductMerged />} />

@@ -136,6 +136,7 @@ router.post('/', auth, async (req, res) => {
       phone: customerInfo.phone,
       paymentMethod,
       referralBy: referralBy || null,
+      status: "pending",
     });
 
     const savedOrder = await order.save();
@@ -166,6 +167,7 @@ router.get('/my', auth, async (req, res) => {
     res.status(500).json({ message: 'Error getting orders' });
   }
 });
+
 
 
 // Get User's Orders
@@ -353,34 +355,36 @@ router.put("/:id/status", auth, async (req, res) => {
   }
 });
 
-// GET latest order for the logged-in user
-router.get('/latest', auth, async (req, res) => {
+// GET single order by orderId and itemId for user
+router.get('/user/:orderId/:itemId', auth, async (req, res) => {
   try {
-    // Get latest order and populate products
-    const latestOrder = await Order.find({ userId: req.user.id })
-      .sort({ createdAt: -1 })
-      .limit(1)
-      .populate("products.productId", "name price") // populate directly
-      .lean();
+    const { orderId, itemId } = req.params;
 
-    if (!latestOrder || latestOrder.length === 0) {
-      return res.json(null);
+    const order = await Order.findById(orderId)
+      .populate('userId', 'email name')
+      .populate('products.productId', 'name price photo');
+
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    // Make sure the order belongs to the logged-in user
+    if (order.userId._id.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Access denied' });
     }
 
-    const order = latestOrder[0];
+    // Find the item in the order
+    const item = order.products.find(p => p._id.toString() === itemId);
 
-    // Fallback for products without productId
-    order.products = order.products.map(p => ({
-      ...p,
-      productId: p.productId || { name: p.name || "Unknown Product", price: p.price || 0 }
-    }));
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found in this order' });
+    }
 
-    res.json(order);
+    res.json({ order, item });
   } catch (err) {
-    console.error("Failed to get latest order:", err);
-    res.status(500).json({ message: "Error getting latest order" });
+    console.error('Error fetching user order:', err);
+    res.status(500).json({ message: 'Failed to fetch order details' });
   }
 });
+
 
 
 
