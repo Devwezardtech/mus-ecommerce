@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Message from '../pages/message';
 
 const HeaderFrontPage = ({ openLoginModal, openSignupModal, deliveryLogin }) => {
   const [message, setMessage] = useState({ message: "", type: "" });
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
   
 
   //const navigate = useNavigate();
@@ -21,6 +22,11 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal, deliveryLogin }) => 
     setTimeout(() => openLoginModal(true), 2000);
   };
 
+  const hometo = () => {
+    navigate("/")
+    setMenuOpen(false);
+    
+  }
   return (
     <nav 
     className="
@@ -33,7 +39,7 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal, deliveryLogin }) => 
 
         {/* Desktop Menu */}
         <div className="hidden md:flex justify-end gap-8 ">
-          <Link className="hover:text-green-500">Home</Link>
+          <Link onClick={hometo} className="hover:text-green-500">Home</Link>
           <Link className="hover:text-green-500" onClick={handleOrder}>
             Orders
           </Link>
@@ -63,7 +69,7 @@ const HeaderFrontPage = ({ openLoginModal, openSignupModal, deliveryLogin }) => 
         </div>
 
         <div className="flex flex-col text-lg gap-2">
-          <Link onClick={() => setMenuOpen(false)} className="hover:text-blue-500">Home</Link>
+          <Link onClick={hometo} className="hover:text-blue-500">Home</Link>
           <Link onClick={handleOrder} className="hover:text-blue-500">Orders</Link>
           <button
             onClick={() => {
