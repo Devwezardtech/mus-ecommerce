@@ -34,6 +34,7 @@ const paymentRoutes = require("./routes/paymentRoutes");
 const affiliateRoutes = require("./routes/affiliate");
 const stripeRoutes = require("./routes/stripe");
 const adminRoutes = require("./routes/adminRoutes");
+const sellerRoutes = require("./routes/sellerRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
@@ -43,6 +44,7 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/affiliate", affiliateRoutes);
 app.use("/api/stripe", stripeRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/seller", sellerRoutes);
 
 // ----------------- SERVE FRONTEND -----------------
 const staticPath = path.join(__dirname, "../frontend/dist");
