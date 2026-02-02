@@ -147,6 +147,8 @@ const SellerProfileMain = () => {
               className="w-full border rounded-md p-2 mb-4"
             />
 
+            
+
             <label className="block mb-2 text-sm font-medium">Contact</label>
             <input
               type="text"
